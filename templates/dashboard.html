@@ -1,0 +1,1346 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Section 1: Predictive Analysis -->
+<section id="predictive" class="reveal">
+    <div class="section-header">
+        <h1>Predict AQI Instantly</h1>
+        <p>Enter current pollutant levels to get a real-time prediction using our trained ML model.</p>
+    </div>
+
+    <div class="card reveal reveal-delay-1"
+        style="margin-bottom: 30px; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2);">
+        <h2><i class="fa-solid fa-circle-info"></i> What are these metrics?</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 15px;">If you're not a scientist, don't worry! Here is a
+            simple guide to what each metric means:</p>
+        <div class="grid-3" style="gap: 15px;">
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">PM2.5</span> (Fine Dust)</b>: Tiny
+                particles from car exhaust or smoke that can enter your bloodstream.</div>
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">PM10</span> (Coarse Dust)</b>: Larger
+                dust from construction or dirt roads that irritates the lungs.</div>
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">NO2</span> (Nitrogen Dioxide)</b>: Toxic
+                gas from burning fuel, causes asthma and coughing.</div>
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">CO</span> (Carbon Monoxide)</b>:
+                Poisonous gas from vehicles and machinery.</div>
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">SO2</span> (Sulfur Dioxide)</b>: Harsh
+                fumes mostly from industrial factories.</div>
+            <div style="font-size: 14px;"><b><span style="color:var(--accent);">O3</span> (Ozone)</b>: "Bad" ozone
+                created when sunlight reacts with smog at ground level.</div>
+        </div>
+    </div>
+
+    <div class="card reveal reveal-delay-2">
+        <h2><i class="fa-solid fa-calculator"></i> Pollutant Metrics</h2>
+
+
+
+        <form id="predict-form" action="/api/predict" method="post">
+            <div class="grid-2" style="gap: 20px; margin-bottom: 25px;">
+                <div class="input-group">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label for="predict-city" style="font-weight: 600; font-size: 1.1rem; margin: 0;">
+                            <i class="fa-solid fa-map-pin" style="color: #ef4444;"></i> Select Indian City for
+                            Prediction Accuracy
+                        </label>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" onclick="fetchLiveDataForSelectedCity()" id="btn-fetch-live"
+                                class="btn-primary"
+                                style="padding: 5px 10px; font-size: 0.8rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.4); color: #10b981; min-width: auto; position: relative;"
+                                title="Fetch real-time data from Open-Meteo">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> Live Data
+                            </button>
+                            <button type="button" onclick="autoDetectCity('predict-city')" id="btn-detect-predict"
+                                class="btn-primary"
+                                style="padding: 5px 10px; font-size: 0.8rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; min-width: auto; position: relative;">
+                                <i class="fa-solid fa-crosshairs"></i> Auto-Detect
+                            </button>
+                        </div>
+                    </div>
+                    <select id="predict-city" name="city"
+                        style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem; appearance: auto;">
+                        <option value="Default">National Average (No Modification)</option>
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Bhopal">Bhopal</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Coimbatore">Coimbatore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Guwahati">Guwahati</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Indore">Indore</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Kochi">Kochi</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Lucknow">Lucknow</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Nagpur">Nagpur</option>
+                        <option value="Patna">Patna</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Shimla">Shimla</option>
+                        <option value="Visakhapatnam">Visakhapatnam</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="predict-timeframe"
+                        style="display: block; margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;"><i
+                            class="fa-regular fa-calendar-days" style="color: #38bdf8;"></i> Select Prediction
+                        Timeframe</label>
+                    <select id="predict-timeframe" name="timeframe"
+                        style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem; appearance: auto;">
+                        <option value="today">Today (Real-Time)</option>
+                        <option value="tomorrow">Tomorrow (24hr Forcast)</option>
+                        <option value="future">Future (2026 Year-End Trajectory)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="pm25">PM2.5 (µg/m³)</label>
+                        <span class="slider-value" id="val-pm25">45.2</span>
+                    </div>
+                    <input type="range" min="0" max="500" step="0.1" id="pm25" name="pm25" value="45.2"
+                        oninput="document.getElementById('val-pm25').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 60</div>
+                </div>
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="pm10">PM10 (µg/m³)</label>
+                        <span class="slider-value" id="val-pm10">80.5</span>
+                    </div>
+                    <input type="range" min="0" max="500" step="0.1" id="pm10" name="pm10" value="80.5"
+                        oninput="document.getElementById('val-pm10').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 100</div>
+                </div>
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="no2">NO2 (ppb)</label>
+                        <span class="slider-value" id="val-no2">20.1</span>
+                    </div>
+                    <input type="range" min="0" max="200" step="0.1" id="no2" name="no2" value="20.1"
+                        oninput="document.getElementById('val-no2').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 80</div>
+                </div>
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="so2">SO2 (ppb)</label>
+                        <span class="slider-value" id="val-so2">10.5</span>
+                    </div>
+                    <input type="range" min="0" max="200" step="0.1" id="so2" name="so2" value="10.5"
+                        oninput="document.getElementById('val-so2').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 80</div>
+                </div>
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="co">CO (ppm)</label>
+                        <span class="slider-value" id="val-co">1.2</span>
+                    </div>
+                    <input type="range" min="0" max="50" step="0.1" id="co" name="co" value="1.2"
+                        oninput="document.getElementById('val-co').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 2.0</div>
+                </div>
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="o3">O3 (ppb)</label>
+                        <span class="slider-value" id="val-o3">50.3</span>
+                    </div>
+                    <input type="range" min="0" max="200" step="0.1" id="o3" name="o3" value="50.3"
+                        oninput="document.getElementById('val-o3').textContent=this.value">
+                    <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
+                            class="fa-solid fa-check-circle"></i> Safe Limit: &le; 100</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="submit-btn" style="width: 100%; justify-content: center;">
+                <span id="btn-text">Analyze Air Quality</span>
+                <div class="loader" id="loader"></div>
+                <i class="fa-solid fa-arrow-right" id="btn-icon"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="card" id="result-container" style="margin-top: 30px;">
+        <h2><i class="fa-solid fa-chart-pie"></i> Detailed Analysis Result</h2>
+
+        <div class="grid-2" style="align-items: center; margin-bottom: 25px;">
+            <div style="text-align: center;">
+                <div class="result-value-wrapper" style="justify-content: center; margin-bottom: 10px;">
+                    <div class="result-value" id="result-aqi" style="font-size: 4rem;">0</div>
+                </div>
+                <div class="category-badge" id="result-category" style="font-size: 1.2rem;">Unknown</div>
+            </div>
+
+            <div
+                style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px;"><i
+                        class="fa-solid fa-microscope"></i> Diagnostic Findings</h3>
+                <p style="margin-bottom: 10px; font-size: 0.95rem;"><strong>Primary Driver:</strong> <span
+                        id="result-dominant" style="color: #fcd34d; font-weight: 600;">--</span></p>
+                <p id="result-detail"
+                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    Awaiting
+                    analysis...</p>
+
+                <h3 style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 10px;"><i
+                        class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city"
+                        style="color:#fff;">--</span></h3>
+                <p id="result-city-desc"
+                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Select a city
+                    to retrieve AI regional profiling.</p>
+            </div>
+        </div>
+
+        <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <h3 style="margin-top: 0; font-size: 1rem; margin-bottom: 10px;"><i class="fa-solid fa-user-doctor"
+                    style="color: #10b981;"></i> Health Advice</h3>
+            <p class="advice-text" id="result-advice" style="margin-bottom: 0;">Please input metrics to see advice.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Section 2: Health Advisory -->
+<section id="advisory" class="reveal">
+    <div class="section-header">
+        <h1>Health Cautionary & Advisory</h1>
+        <p>Understand how different levels of AQI impact your health and what actions to take.</p>
+    </div>
+
+    <div class="grid-3">
+        <div class="card text-center reveal reveal-delay-1">
+            <div class="category-badge good" style="display:inline-block; margin-bottom: 20px;">0 - 50: Good</div>
+            <p>Air quality is considered satisfactory, and air pollution poses little or no risk.</p>
+            <i class="fa-solid fa-person-walking" style="font-size:40px; color:#10b981; margin-top:20px;"></i>
+        </div>
+        <div class="card text-center reveal reveal-delay-2">
+            <div class="category-badge moderate" style="display:inline-block; margin-bottom: 20px;">51 - 100: Moderate
+            </div>
+            <p>Air quality is acceptable. Unusually sensitive people should consider limiting prolonged outdoor
+                exertion.</p>
+            <i class="fa-solid fa-mask-face" style="font-size:40px; color:#fbbf24; margin-top:20px;"></i>
+        </div>
+        <div class="card text-center reveal reveal-delay-3">
+            <div class="category-badge unhealthy" style="display:inline-block; margin-bottom: 20px;">101 - 200:
+                Unhealthy</div>
+            <p>Everyone may begin to experience health effects. Wear masks and avoid prolonged outdoor activity.</p>
+            <i class="fa-solid fa-lungs-virus" style="font-size:40px; color:#f97316; margin-top:20px;"></i>
+        </div>
+        <div class="card text-center reveal" style="grid-column: 1 / span 3; max-width: 600px; margin: 0 auto;">
+            <div class="category-badge hazardous" style="display:inline-block; margin-bottom: 20px;">> 300: Hazardous
+            </div>
+            <p>Health warning of emergency conditions. The entire population is more likely to be affected. Stay
+                indoors, run air purifiers.</p>
+            <i class="fa-solid fa-house-medical-circle-exclamation"
+                style="font-size:40px; color:#ef4444; margin-top:20px;"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3: Methodology -->
+<section id="methodology" class="reveal">
+    <div class="section-header">
+        <h1>Methodology & Awareness</h1>
+        <p>Why does air pollution happen, and how can we mitigate it?</p>
+    </div>
+
+    <div class="grid-2">
+        <div class="card reveal reveal-delay-1">
+            <h2 style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-industry"
+                    style="color: #38bdf8;"></i> Causes of Pollution</h2>
+            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-car-side"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Vehicular Emissions & Traffic
+                        Congestion</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-smog"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Heavy Industrial Exhausts</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-fire-flame-curved"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Crop Burning & Agricultural
+                        Waste</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-city"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Construction Dust & Urban
+                        Expansion</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-trash-can"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Improper Waste Management</span>
+                </div>
+            </div>
+        </div>
+        <div class="card reveal reveal-delay-2">
+            <h2 style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-seedling"
+                    style="color: #38bdf8;"></i> Proposed Solutions</h2>
+            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-charging-station"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Transition to Electric Vehicles
+                        (EVs)</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-solar-panel"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Invest in Renewable Energy
+                        Sources</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-tree"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Increase Urban Afforestation</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-train-subway"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Promote Public Transportation
+                        Systems</span>
+                </div>
+                <div
+                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <i class="fa-solid fa-clipboard-check"
+                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
+                    <span style="color: var(--text-primary); font-size: 0.95rem;">Enforce Industrial Emission
+                        Standards</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card reveal reveal-delay-3" style="margin-top: 30px;">
+        <h2><i class="fa-solid fa-book"></i> Pollutant Glossary: What Are We Measuring?</h2>
+        <div class="grid-2" style="margin-top: 20px; gap: 20px;">
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #ef4444;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">PM2.5 (Fine Particulate Matter)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">Microscopic particles (
+                    <2.5 µm) from vehicle exhaust and power plants. Can penetrate deep into the lungs and blood, causing
+                        severe respiratory/cardiovascular issues.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #f97316;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">PM10 (Coarse Particulate Matter)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">Inhalable dust particles
+                    commonly from construction sites, unpaved roads, and industrial crushing operations. Triggers asthma
+                    attacks.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #eab308;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">NO2 (Nitrogen Dioxide)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A highly reactive,
+                    suffocating gas primarily emitted by heavy vehicle traffic and fossil fuel power stations.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #8b5cf6;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">SO2 (Sulfur Dioxide)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A toxic gas produced by
+                    burning sulfur-heavy fossil fuels like coal and crude oil. The main catalyst for acid rain.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #64748b;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">CO (Carbon Monoxide)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A colorless, odorless,
+                    deadly gas resulting from the incomplete burning of carbon fuels, heavily tied to dense traffic
+                    jams.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #14b8a6;">
+                <h4 style="color: var(--text-primary); margin-bottom: 5px;">O3 (Ground-Level Ozone)</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A reactive gas created
+                    when sunlight bakes other pollutants (like NO2). It forms the main chemical ingredient in visible
+                    smog.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4: Dashboard Visualization -->
+<section id="dashboard" class="reveal">
+    <div class="section-header">
+        <h1>Historical Data Dashboard</h1>
+        <p>Explore past AQI trends across 10 major Indian cities to see pollution rates over time.</p>
+    </div>
+
+    <div class="card">
+        <div class="dashboard-controls"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div>
+                <select id="year-select">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="exportDashboardCSV()" class="btn-primary"
+                    style="padding: 10px 20px; font-size: 0.9rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; transition: all 0.3s;">
+                    <i class="fa-solid fa-file-csv"></i> Export CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- Wrapper for PDF Export -->
+        <div id="dashboard-content-area">
+            <!-- KPI Cards -->
+            <div class="grid-3" style="margin-bottom: 30px;">
+                <div class="kpi-card">
+                    <div class="kpi-title">National Average AQI</div>
+                    <div class="kpi-value" id="kpi-avg-aqi">--</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title" style="color: #ef4444;">Most Polluted City</div>
+                    <div class="kpi-value" id="kpi-worst-city">--</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title" style="color: #10b981;">Cleanest City</div>
+                    <div class="kpi-value" id="kpi-best-city">--</div>
+                </div>
+            </div>
+
+            <!-- Data Storytelling Insight Box -->
+            <div class="insight-box" style="margin-bottom: 15px;">
+                <h3><i class="fa-solid fa-lightbulb"></i> Annual Data Insight</h3>
+                <p id="insight-text">Loading insights...</p>
+            </div>
+
+            <!-- AQI Score Legend -->
+            <div class="aqi-legend"
+                style="display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap; font-size: 0.85rem;">
+                <div
+                    style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.5); padding: 5px 10px; border-radius: 5px;">
+                    <strong style="color: #10b981;">0-50</strong> Good
+                </div>
+                <div
+                    style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.5); padding: 5px 10px; border-radius: 5px;">
+                    <strong style="color: #fbbf24;">51-100</strong> Moderate
+                </div>
+                <div
+                    style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.5); padding: 5px 10px; border-radius: 5px;">
+                    <strong style="color: #f97316;">101-200</strong> Unhealthy
+                </div>
+                <div
+                    style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.5); padding: 5px 10px; border-radius: 5px;">
+                    <strong style="color: #ef4444;">201-300</strong> Very Unhealthy
+                </div>
+                <div
+                    style="background: rgba(153, 27, 27, 0.1); border: 1px solid rgba(153, 27, 27, 0.5); padding: 5px 10px; border-radius: 5px;">
+                    <strong style="color: #991b1b;">301+</strong> Severe
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 30px;">
+                <div>
+                    <div class="chart-header" style="margin-bottom: 15px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 5px;"><i
+                                class="fa-solid fa-city text-accent"></i> Annual AQI by Major Indian Cities</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">This bar chart
+                            displays the average annual Air Quality Index for the 10 most prominent metropolitan areas
+                            in
+                            India. <strong>Interactive:</strong> Click any bar to open a detailed insight modal
+                            explaining
+                            the structural reasons behind that city's pollution rank.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cityChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <div class="chart-header" style="margin-bottom: 15px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 5px;"><i
+                                class="fa-solid fa-calendar-trend text-accent"></i> National Seasonal Trend</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">This line graph
+                            tracks
+                            the progression of the national average pollution rate month-by-month. It highlights the
+                            massive
+                            spikes historically associated with winter temperature inversion (Nov-Jan) contrasting with
+                            monsoon clearance (Jul-Sep).</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="monthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="chart-header" style="margin-bottom: 15px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 5px;"><i
+                                class="fa-solid fa-chart-pie text-accent"></i> Toxic Gas Breakdown</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">This donut chart
+                            anatomizes the aggregate AQI score into its constituent chemical compounds, demonstrating
+                            how
+                            microscopic Particulate Matter (PM2.5/PM10) acts as the dominant lethal factor over trace
+                            gases.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="pollutantDonutChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <div class="chart-header" style="margin-bottom: 15px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 5px;"><i
+                                class="fa-solid fa-scale-unbalanced text-accent"></i> Best vs Worst City Extremes</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">This comparison
+                            bar
+                            chart creates a stark visual contrast by pitting the cleanest recorded city for the year
+                            directly against the most toxic one, scaling them against the National Average baseline.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="compareCityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pollutants-summary" id="pollutants-summary">
+                <!-- Badges injected by JS -->
+            </div>
+        </div>
+    </div> <!-- End dashboard-content-area wrapper -->
+</section>
+
+<!-- Section 5: Time-Series Forecasting -->
+<section id="forecasting" class="reveal">
+    <div class="section-header">
+        <h1>Future AQI Forecasting</h1>
+        <p>Using structural AI time-series models (Linear Regression + Seasonality Extraction), our algorithm
+            continuously predicts the air quality trend up to December 2027.</p>
+        <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-secondary);">This forecast line graph renders
+            the exact historical volatility of your selected city dating back to 2015, and appends a dotted red line
+            projecting the most scientifically likely trajectory over the next 24 months. By combining the base
+            mathematical linear trend with recurring month-by-month seasonal spikes (e.g. winter inversions), the model
+            provides a highly accurate preview into what interventions are required.</p>
+    </div>
+    <div class="card" style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Top bar: Title and City Select -->
+        <div class="dashboard-controls"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <p style="color: var(--text-secondary); margin: 0;">Select a city to forecast its future AQI:</p>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" onclick="autoDetectCity('forecast-city-select')" id="btn-detect-forecast"
+                    class="btn-primary"
+                    style="padding: 8px 15px; font-size: 0.9rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; min-width: auto;">
+                    <i class="fa-solid fa-crosshairs"></i> Auto-Detect
+                </button>
+                <select id="forecast-city-select"
+                    style="padding: 8px; border-radius: 6px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    <option value="Ahmedabad">Ahmedabad</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Bhopal">Bhopal</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Guwahati">Guwahati</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Indore">Indore</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Kochi">Kochi</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Nagpur">Nagpur</option>
+                    <option value="Patna">Patna</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Shimla">Shimla</option>
+                    <option value="Visakhapatnam">Visakhapatnam</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- AI Forecast Insight Box -->
+        <div class="insight-box"
+            style="background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2); width: 100%;">
+            <h3 style="color: #38bdf8; margin-bottom: 10px;"><i class="fa-solid fa-robot"></i> AI Forecast Analysis</h3>
+            <p id="forecast-insight-text" style="margin: 0; line-height: 1.6;">Analyzing future trends...</p>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="chart-container" style="height: 500px; width: 100%;">
+            <canvas id="forecastChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Logic for Predictive Analysis Form
+    // Auto-fill sliders based on selected city defaults
+    document.getElementById('predict-city').addEventListener('change', function () {
+        const city = this.value;
+        const defaults = {
+            "Delhi": { pm25: 180.5, pm10: 250.2, no2: 85.0, so2: 45.1, co: 2.8, o3: 55.0 },
+            "Mumbai": { pm25: 65.2, pm10: 120.5, no2: 45.0, so2: 25.4, co: 1.8, o3: 45.2 },
+            "Kolkata": { pm25: 110.5, pm10: 180.0, no2: 65.2, so2: 55.5, co: 2.2, o3: 35.5 },
+            "Bangalore": { pm25: 45.0, pm10: 85.0, no2: 35.0, so2: 15.0, co: 1.2, o3: 30.0 },
+            "Chennai": { pm25: 55.0, pm10: 95.0, no2: 40.0, so2: 20.0, co: 1.5, o3: 35.0 },
+            "Hyderabad": { pm25: 60.0, pm10: 105.0, no2: 42.0, so2: 22.0, co: 1.6, o3: 38.0 },
+            "Ahmedabad": { pm25: 95.0, pm10: 160.0, no2: 55.0, so2: 40.0, co: 2.0, o3: 42.0 },
+            "Pune": { pm25: 58.0, pm10: 100.0, no2: 38.0, so2: 18.0, co: 1.4, o3: 36.0 },
+            "Jaipur": { pm25: 85.0, pm10: 150.0, no2: 50.0, so2: 30.0, co: 1.9, o3: 48.0 },
+            "Lucknow": { pm25: 140.0, pm10: 210.0, no2: 75.0, so2: 40.0, co: 2.4, o3: 45.0 },
+            "Coimbatore": { pm25: 42.0, pm10: 75.0, no2: 32.0, so2: 12.0, co: 1.1, o3: 28.0 },
+            "Kochi": { pm25: 35.0, pm10: 60.0, no2: 25.0, so2: 10.0, co: 0.8, o3: 22.0 },
+            "Nagpur": { pm25: 50.0, pm10: 92.0, no2: 38.0, so2: 22.0, co: 1.3, o3: 32.0 },
+            "Indore": { pm25: 55.0, pm10: 98.0, no2: 40.0, so2: 25.0, co: 1.5, o3: 34.0 },
+            "Bhopal": { pm25: 52.0, pm10: 94.0, no2: 39.0, so2: 24.0, co: 1.4, o3: 33.0 },
+            "Patna": { pm25: 150.0, pm10: 225.0, no2: 80.0, so2: 42.0, co: 2.5, o3: 47.0 },
+            "Visakhapatnam": { pm25: 58.0, pm10: 102.0, no2: 44.0, so2: 26.0, co: 1.6, o3: 36.0 },
+            "Guwahati": { pm25: 56.0, pm10: 98.0, no2: 42.0, so2: 24.0, co: 1.5, o3: 35.0 },
+            "Shimla": { pm25: 25.0, pm10: 45.0, no2: 15.0, so2: 8.0, co: 0.5, o3: 20.0 },
+            "Chandigarh": { pm25: 62.0, pm10: 110.0, no2: 46.0, so2: 28.0, co: 1.7, o3: 39.0 },
+            "Default": { pm25: 45.2, pm10: 80.5, no2: 20.1, so2: 10.5, co: 1.2, o3: 50.3 }
+        };
+
+        const cityData = defaults[city] || defaults["Default"];
+
+        // Update input values and the UI text span
+        updateSliders(cityData);
+    });
+
+    function updateSliders(data) {
+        document.getElementById('pm25').value = data.pm25;
+        document.getElementById('val-pm25').textContent = Number(data.pm25).toFixed(1);
+
+        document.getElementById('pm10').value = data.pm10;
+        document.getElementById('val-pm10').textContent = Number(data.pm10).toFixed(1);
+
+        document.getElementById('no2').value = data.no2;
+        document.getElementById('val-no2').textContent = Number(data.no2).toFixed(1);
+
+        document.getElementById('so2').value = data.so2;
+        document.getElementById('val-so2').textContent = Number(data.so2).toFixed(1);
+
+        document.getElementById('co').value = data.co;
+        document.getElementById('val-co').textContent = Number(data.co).toFixed(1);
+
+        document.getElementById('o3').value = data.o3;
+        document.getElementById('val-o3').textContent = Number(data.o3).toFixed(1);
+
+        // Add a highlight animation class
+        const sliders = document.querySelectorAll('.slider-header span');
+        sliders.forEach(el => {
+            el.classList.add('flash-highlight');
+            setTimeout(() => el.classList.remove('flash-highlight'), 1000);
+        });
+    }
+
+    // --- LIVE API LOGIC ---
+    async function fetchLiveDataForSelectedCity() {
+        const city = document.getElementById('predict-city').value;
+        if (city === "Default") {
+            alert("Please select a specific city to fetch live data.");
+            return;
+        }
+
+        const btn = document.getElementById('btn-fetch-live');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Fetching...';
+        btn.disabled = true;
+
+        try {
+            const coords = cityCoordinates[city];
+            if (!coords) throw new Error("Coordinates not found for this city.");
+
+            // Free API with no key required. Supports CORS. Returns hourly data.
+            const apiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coords.lat}&longitude=${coords.lon}&current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&timezone=auto`;
+
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+
+            const current = data.current;
+
+            // Note: Open-Meteo returns CO and NO2, SO2, O3 in µg/m³. 
+            // Our model expects NO2, SO2, O3 in ppb, and CO in ppm.
+            // Standard conversion formulas roughly at 25C and 1 ATM:
+            // CO (ppm) = CO (µg/m³) / 1145
+            // NO2 (ppb) = NO2 (µg/m³) / 1.88
+            // SO2 (ppb) = SO2 (µg/m³) / 2.62
+            // O3 (ppb) = O3 (µg/m³) / 1.96
+
+            const liveData = {
+                pm25: current.pm2_5 || 0,
+                pm10: current.pm10 || 0,
+                co: (current.carbon_monoxide / 1145) || 0,
+                no2: (current.nitrogen_dioxide / 1.88) || 0,
+                so2: (current.sulphur_dioxide / 2.62) || 0,
+                o3: (current.ozone / 1.96) || 0
+            };
+
+            // Ensure values are within slider bounds
+            liveData.pm25 = Math.min(500, Math.max(0, liveData.pm25));
+            liveData.pm10 = Math.min(500, Math.max(0, liveData.pm10));
+            liveData.no2 = Math.min(200, Math.max(0, liveData.no2));
+            liveData.so2 = Math.min(200, Math.max(0, liveData.so2));
+            liveData.co = Math.min(50, Math.max(0, liveData.co));
+            liveData.o3 = Math.min(200, Math.max(0, liveData.o3));
+
+            updateSliders(liveData);
+
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Updated!';
+            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 2000);
+
+            // Optional: Automatically trigger prediction
+            // document.getElementById('predict-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+
+        } catch (error) {
+            console.error("Error fetching live data:", error);
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error';
+            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 3000);
+            alert("Failed to fetch live data. The external API might be rate-limited or unavailable.");
+        }
+    }
+
+    // Make the timeframe dropdown auto-submit the form so users don't have to click Analyze again
+    document.getElementById('predict-timeframe').addEventListener('change', function () {
+        // Trigger the form submission programmatically
+        document.getElementById('predict-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    });
+
+    document.getElementById('predict-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const loader = document.getElementById('loader');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultContainer = document.getElementById('result-container');
+
+        btnText.textContent = "Analyzing...";
+        btnIcon.style.display = "none";
+        loader.style.display = "block";
+        submitBtn.disabled = true;
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => (data[key] = value));
+
+        try {
+            const response = await fetch('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.success) {
+                document.getElementById('result-aqi').textContent = result.prediction;
+                const categoryEl = document.getElementById('result-category');
+                categoryEl.textContent = result.category;
+                const categoryClass = result.category.toLowerCase().replace(' ', '-');
+                categoryEl.className = 'category-badge ' + categoryClass;
+                document.getElementById('result-advice').textContent = result.advice;
+
+                document.getElementById('result-dominant').textContent = result.dominant_pollutant;
+                document.getElementById('result-detail').textContent = result.detailed_reason;
+                document.getElementById('result-city').textContent = result.city_name;
+                document.getElementById('result-city-desc').textContent = result.city_description;
+
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                alert("Error: " + result.error);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("An error occurred while communicating with the server.");
+        } finally {
+            btnText.textContent = "Analyze Air Quality";
+            btnIcon.style.display = "block";
+            loader.style.display = "none";
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Logic for Historical Dashboard
+    let cityChartInstance = null;
+    let monthChartInstance = null;
+    let donutChartInstance = null;
+    let compareChartInstance = null;
+    let currentDashboardData = null; // Store for CSV export
+
+    async function loadDashboardData(year) {
+        try {
+            const response = await fetch(`/api/visualize?year=${year}`);
+            const data = await response.json();
+
+            if (data.success) {
+                currentDashboardData = data; // Store globally for export
+                updateCharts(data);
+                updatePollutantBadges(data.pollutants);
+                updateKPIs(data);
+            }
+        } catch (e) {
+            console.error("Dashboard fetch error", e);
+        }
+    }
+
+    // Export to CSV Logic
+    function exportDashboardCSV() {
+        if (!currentDashboardData) {
+            alert("No data available to export.");
+            return;
+        }
+
+        const year = document.getElementById('year-select').value;
+        const cities = currentDashboardData.cities;
+        const aqi_values = currentDashboardData.city_aqi;
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += `"AQI Complete Data Export - Year ${year}"\n\n`;
+
+        // City Breakdown
+        csvContent += '"City","Average AQI"\n';
+        for (let i = 0; i < cities.length; i++) {
+            csvContent += `"${cities[i]}","${aqi_values[i]}"\n`;
+        }
+
+        // Pollutant Summaries
+        csvContent += '\n"National Pollutant Averages"\n"Pollutant","Average Value"\n';
+        for (const [key, value] of Object.entries(currentDashboardData.pollutants)) {
+            csvContent += `"${key.toUpperCase()}","${value}"\n`;
+        }
+
+        // Create downloadable link
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `AQI_Data_Export_${year}.csv`);
+        document.body.appendChild(link); // Required for FF
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // --- AUTO GEOLOCATION LOGIC ---
+    // Hardcoded rough coordinates for our supported 20 Indian cities to avoid needing a backend Maps API
+    const cityCoordinates = {
+        "Ahmedabad": { lat: 23.0225, lon: 72.5714 },
+        "Bangalore": { lat: 12.9716, lon: 77.5946 },
+        "Bhopal": { lat: 23.2599, lon: 77.4126 },
+        "Chandigarh": { lat: 30.7333, lon: 76.7794 },
+        "Chennai": { lat: 13.0827, lon: 80.2707 },
+        "Coimbatore": { lat: 11.0168, lon: 76.9558 },
+        "Delhi": { lat: 28.6139, lon: 77.2090 },
+        "Guwahati": { lat: 26.1158, lon: 91.7086 },
+        "Hyderabad": { lat: 17.3850, lon: 78.4867 },
+        "Indore": { lat: 22.7196, lon: 75.8577 },
+        "Jaipur": { lat: 26.9124, lon: 75.7873 },
+        "Kochi": { lat: 9.9312, lon: 76.2673 },
+        "Kolkata": { lat: 22.5726, lon: 88.3639 },
+        "Lucknow": { lat: 26.8467, lon: 80.9462 },
+        "Mumbai": { lat: 19.0760, lon: 72.8777 },
+        "Nagpur": { lat: 21.1458, lon: 79.0882 },
+        "Patna": { lat: 25.5941, lon: 85.1376 },
+        "Pune": { lat: 18.5204, lon: 73.8567 },
+        "Shimla": { lat: 31.1048, lon: 77.1734 },
+        "Visakhapatnam": { lat: 17.6868, lon: 83.2185 }
+    };
+
+    // Haversine formula to calculate distance between two lat/lon points in km
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c; // Distance in km
+        return d;
+    }
+
+    function autoDetectCity(targetSelectId) {
+        const btnId = targetSelectId === 'predict-city' ? 'btn-detect-predict' : 'btn-detect-forecast';
+        const theBtn = document.getElementById(btnId);
+        const originalHtml = theBtn.innerHTML;
+
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser.");
+            return;
+        }
+
+        theBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Locating...';
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+                let closestCity = "Default";
+                let shortestDistance = Infinity;
+
+                // Simple nearest neighbor search
+                for (const [cityName, coords] of Object.entries(cityCoordinates)) {
+                    // Check if city exists in the target dropdown (Forecast only has 10 cities, Predict has 20)
+                    const dropdown = document.getElementById(targetSelectId);
+                    const optionExists = Array.from(dropdown.options).some(opt => opt.value === cityName);
+
+                    if (optionExists) {
+                        const distance = getDistanceFromLatLonInKm(userLat, userLon, coords.lat, coords.lon);
+                        if (distance < shortestDistance) {
+                            shortestDistance = distance;
+                            closestCity = cityName;
+                        }
+                    }
+                }
+
+                // If they are more than ~1500km from any of our cities, they are probably not in India.
+                if (shortestDistance > 1500 && closestCity !== "Default") {
+                    alert("You appear to be outside of India or too far from a supported city. Falling back to National Average / default.");
+                    closestCity = targetSelectId === 'predict-city' ? "Default" : "Delhi"; // Forecast defaults to Delhi if out of bounds
+                }
+
+                // Update UI
+                const dropdown = document.getElementById(targetSelectId);
+                dropdown.value = closestCity;
+
+                // Manually trigger the 'change' event to update graphs/forms
+                const event = new Event('change');
+                dropdown.dispatchEvent(event);
+
+                // Auto-fetch live data if it was the predict dropdown
+                if (targetSelectId === 'predict-city') {
+                    fetchLiveDataForSelectedCity();
+                }
+
+                theBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> ${closestCity}`;
+                setTimeout(() => { theBtn.innerHTML = originalHtml; }, 3000);
+            },
+            (error) => {
+                console.error("Geolocation error:", error);
+
+                let errorMsg = "Unable to retrieve your location. Please ensure you have granted browser location permissions.";
+                if (error.code === error.TIMEOUT) {
+                    errorMsg = "The request to get your location timed out. Please try again.";
+                }
+
+                // Use the custom UI modal instead of an intrusive browser alert box
+                openModal("Auto-Detect Failed", errorMsg);
+
+                theBtn.innerHTML = originalHtml;
+            },
+            { enableHighAccuracy: false, timeout: 15000, maximumAge: 0 }
+        );
+    }
+
+    function updateKPIs(data) {
+        document.getElementById('kpi-avg-aqi').textContent = data.kpis.avg_aqi;
+        document.getElementById('kpi-worst-city').textContent = data.kpis.worst_city;
+        document.getElementById('kpi-best-city').textContent = data.kpis.best_city;
+        document.getElementById('insight-text').innerHTML = data.insight;
+    }
+
+    function updateCharts(data) {
+        const cityCtx = document.getElementById('cityChart').getContext('2d');
+        const monthCtx = document.getElementById('monthChart').getContext('2d');
+        const donutCtx = document.getElementById('pollutantDonutChart').getContext('2d');
+        const compareCtx = document.getElementById('compareCityChart').getContext('2d');
+
+        if (cityChartInstance) cityChartInstance.destroy();
+        if (monthChartInstance) monthChartInstance.destroy();
+        if (donutChartInstance) donutChartInstance.destroy();
+        if (compareChartInstance) compareChartInstance.destroy();
+
+        // Modal Logic for City Clicks
+        const cityModalText = {
+            "Delhi": "Delhi experiences severe pollution due to winter crop stubble burning in neighboring states, massive vehicle congestion, and winter inversion layers that trap smog at ground level.",
+            "Mumbai": "Mumbai faces heavy coastal industrial emissions, localized traffic bottlenecks, and significant construction dust from rapid urbanization.",
+            "Kolkata": "Kolkata struggles with emissions from older diesel vehicles, nearby coal-fired power plants, and open burning of solid waste.",
+            "Bangalore": "Bangalore's pollution spike is driven by rapidly growing IT-corridor traffic, constant infrastructure construction, and road dust resuspension.",
+            "Chennai": "Chennai's air quality is impacted by thermal power stations, port activities, and heavy vehicular emissions along major arterial roads.",
+            "Hyderabad": "Hyderabad sees elevated AQI due to rapid urbanization, pharmaceutical and manufacturing industries, and increasing daily traffic.",
+            "Ahmedabad": "Ahmedabad's pollution is heavily influenced by nearby industrial estates, textile manufacturing emissions, and dry weather dust.",
+            "Pune": "Pune faces rising pollution from increasing two-wheeler traffic, construction activities, and geographical features that can trap pollutants.",
+            "Jaipur": "Jaipur's AQI is affected by dry, dusty geographical conditions, tourist and local traffic, and seasonal agricultural activities.",
+            "Lucknow": "Lucknow suffers from severe winter inversion trapping local biomass burning, vehicular exhaust, and construction dust.",
+            "Coimbatore": "Coimbatore experiences growing textile mill operations, foundry emissions, and localized urban traffic bottlenecks.",
+            "Kochi": "Kochi's air is affected by coastal shipping and port operations, construction, and high humidity trapping localized exhaust.",
+            "Nagpur": "Nagpur is impacted by nearby thermal power plants, extensive coal transport, and centrally located highway traffic.",
+            "Indore": "Indore faces rapid commercial expansion, persistent construction activities, and a massive surge in private vehicle usage.",
+            "Bhopal": "Bhopal's AQI is driven by growing industrial zones, older public transport fleets, and localized waste burning.",
+            "Patna": "Patna struggles heavily due to reliance on solid fuels for cooking, massive resuspended road dust, and geographic trapping of Gangetic plain smog.",
+            "Visakhapatnam": "Visakhapatnam sees pollution from dense port/shipping operations, heavy industries like steel refineries, and coastal maritime traffic.",
+            "Guwahati": "Guwahati suffers from valley topography trapping emissions, widespread construction, and growing vehicular density.",
+            "Shimla": "Shimla has generally good air, but faces increasing tourist traffic and localized winter wood-burning for heating, though offset by altitude dispersion.",
+            "Chandigarh": "Chandigarh is affected by high per-capita vehicle ownership, post-harvest crop burning from border regions, and urban expansion."
+        };
+
+        const monthModalText = {
+            "Jan": "January sees massive PM2.5 spikes across Northern India due to severe winter temperature inversions trapping pollutants close to the ground, exacerbated by heating fires.",
+            "Feb": "February remains highly polluted as winter conditions persist, though late-month wind changes begin to slightly disperse trapped particulate matter.",
+            "Mar": "March brings rising temperatures and improved atmospheric mixing, leading to a noticeable drop in severe smog events compared to winter peak.",
+            "Apr": "April air quality is generally moderate, though dry conditions can lead to increased resuspended dust (PM10) in arid western and central regions.",
+            "May": "May experiences intense heat and pre-monsoon winds that suspend large amounts of coarse dust (PM10), though fine particulate (PM2.5) levels are lower.",
+            "Jun": "June marks the onset of the Southwest Monsoon in many regions. Rain acts as a natural scrubber, drastically washing particulate matter from the air.",
+            "Jul": "July typically records the cleanest air quality of the year nationwide due to heavy, sustained monsoon rains washing away both coarse and fine pollutants.",
+            "Aug": "August continues the trend of excellent air quality as monsoon conditions persist, preventing the accumulation of airborne emissions.",
+            "Sep": "September air quality remains relatively clean as the monsoon withdraws, but late-month drying begins to allow dust and emissions to resuspend.",
+            "Oct": "October marks a sharp deterioration in air quality due to dropping temperatures, reduced wind speed, festival emissions, and the onset of agricultural crop stubble burning.",
+            "Nov": "November is historically the most toxic month. Massive crop burning plumes merge with winter inversions and festival fireworks, creating hazardous smog blankets.",
+            "Dec": "December maintains hazardous pollution levels. While crop burning ends, extreme winter cold creates persistent inversion layers that trap localized vehicular and industrial exhaust."
+        };
+
+        const pollutantModalText = {
+            "PM25": "Fine Particulate Matter (PM2.5) consists of microscopic particles smaller than 2.5 microns. They are the most lethal pollutant as they can bypass the respiratory system's defenses, enter the bloodstream, and cause severe cardiovascular and respiratory diseases.",
+            "PM10": "Coarse Particulate Matter (PM10) includes dust, pollen, and mold. While less dangerous than PM2.5, high levels cause severe irritation to the eyes, nose, and throat.",
+            "NO2": "Nitrogen Dioxide is a toxic reddish-brown gas emitted primarily by vehicles and power plants. It inflames the lining of the lungs and can reduce immunity to lung infections.",
+            "SO2": "Sulfur Dioxide is a toxic gas produced by burning fossil fuels like coal. It causes eye irritation, worsens asthma, and contributes to the formation of acid rain.",
+            "CO": "Carbon Monoxide is a colorless, odorless gas from incomplete combustion in vehicles. It interferes with the blood's ability to carry oxygen, causing headaches and dizziness.",
+            "O3": "Ground-level Ozone is created by chemical reactions between oxides of nitrogen and volatile organic compounds in sunlight. It triggers a variety of health problems."
+        };
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 2000,
+                easing: 'easeOutExpo'
+            },
+            onClick: (e, activeElements, chart) => {
+                if (activeElements.length > 0) {
+                    const dataIndex = activeElements[0].index;
+                    const label = chart.data.labels[dataIndex];
+                    if (cityModalText[label]) {
+                        openModal(label, cityModalText[label]);
+                    } else if (monthModalText[label]) {
+                        openModal(`${label} Trend`, monthModalText[label]);
+                    } else if (pollutantModalText[label]) {
+                        openModal(`${label} Analysis`, pollutantModalText[label]);
+                    } else if (label === 'National Average') {
+                        openModal('National Average', 'The National Average represents the aggregated baseline of air toxicity across all measured major metropolitan areas for the selected year, serving as a critical benchmark for evaluating localized extremes.');
+                    }
+                }
+            },
+            plugins: {
+                legend: { labels: { color: '#ffffff' } },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#38bdf8',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: false
+                }
+            },
+            scales: {
+                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+            }
+        };
+
+        cityChartInstance = new Chart(cityCtx, {
+            type: 'bar',
+            data: {
+                labels: data.cities,
+                datasets: [{
+                    label: 'Average AQI by City (Click for Info)',
+                    data: data.city_aqi,
+                    backgroundColor: 'rgba(56, 189, 248, 0.7)',
+                    borderColor: 'rgba(56, 189, 248, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: commonOptions
+        });
+
+        // Replace month numbers with names
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const labelsMonth = data.months.map(m => monthNames[parseInt(m) - 1]);
+
+        monthChartInstance = new Chart(monthCtx, {
+            type: 'line',
+            data: {
+                labels: labelsMonth,
+                datasets: [{
+                    label: 'AQI Trend over Months',
+                    data: data.month_aqi,
+                    backgroundColor: 'rgba(192, 132, 252, 0.2)',
+                    borderColor: 'rgba(192, 132, 252, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: commonOptions
+        });
+
+        // 3. Pollutant Donut Chart
+        const pNames = Object.keys(data.pollutants).map(k => k.toUpperCase());
+        const pVals = Object.values(data.pollutants);
+
+        donutChartInstance = new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: pNames,
+                datasets: [{
+                    label: 'National Pollutant Levels',
+                    data: pVals,
+                    backgroundColor: [
+                        '#ef4444', '#f97316', '#fbbf24', '#10b981', '#38bdf8', '#c084fc'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { position: 'right', labels: { color: '#fff' } } }, scales: {} }
+        });
+
+        // 4. Comparison Chart (Best vs Worst)
+        const bestIdx = data.cities.indexOf(data.kpis.best_city);
+        const worstIdx = data.cities.indexOf(data.kpis.worst_city);
+
+        compareChartInstance = new Chart(compareCtx, {
+            type: 'bar',
+            data: {
+                labels: [data.kpis.best_city, data.kpis.worst_city, 'National Average'],
+                datasets: [{
+                    label: 'AQI Comparison',
+                    data: [data.city_aqi[bestIdx], data.city_aqi[worstIdx], data.kpis.avg_aqi],
+                    backgroundColor: ['#10b981', '#ef4444', '#38bdf8'],
+                    borderRadius: 4
+                }]
+            },
+            options: commonOptions
+        });
+    }
+
+    function updatePollutantBadges(pollutants) {
+        const container = document.getElementById('pollutants-summary');
+        container.innerHTML = '';
+
+        const descriptions = {
+            "pm2.5": "Fine Particulate Matter (<2.5μm): Highly lethal microscopic particles that enter the bloodstream.",
+            "pm10": "Inhalable Particulate Matter (<10μm): Dust, pollen, and mold that irritate the respiratory tract.",
+            "no2": "Nitrogen Dioxide: Toxic gas from vehicle exhaust causing severe lung inflammation.",
+            "so2": "Sulfur Dioxide: Corrosive gas from industrial burning, leading to acid rain and asthma.",
+            "co": "Carbon Monoxide: Odorless, deadly gas from incomplete combustion.",
+            "o3": "Ozone: Harmful ground-level smog created by sunlight reacting with pollutants."
+        };
+
+        for (const [key, value] of Object.entries(pollutants)) {
+            const div = document.createElement('div');
+            div.className = 'pollutant-badge';
+
+            const desc = descriptions[key.toLowerCase()] || "Chemical Pollutant";
+
+            // Make the badge clickable to trigger the custom UI modal
+            div.style.cursor = 'pointer';
+            div.onclick = () => openModal(`${key.toUpperCase()} Pollution Metric`, desc);
+
+            div.innerHTML = `${key.toUpperCase()}: <span>${value}</span>`;
+            container.appendChild(div);
+        }
+    }
+
+    document.getElementById('year-select').addEventListener('change', function (e) {
+        loadDashboardData(e.target.value);
+    });
+
+    // --- FORECASTING LOGIC ---
+    let forecastChartInstance = null;
+
+    async function loadForecastData(city) {
+        try {
+            const response = await fetch(`/api/forecast?city=${city}`);
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById('forecast-insight-text').innerHTML = data.forecast.insight;
+                renderForecastChart(data);
+            }
+        } catch (e) {
+            console.error("Forecast fetch error", e);
+        }
+    }
+
+    function renderForecastChart(data) {
+        const ctx = document.getElementById('forecastChart').getContext('2d');
+        if (forecastChartInstance) {
+            forecastChartInstance.destroy();
+        }
+
+        const histLen = data.historical.dates.length;
+        const foreLen = data.forecast.dates.length;
+
+        // Combine labels
+        const allLabels = [...data.historical.dates, ...data.forecast.dates];
+
+        // Pad with nulls so each array has exactly the same length as allLabels
+        const historicalData = [...data.historical.values, ...Array(foreLen).fill(null)];
+
+        // Start with nulls, add the last historical point to connect the line, then add forecasted values
+        const linkedForecastData = Array(histLen - 1).fill(null);
+        linkedForecastData.push(data.historical.values[histLen - 1]);
+        linkedForecastData.push(...data.forecast.values);
+
+        forecastChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: allLabels,
+                datasets: [
+                    {
+                        label: 'Historical Data',
+                        data: historicalData,
+                        borderColor: 'rgba(56, 189, 248, 1)',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'AI Forecast',
+                        data: linkedForecastData,
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: true,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                onClick: (e, activeElements, chart) => {
+                    if (activeElements.length > 0) {
+                        const dataIndex = activeElements[0].index;
+                        const label = chart.data.labels[dataIndex];
+                        const datasetIndex = activeElements[0].datasetIndex;
+                        const datasetLabel = chart.data.datasets[datasetIndex].label;
+
+                        // Because we padded with nulls, if clicking an empty spot but active element matched
+                        // we should check if value is null
+                        const value = chart.data.datasets[datasetIndex].data[dataIndex];
+                        if (value === null) return;
+
+                        let text = "";
+                        if (datasetLabel === 'Historical Data') {
+                            text = `This data point represents the historically recorded average AQI of <b style="color:var(--accent);">${value.toFixed(2)}</b> for <b>${label}</b>. This data is part of the ground-truth baseline used to train the forecasting model.`;
+                        } else {
+                            text = `This data point represents an AI-predicted AQI of <b style="color:#ef4444;">${value.toFixed(2)}</b> for <b>${label}</b>. The model calculated this projection by extending the historical linear trend and mapping recognized seasonal volatility (like winter spikes or monsoon drops).`;
+                        }
+                        openModal(`${datasetLabel} Point: ${label}`, text);
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+
+                plugins: {
+                    legend: { labels: { color: '#ffffff' } },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#38bdf8',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        padding: 12
+                    }
+                },
+                scales: {
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                    x: {
+                        type: 'category',
+                        ticks: { color: '#94a3b8', maxTicksLimit: 24 },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+    document.getElementById('forecast-city-select').addEventListener('change', function (e) {
+        loadForecastData(e.target.value);
+    });
+
+    // Load defaults on init
+    loadDashboardData(2015);
+    loadForecastData(document.getElementById('forecast-city-select').value);
+
+    // Intersection Observer for Scroll Animations
+    document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+    });
+
+    // --- CUSTOM MODAL LOGIC ---
+    function openModal(title, text) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-text').innerHTML = text;
+        document.getElementById('chart-insight-modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('chart-insight-modal').classList.remove('active');
+    }
+
+    // Close when clicking outside the modal box
+    document.getElementById('chart-insight-modal').addEventListener('click', function (e) {
+        if (e.target === this) closeModal();
+    });
+
+</script>
+
+<!-- Custom Insight Modal -->
+<div id="chart-insight-modal" class="custom-modal-overlay">
+    <div class="custom-modal">
+        <div class="custom-modal-header">
+            <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> Insight for <span
+                    id="modal-title"></span></h3>
+            <button class="custom-modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="custom-modal-body" id="modal-text">
+            <!-- Content injected here -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

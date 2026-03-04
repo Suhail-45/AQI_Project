@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI Intelligence Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <nav class="top-nav glass-panel">
+            <div class="nav-brand">
+                <i class="fa-solid fa-leaf"></i>
+                <h2>AQI System</h2>
+            </div>
+            <div id="live-clock"
+                style="font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.9rem; color: #94a3b8; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-regular fa-clock"></i> <span id="clock-time">--:--:--</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#predictive"><i class="fa-solid fa-calculator"></i> Prediction</a></li>
+                <li><a href="#advisory"><i class="fa-solid fa-heart-pulse"></i> Health Advisory</a></li>
+                <li><a href="#methodology"><i class="fa-solid fa-book-open"></i> Methodology</a></li>
+                <li><a href="#dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#forecasting"><i class="fa-solid fa-chart-area"></i> Forecasting</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <script>
+        // Live Clock Logic (Runs First, immune to CDN failures)
+        function updateClock() {
+            try {
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const clockEl = document.getElementById('clock-time');
+                if (clockEl) clockEl.textContent = dateStr + ', ' + timeStr;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+
+        // Floating Navbar on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.top-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scroll for Navigation Links (Bypasses CSS Caching Issues)
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+
+                if (targetEl) {
+                    // Force the browser to wait 1 frame for mobile layout shifts
+                    setTimeout(() => {
+                        const navHeight = document.querySelector('.top-nav').offsetHeight;
+                        const elementPosition = targetEl.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - navHeight - 20;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 50);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="card">
+    <h2>AQI Prediction Result</h2>
+
+    <div class="result-value">{{ prediction }}</div>
+
+    <div class="category-badge 
+        {% if category == 'Good' %}good
+        {% elif category == 'Moderate' %}moderate
+        {% elif category == 'Unhealthy' %}unhealthy
+        {% elif category == 'Very Unhealthy' %}very-unhealthy
+        {% else %}hazardous
+        {% endif %}
+    ">
+        {{ category }}
+    </div>
+
+    <p style="margin-top:20px;">{{ advice }}</p>
+
+    <!-- AI Reasoning Section -->
+    <div
+        style="margin-top: 30px; text-align: left; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 20px;">
+        <h3
+            style="color: var(--accent); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-robot"></i> AI Diagnostic Reasoning
+        </h3>
+
+        <div style="margin-bottom: 15px;">
+            <span style="color: var(--text-secondary); font-size: 0.9rem;">Dominant Threat Factor:</span><br>
+            <strong style="color: var(--text-primary); font-size: 1.05rem;"><i class="fa-solid fa-virus"></i> {{
+                dominant_pollutant }}</strong>
+        </div>
+
+        <p
+            style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid var(--accent);">
+            {{ detail_reason }}
+        </p>
+
+        <div style="margin-top: 20px; margin-bottom: 10px;">
+            <span style="color: var(--text-secondary); font-size: 0.9rem;">Regional Pollution Insight:</span><br>
+            <strong style="color: var(--text-primary); font-size: 1.05rem;"><i class="fa-solid fa-map-location-dot"></i>
+                {{ city_name }}</strong>
+        </div>
+
+        <p
+            style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid #10b981;">
+            {{ city_description }}
+        </p>
+    </div>
+
+    <br><br>
+    <a href="/" style="color: var(--accent); text-decoration: none; font-weight: 500; transition: all 0.2s;"><i
+            class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+</div>
+
+{% endblock %}

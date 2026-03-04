@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AQI Prediction System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Real-Time AQI Prediction System</h1>
+
+    <form action="/predict" method="post">
+        <input type="number" step="any" name="pm25" placeholder="PM2.5" required><br>
+        <input type="number" step="any" name="pm10" placeholder="PM10" required><br>
+        <input type="number" step="any" name="no2" placeholder="NO2" required><br>
+        <input type="number" step="any" name="so2" placeholder="SO2" required><br>
+        <input type="number" step="any" name="co" placeholder="CO" required><br>
+        <input type="number" step="any" name="o3" placeholder="O3" required><br>
+
+        <button type="submit">Predict AQI</button>
+    </form>
+
+    {% if prediction %}
+    <style>
+        .res-box {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-Good {
+            color: green;
+        }
+
+        .cat-Moderate {
+            color: orange;
+        }
+
+        .cat-Unhealthy {
+            color: red;
+        }
+
+        .cat-VeryUnhealthy {
+            color: red;
+        }
+
+        .cat-Severe {
+            color: darkred;
+        }
+    </style>
+    <div class="res-box">
+        <h2>Predicted AQI: {{ prediction }}</h2>
+        {% set c_class = category.replace(' ', '') %}
+        <h3 class="cat-{{ c_class }}">
+            {{ category }}</h3>
+        <p><strong>{{ dominant_pollutant }}</strong></p>
+        <p>{{ detail_reason }}</p>
+        <p>{{ advice }}</p>
+        <p><em>{{ city_name }}: {{ city_description }}</em></p>
+    </div>
+    {% endif %}
+
+</body>
+
+</html>
