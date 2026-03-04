@@ -1,0 +1,1 @@
+["year", "month", "day", "day_of_week", "is_weekend", "pm25", "pm10", "no2", "so2", "co", "o3", "pollution_index", "aqi_lag1", "aqi_7day_avg", "aqi_lag_3", "aqi_lag_7", "aqi_lag_14", "aqi_lag_30", "rolling_mean_14", "rolling_std_7", "rolling_std_14", "pm25_no2_interaction", "monthly_avg_aqi", "city_avg_pollution"]
