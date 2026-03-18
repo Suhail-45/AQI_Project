@@ -1,0 +1,38 @@
+name: Python Flask App CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install Flask Flask-SQLAlchemy Flask-Caching gunicorn scikit-learn pandas numpy joblib xgboost statsmodels
+    
+    - name: Syntax check
+      run: |
+        # Only check for major Python syntax errors without strict linting
+        python -m py_compile app.py
+
+    - name: Run Background Server Check
+      run: |
+        export FLASK_APP=app.py
+        nohup flask run > flask.log 2>&1 &
+        sleep 5
+        curl --fail http://127.0.0.1:5000/ || exit 1
+        echo "Server started and returned HTTP 200 properly."
