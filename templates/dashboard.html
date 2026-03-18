@@ -9,7 +9,7 @@
         <p>Enter current pollutant levels to get a real-time prediction using our trained ML model.</p>
     </div>
 
-    <div class="card reveal reveal-delay-1"
+    <div class="card reveal reveal-delay-1" id="metrics-info-card"
         style="margin-bottom: 30px; background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2);">
         <h2><i class="fa-solid fa-circle-info"></i> What are these metrics?</h2>
         <p style="color: var(--text-secondary); margin-bottom: 15px;">If you're not a scientist, don't worry! Here is a
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="card reveal reveal-delay-2">
+    <div class="card reveal reveal-delay-2" id="prediction-form-card">
         <h2><i class="fa-solid fa-calculator"></i> Pollutant Metrics</h2>
 
 
@@ -47,19 +47,23 @@
                         <div style="display: flex; gap: 8px;">
                             <button type="button" onclick="fetchLiveDataForSelectedCity()" id="btn-fetch-live"
                                 class="btn-primary"
-                                style="padding: 5px 10px; font-size: 0.8rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.4); color: #10b981; min-width: auto; position: relative;"
-                                title="Fetch real-time data from Open-Meteo">
+                                style="padding: 6px 14px; font-size: 0.8rem; background: var(--container-bg); border: 1px solid #10b98166; color: #10b981; min-width: auto; position: relative; border-radius: 20px; transition: all 0.3s ease;"
+                                title="Fetch real-time data from Open-Meteo"
+                                onmouseover="this.style.background='rgba(16, 185, 129, 0.1)'; this.style.transform='translateY(-1px)';" 
+                                onmouseout="this.style.background='var(--container-bg)'; this.style.transform='translateY(0)';">
                                 <i class="fa-solid fa-cloud-arrow-down"></i> Live Data
                             </button>
                             <button type="button" onclick="autoDetectCity('predict-city')" id="btn-detect-predict"
                                 class="btn-primary"
-                                style="padding: 5px 10px; font-size: 0.8rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; min-width: auto; position: relative;">
+                                style="padding: 6px 14px; font-size: 0.8rem; background: var(--container-bg); border: 1px solid var(--accent); color: var(--accent); min-width: auto; position: relative; border-radius: 20px; transition: all 0.3s ease;"
+                                onmouseover="this.style.background='rgba(14, 165, 233, 0.1)'; this.style.transform='translateY(-1px)';" 
+                                onmouseout="this.style.background='var(--container-bg)'; this.style.transform='translateY(0)';">
                                 <i class="fa-solid fa-crosshairs"></i> Auto-Detect
                             </button>
                         </div>
                     </div>
                     <select id="predict-city" name="city"
-                        style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem; appearance: auto;">
+                        style="width: 100%; padding: 12px; border-radius: 8px; background: var(--container-bg); border: 1px solid var(--glass-border); color: var(--text-primary); font-size: 1rem; appearance: auto;">
                         <option value="Default">National Average (No Modification)</option>
                         <option value="Ahmedabad">Ahmedabad</option>
                         <option value="Bangalore">Bangalore</option>
@@ -90,7 +94,7 @@
                             class="fa-regular fa-calendar-days" style="color: #38bdf8;"></i> Select Prediction
                         Timeframe</label>
                     <select id="predict-timeframe" name="timeframe"
-                        style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem; appearance: auto;">
+                        style="width: 100%; padding: 12px; border-radius: 8px; background: var(--container-bg); border: 1px solid var(--glass-border); color: var(--text-primary); font-size: 1rem; appearance: auto;">
                         <option value="today">Today (Real-Time)</option>
                         <option value="tomorrow">Tomorrow (24hr Forcast)</option>
                         <option value="future">Future (2026 Year-End Trajectory)</option>
@@ -124,7 +128,7 @@
                         <label for="no2">NO2 (ppb)</label>
                         <span class="slider-value" id="val-no2">20.1</span>
                     </div>
-                    <input type="range" min="0" max="200" step="0.1" id="no2" name="no2" value="20.1"
+                    <input type="range" min="0" max="400" step="0.1" id="no2" name="no2" value="20.1"
                         oninput="document.getElementById('val-no2').textContent=this.value">
                     <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
                             class="fa-solid fa-check-circle"></i> Safe Limit: &le; 80</div>
@@ -134,7 +138,7 @@
                         <label for="so2">SO2 (ppb)</label>
                         <span class="slider-value" id="val-so2">10.5</span>
                     </div>
-                    <input type="range" min="0" max="200" step="0.1" id="so2" name="so2" value="10.5"
+                    <input type="range" min="0" max="1000" step="0.1" id="so2" name="so2" value="10.5"
                         oninput="document.getElementById('val-so2').textContent=this.value">
                     <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
                             class="fa-solid fa-check-circle"></i> Safe Limit: &le; 80</div>
@@ -161,17 +165,25 @@
                 </div>
             </div>
 
+
+
             <button type="submit" class="btn-primary" id="submit-btn" style="width: 100%; justify-content: center;">
                 <span id="btn-text">Analyze Air Quality</span>
                 <div class="loader" id="loader"></div>
                 <i class="fa-solid fa-arrow-right" id="btn-icon"></i>
             </button>
         </form>
-    </div>
 
     <div class="card" id="result-container" style="margin-top: 30px;">
-        <h2><i class="fa-solid fa-chart-pie"></i> Detailed Analysis Result</h2>
-
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+            <h2 style="margin:0;"><i class="fa-solid fa-chart-pie"></i> Detailed Analysis Result</h2>
+            <button onclick="shareResults()" id="btn-share-results"
+                style="padding:7px 16px; font-size:0.8rem; border-radius:20px; border:1px solid rgba(99,102,241,0.4); background:rgba(99,102,241,0.08); color:#818cf8; cursor:pointer; display:none; transition:all 0.3s;" 
+                onmouseover="this.style.background='rgba(99,102,241,0.18)'" onmouseout="this.style.background='rgba(99,102,241,0.08)'">
+                <i class="fa-solid fa-share-nodes"></i> Share Results
+            </button>
+        </div>
+        <div id="error-banner" style="display:none; padding:10px 16px; margin-bottom:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; color:#ef4444; font-size:0.9rem;"></div>
         <div class="grid-2" style="align-items: center; margin-bottom: 25px;">
             <div style="text-align: center;">
                 <div class="result-value-wrapper" style="justify-content: center; margin-bottom: 10px;">
@@ -181,32 +193,44 @@
             </div>
 
             <div
-                style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                style="background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0,0,0,0.05); padding: 20px; border-radius: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
                 <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px;"><i
                         class="fa-solid fa-microscope"></i> Diagnostic Findings</h3>
                 <p style="margin-bottom: 10px; font-size: 0.95rem;"><strong>Primary Driver:</strong> <span
                         id="result-dominant" style="color: #fcd34d; font-weight: 600;">--</span></p>
                 <p id="result-detail"
-                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
                     Awaiting
                     analysis...</p>
 
-                <h3 style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 10px;"><i
-                        class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city"
-                        style="color:#fff;">--</span></h3>
+                <h3 onclick="openModal('Regional Insight', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Select a city to retrieve AI regional profiling." style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 5px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                    <i class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city" style="color: var(--text-primary);">--</span>
+                </h3>
                 <p id="result-city-desc"
                     style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Select a city
                     to retrieve AI regional profiling.</p>
             </div>
         </div>
 
-        <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <h3 style="margin-top: 0; font-size: 1rem; margin-bottom: 10px;"><i class="fa-solid fa-user-doctor"
-                    style="color: #10b981;"></i> Health Advice</h3>
-            <p class="advice-text" id="result-advice" style="margin-bottom: 0;">Please input metrics to see advice.</p>
+        <div style="padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+            <h3 onclick="openModal('Health Risk Details', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see detailed risk profile." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                <i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Health Risk
+            </h3>
+            <p class="advice-text" id="result-health-risk" style="margin-bottom: 15px;">Please input metrics to see risk profile.</p>
+
+            <h3 onclick="openModal('Precautionary Measures', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see recommended precautions." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                <i class="fa-solid fa-shield-heart" style="color: #10b981;"></i> Precaution
+            </h3>
+            <p class="advice-text" id="result-precaution" style="margin-bottom: 15px;">Please input metrics to see recommended precautions.</p>
+
+            <h3 onclick="openModal('Required Solutions', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see the required solution." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                <i class="fa-solid fa-lightbulb" style="color: #3b82f6;"></i> Required Solution
+            </h3>
+            <p class="advice-text" id="result-solution" style="margin-bottom: 0;">Please input metrics to see the required solution.</p>
         </div>
 
     </div>
+
 </section>
 
 <!-- Section 2: Health Advisory -->
@@ -216,32 +240,38 @@
         <p>Understand how different levels of AQI impact your health and what actions to take.</p>
     </div>
 
-    <div class="grid-3">
-        <div class="card text-center reveal reveal-delay-1">
-            <div class="category-badge good" style="display:inline-block; margin-bottom: 20px;">0 - 50: Good</div>
+    <div class="grid-4">
+        <div class="card text-center reveal reveal-delay-1" style="border-top: 5px solid #10b981;">
+            <div class="category-badge good" style="display:inline-block; margin-bottom: 20px;">0 - 50: GOOD</div>
             <p>Air quality is considered satisfactory, and air pollution poses little or no risk.</p>
             <i class="fa-solid fa-person-walking" style="font-size:40px; color:#10b981; margin-top:20px;"></i>
         </div>
-        <div class="card text-center reveal reveal-delay-2">
-            <div class="category-badge moderate" style="display:inline-block; margin-bottom: 20px;">51 - 100: Moderate
+        <div class="card text-center reveal reveal-delay-2" style="border-top: 5px solid #f59e0b;">
+            <div class="category-badge moderate" style="display:inline-block; margin-bottom: 20px;">51 - 100: MODERATE
             </div>
             <p>Air quality is acceptable. Unusually sensitive people should consider limiting prolonged outdoor
                 exertion.</p>
-            <i class="fa-solid fa-mask-face" style="font-size:40px; color:#fbbf24; margin-top:20px;"></i>
+            <i class="fa-solid fa-mask-face" style="font-size:40px; color:#f59e0b; margin-top:20px;"></i>
         </div>
-        <div class="card text-center reveal reveal-delay-3">
-            <div class="category-badge unhealthy" style="display:inline-block; margin-bottom: 20px;">101 - 200:
-                Unhealthy</div>
+        <div class="card text-center reveal reveal-delay-3" style="border-top: 5px solid #fb923c;">
+            <div class="category-badge unhealthy-for-sensitive-people" style="display:inline-block; margin-bottom: 20px;">101 - 150:
+                UNHEALTHY FOR SENSITIVE PEOPLE</div>
+            <p>Sensitive people may experience health effects. The general public is less likely to be affected.</p>
+            <i class="fa-solid fa-lungs" style="font-size:40px; color:#fb923c; margin-top:20px;"></i>
+        </div>
+        <div class="card text-center reveal reveal-delay-4" style="border-top: 5px solid #f43f5e;">
+            <div class="category-badge unhealthy" style="display:inline-block; margin-bottom: 20px;">151 - 200:
+                UNHEALTHY</div>
             <p>Everyone may begin to experience health effects. Wear masks and avoid prolonged outdoor activity.</p>
-            <i class="fa-solid fa-lungs-virus" style="font-size:40px; color:#f97316; margin-top:20px;"></i>
+            <i class="fa-solid fa-lungs-virus" style="font-size:40px; color:#f43f5e; margin-top:20px;"></i>
         </div>
-        <div class="card text-center reveal" style="grid-column: 1 / span 3; max-width: 600px; margin: 0 auto;">
-            <div class="category-badge hazardous" style="display:inline-block; margin-bottom: 20px;">> 300: Hazardous
+        <div class="card text-center reveal" style="grid-column: 1 / span 4; max-width: 600px; margin: 0 auto; margin-top: 24px; border-top: 5px solid #8b5cf6;">
+            <div class="category-badge hazardous" style="display:inline-block; margin-bottom: 20px;">> 300: HAZARDOUS
             </div>
             <p>Health warning of emergency conditions. The entire population is more likely to be affected. Stay
                 indoors, run air purifiers.</p>
             <i class="fa-solid fa-house-medical-circle-exclamation"
-                style="font-size:40px; color:#ef4444; margin-top:20px;"></i>
+                style="font-size:40px; color:#f43f5e; margin-top:20px;"></i>
         </div>
     </div>
 </section>
@@ -253,131 +283,89 @@
         <p>Why does air pollution happen, and how can we mitigate it?</p>
     </div>
 
-    <div class="grid-2">
-        <div class="card reveal reveal-delay-1">
-            <h2 style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-industry"
-                    style="color: #38bdf8;"></i> Causes of Pollution</h2>
-            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-car-side"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Vehicular Emissions & Traffic
-                        Congestion</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-smog"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Heavy Industrial Exhausts</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-fire-flame-curved"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Crop Burning & Agricultural
-                        Waste</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-city"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Construction Dust & Urban
-                        Expansion</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-trash-can"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Improper Waste Management</span>
-                </div>
-            </div>
-        </div>
-        <div class="card reveal reveal-delay-2">
-            <h2 style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-seedling"
-                    style="color: #38bdf8;"></i> Proposed Solutions</h2>
-            <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-charging-station"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Transition to Electric Vehicles
-                        (EVs)</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-solar-panel"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Invest in Renewable Energy
-                        Sources</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-tree"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Increase Urban Afforestation</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-train-subway"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Promote Public Transportation
-                        Systems</span>
-                </div>
-                <div
-                    style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                    <i class="fa-solid fa-clipboard-check"
-                        style="color: #38bdf8; font-size: 1.2rem; min-width: 24px; text-align: center;"></i>
-                    <span style="color: var(--text-primary); font-size: 0.95rem;">Enforce Industrial Emission
-                        Standards</span>
-                </div>
-            </div>
-        </div>
+    <div class="methodology-table-wrapper reveal reveal-delay-1">
+        <table class="methodology-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Causes of Pollution</th>
+                    <th>Proposed Solutions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fa-solid fa-car-side" style="color: var(--accent); margin-right: 8px;"></i> Transport</td>
+                    <td>Vehicular Emissions & Traffic Congestion</td>
+                    <td>Transition to Electric Vehicles (EVs) & Promote Public Transit</td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-industry" style="color: var(--accent); margin-right: 8px;"></i> Industry</td>
+                    <td>Heavy Industrial Exhausts & Manufacturing Waste</td>
+                    <td>Enforce Strict Industrial Emission Standards</td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-fire-flame-curved" style="color: var(--accent); margin-right: 8px;"></i> Agriculture</td>
+                    <td>Crop Burning & Agricultural Biomass Waste</td>
+                    <td>Introduce Sustainable Bio-Waste Management Tools</td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-city" style="color: var(--accent); margin-right: 8px;"></i> Urbanization</td>
+                    <td>Construction Dust & Unpaved Roads</td>
+                    <td>Increase Urban Afforestation & Green Belts</td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-trash-can" style="color: var(--accent); margin-right: 8px;"></i> Energy & Waste</td>
+                    <td>Improper Solid Waste Management & Coal Heating</td>
+                    <td>Invest in Renewable Energy Sources (Solar/Wind)</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="card reveal reveal-delay-3" style="margin-top: 30px;">
-        <h2><i class="fa-solid fa-book"></i> Pollutant Glossary: What Are We Measuring?</h2>
-        <div class="grid-2" style="margin-top: 20px; gap: 20px;">
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #ef4444;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">PM2.5 (Fine Particulate Matter)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">Microscopic particles (
-                    <2.5 µm) from vehicle exhaust and power plants. Can penetrate deep into the lungs and blood, causing
-                        severe respiratory/cardiovascular issues.</p>
-            </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #f97316;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">PM10 (Coarse Particulate Matter)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">Inhalable dust particles
-                    commonly from construction sites, unpaved roads, and industrial crushing operations. Triggers asthma
-                    attacks.</p>
-            </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #eab308;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">NO2 (Nitrogen Dioxide)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A highly reactive,
-                    suffocating gas primarily emitted by heavy vehicle traffic and fossil fuel power stations.</p>
-            </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #8b5cf6;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">SO2 (Sulfur Dioxide)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A toxic gas produced by
-                    burning sulfur-heavy fossil fuels like coal and crude oil. The main catalyst for acid rain.</p>
-            </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #64748b;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">CO (Carbon Monoxide)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A colorless, odorless,
-                    deadly gas resulting from the incomplete burning of carbon fuels, heavily tied to dense traffic
-                    jams.</p>
-            </div>
-            <div
-                style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid #14b8a6;">
-                <h4 style="color: var(--text-primary); margin-bottom: 5px;">O3 (Ground-Level Ozone)</h4>
-                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">A reactive gas created
-                    when sunlight bakes other pollutants (like NO2). It forms the main chemical ingredient in visible
-                    smog.</p>
-            </div>
+    <div class="card reveal reveal-delay-3" style="margin-top: 30px; padding: 0; background: transparent; border: none; box-shadow: none;">
+        <h2 style="margin-bottom: 15px;"><i class="fa-solid fa-book" style="color: var(--accent);"></i> Pollutant Glossary: What Are We Measuring?</h2>
+        <div class="methodology-table-wrapper">
+            <table class="methodology-table">
+                <thead>
+                    <tr>
+                        <th>Pollutant</th>
+                        <th>Definition & Primary Sources</th>
+                        <th>Health Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 700; color: #ef4444;">PM2.5</td>
+                        <td>Fine Particulate Matter (&lt;2.5 µm) from vehicle exhaust and power plants.</td>
+                        <td>Can penetrate deep into the lungs and blood, causing severe respiratory/cardiovascular issues.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #f97316;">PM10</td>
+                        <td>Coarse Particulate Matter from construction sites, unpaved roads, and crushing operations.</td>
+                        <td>Inhalable dust that irritates airways and frequently triggers severe asthma attacks.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #eab308;">NO2</td>
+                        <td>Nitrogen Dioxide, a highly reactive gas emitted by heavy vehicle traffic and fossil fuels.</td>
+                        <td>Highly suffocating; causes severe lung inflammation and reduces immunity to infections.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: var(--accent);">SO2</td>
+                        <td>Sulfur Dioxide, a toxic gas produced by burning sulfur-heavy fossil fuels like coal.</td>
+                        <td>Causes chest tightness, breathing pain, and contributes heavily to acid rain formation.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #64748b;">CO</td>
+                        <td>Carbon Monoxide, an odorless gas resulting from incomplete fuel burning in traffic.</td>
+                        <td>Deprives the body of vital oxygen, causing rapid onset of headaches and dizziness.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #14b8a6;">O3</td>
+                        <td>Ground-Level Ozone, a reactive gas created when sunlight bakes other urban pollutants.</td>
+                        <td>Irritates the throat, causes chest pain, and forms the main chemical ingredient of smog.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -392,22 +380,21 @@
     <div class="card">
         <div class="dashboard-controls"
             style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div>
-                <select id="year-select">
-                    <option value="2015">2015</option>
-                    <option value="2016">2016</option>
-                    <option value="2017">2017</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                </select>
+            <div style="flex-grow: 1; max-width: 400px; margin-right: 20px;">
+                <label for="year-select" style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">
+                    <span>Historical Year Timeline</span>
+                    <span id="year-display" style="color: var(--accent); font-size: 1.2rem; font-weight: 800;">2015</span>
+                </label>
+                <input type="range" id="year-select" min="2015" max="2025" value="2015" step="1" 
+                    style="width: 100%; cursor: pointer; accent-color: var(--accent);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
+                    <span>2015</span>
+                    <span>2020</span>
+                    <span>2025</span>
+                </div>
             </div>
             <div style="display: flex; gap: 10px;">
+
                 <button onclick="exportDashboardCSV()" class="btn-primary"
                     style="padding: 10px 20px; font-size: 0.9rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; transition: all 0.3s;">
                     <i class="fa-solid fa-file-csv"></i> Export CSV
@@ -531,6 +518,7 @@
             <div class="pollutants-summary" id="pollutants-summary">
                 <!-- Badges injected by JS -->
             </div>
+
         </div>
     </div> <!-- End dashboard-content-area wrapper -->
 </section>
@@ -555,11 +543,13 @@
             <div style="display: flex; gap: 10px; align-items: center;">
                 <button type="button" onclick="autoDetectCity('forecast-city-select')" id="btn-detect-forecast"
                     class="btn-primary"
-                    style="padding: 8px 15px; font-size: 0.9rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; min-width: auto;">
+                    style="padding: 6px 14px; font-size: 0.8rem; background: #f0f9ff; border: 1px solid #bae6fd; color: #0ea5e9; min-width: auto; border-radius: 20px; transition: all 0.3s ease;"
+                    onmouseover="this.style.background='#e0f2fe'; this.style.transform='translateY(-1px)';" 
+                    onmouseout="this.style.background='#f0f9ff'; this.style.transform='translateY(0)';">
                     <i class="fa-solid fa-crosshairs"></i> Auto-Detect
                 </button>
                 <select id="forecast-city-select"
-                    style="padding: 8px; border-radius: 6px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    style="padding: 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0,0,0,0.1); color: var(--text-primary); appearance: auto;">
                     <option value="Ahmedabad">Ahmedabad</option>
                     <option value="Bangalore">Bangalore</option>
                     <option value="Bhopal">Bhopal</option>
@@ -595,6 +585,7 @@
         <div class="chart-container" style="height: 500px; width: 100%;">
             <canvas id="forecastChart"></canvas>
         </div>
+
     </div>
 </section>
 
@@ -660,79 +651,211 @@
         });
     }
 
-    // --- LIVE API LOGIC ---
-    async function fetchLiveDataForSelectedCity() {
-        const city = document.getElementById('predict-city').value;
-        if (city === "Default") {
-            alert("Please select a specific city to fetch live data.");
-            return;
-        }
-
-        const btn = document.getElementById('btn-fetch-live');
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Fetching...';
-        btn.disabled = true;
-
-        try {
-            const coords = cityCoordinates[city];
-            if (!coords) throw new Error("Coordinates not found for this city.");
-
-            // Free API with no key required. Supports CORS. Returns hourly data.
-            const apiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coords.lat}&longitude=${coords.lon}&current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&timezone=auto`;
-
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-
-            const current = data.current;
-
-            // Note: Open-Meteo returns CO and NO2, SO2, O3 in µg/m³. 
-            // Our model expects NO2, SO2, O3 in ppb, and CO in ppm.
-            // Standard conversion formulas roughly at 25C and 1 ATM:
-            // CO (ppm) = CO (µg/m³) / 1145
-            // NO2 (ppb) = NO2 (µg/m³) / 1.88
-            // SO2 (ppb) = SO2 (µg/m³) / 2.62
-            // O3 (ppb) = O3 (µg/m³) / 1.96
-
-            const liveData = {
-                pm25: current.pm2_5 || 0,
-                pm10: current.pm10 || 0,
-                co: (current.carbon_monoxide / 1145) || 0,
-                no2: (current.nitrogen_dioxide / 1.88) || 0,
-                so2: (current.sulphur_dioxide / 2.62) || 0,
-                o3: (current.ozone / 1.96) || 0
-            };
-
-            // Ensure values are within slider bounds
-            liveData.pm25 = Math.min(500, Math.max(0, liveData.pm25));
-            liveData.pm10 = Math.min(500, Math.max(0, liveData.pm10));
-            liveData.no2 = Math.min(200, Math.max(0, liveData.no2));
-            liveData.so2 = Math.min(200, Math.max(0, liveData.so2));
-            liveData.co = Math.min(50, Math.max(0, liveData.co));
-            liveData.o3 = Math.min(200, Math.max(0, liveData.o3));
-
-            updateSliders(liveData);
-
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> Updated!';
-            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 2000);
-
-            // Optional: Automatically trigger prediction
-            // document.getElementById('predict-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-
-        } catch (error) {
-            console.error("Error fetching live data:", error);
-            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error';
-            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 3000);
-            alert("Failed to fetch live data. The external API might be rate-limited or unavailable.");
-        }
-    }
-
     // Make the timeframe dropdown auto-submit the form so users don't have to click Analyze again
     document.getElementById('predict-timeframe').addEventListener('change', function () {
-        // Trigger the form submission programmatically
         document.getElementById('predict-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     });
 
+    // ===================================================================
+    // === UTILITY FUNCTIONS ===
+    // ===================================================================
+
+    // Elegant inline error banner (replaces intrusive alert())
+    function showError(message) {
+        const banner = document.getElementById('error-banner');
+        if (banner) {
+            banner.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+            banner.style.display = 'block';
+            setTimeout(() => { banner.style.display = 'none'; }, 8000);
+        } else {
+            console.error('UI Error:', message);
+        }
+    }
+
+    // Share Results: Generates a premium PNG card using html2canvas
+    async function shareResults() {
+        const shareBtn = document.getElementById('btn-share-results');
+        const originalHtml = shareBtn.innerHTML;
+        
+        try {
+            // 1. Prepare data
+            const aqi = document.getElementById('result-aqi')?.textContent || '0';
+            const city = document.getElementById('result-city')?.textContent || 'Default';
+            const cat = document.getElementById('result-category')?.textContent || 'UNKNOWN';
+            const health = document.getElementById('result-health-risk')?.textContent || '--';
+            const precaution = document.getElementById('result-precaution')?.textContent || '--';
+            const solution = document.getElementById('result-solution')?.textContent || '--';
+            const now = new Date();
+            
+            // 2. Update Hidden Template
+            document.getElementById('sc-aqi').textContent = aqi;
+            document.getElementById('sc-city').textContent = city.toUpperCase();
+            document.getElementById('sc-category-badge').textContent = cat.toUpperCase();
+            document.getElementById('sc-health').textContent = health;
+            document.getElementById('sc-precaution').textContent = precaution;
+            document.getElementById('sc-solution').textContent = solution;
+            document.getElementById('sc-date').textContent = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+            document.getElementById('sc-time').textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            // Apply category-specific color to badge in template
+            const catLower = cat.toLowerCase();
+            let catColor = '#10b981'; // Green
+            if (catLower.includes('moderate')) catColor = '#f59e0b'; // Amber
+            if (catLower.includes('unhealthy')) catColor = '#f43f5e'; // Rose
+            if (catLower.includes('very unhealthy')) catColor = '#991b1b'; // Maroon
+            if (catLower.includes('hazardous')) catColor = '#8b5cf6'; // Purple
+            
+            const scBadge = document.getElementById('sc-category-badge');
+            scBadge.style.background = `${catColor}22`;
+            scBadge.style.color = catColor;
+            scBadge.style.border = `1px solid ${catColor}44`;
+
+            // 3. UI Feedback
+            shareBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+            shareBtn.disabled = true;
+
+            // 4. Render to Canvas
+            const template = document.getElementById('share-card-template');
+            // Temporarily move to visible area but transparent to ensure fonts/icons render
+            template.style.left = '50%';
+            template.style.top = '50%';
+            template.style.transform = 'translate(-50%, -50%)';
+            template.style.opacity = '0.01';
+            template.style.zIndex = '-1';
+
+            const canvas = await html2canvas(template.querySelector('div'), {
+                scale: 2, // Consistent high resolution
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                logging: false,
+                width: 500
+            });
+
+            // 5. Download PNG
+            const image = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = `AQI_Report_${city}_${now.getTime()}.png`;
+            link.href = image;
+            link.click();
+
+            // 6. Reset Template and Button
+            template.style.left = '-9999px';
+            template.style.top = '-9999px';
+            template.style.opacity = '1';
+            
+            shareBtn.innerHTML = '<i class="fa-solid fa-check"></i> Card Saved!';
+            shareBtn.style.color = '#10b981';
+            shareBtn.style.borderColor = '#10b98144';
+            
+            // Also copy text as fallback (Wrapped in separate try-catch to prevent main flow crash)
+            try { 
+                const textSummary = `🌿 AQI Report: ${city} | AQI: ${aqi} (${cat})\nHealth: ${health}\nSolution: ${solution}`;
+                navigator.clipboard.writeText(textSummary); 
+            } catch(e) { console.warn("Clipboard fallback failed, but PNG was generated."); }
+
+            setTimeout(() => {
+                shareBtn.innerHTML = originalHtml;
+                shareBtn.disabled = false;
+                shareBtn.style.color = '';
+                shareBtn.style.borderColor = '';
+            }, 3000);
+
+        } catch (err) {
+            console.error('Share failed:', err);
+            showError('Generation failed. Please try again.');
+            shareBtn.innerHTML = originalHtml;
+            shareBtn.disabled = false;
+        }
+    }
+
+    // ===================================================================
+    // === PREDICTION RESULT DISPLAY & AUTO-REFRESH SYSTEM ===
+    // ===================================================================
+
+    const resultContainer = document.getElementById('result-container');
+
+    // State for auto-refresh (lives outside the listener)
+    let lastPredictPayload = null;
+    let insightRefreshTimer = null;
+    let insightCountdownInterval = null;
+    let insightCountdownSeconds = 60;
+
+    // Shared helper: apply prediction result to the DOM (used by both submit and auto-refresh)
+    function updateInsightsDisplay(result, scrollToResult) {
+        if (!result.success) return;
+        document.getElementById('result-aqi').textContent = result.prediction;
+        const categoryEl = document.getElementById('result-category');
+        categoryEl.textContent = result.category;
+        const categoryClass = result.category.toLowerCase().replace(/ /g, '-');
+        categoryEl.className = 'category-badge ' + categoryClass;
+        document.getElementById('result-health-risk').textContent = result.health_risk;
+        document.getElementById('result-precaution').textContent = result.precaution;
+        document.getElementById('result-solution').textContent = result.solution;
+        document.getElementById('result-city-desc').textContent = result.city_description;
+        document.getElementById('result-city').textContent = result.city_name;
+
+        const constructedBadgeHtml = `<div class="category-badge ${categoryClass}" style="display:inline-block; font-size: 0.85rem; padding: 4px 10px; margin-top: 5px;">${result.category}</div>`;
+
+        const healthRiskHeader = document.getElementById('result-health-risk').previousElementSibling;
+        if (healthRiskHeader) { healthRiskHeader.dataset.detailedText = result.health_risk_detailed; healthRiskHeader.dataset.badgeHtml = constructedBadgeHtml; }
+
+        const precautionHeader = document.getElementById('result-precaution').previousElementSibling;
+        if (precautionHeader) { precautionHeader.dataset.detailedText = result.precaution_detailed; precautionHeader.dataset.badgeHtml = constructedBadgeHtml; }
+
+        const solutionHeader = document.getElementById('result-solution').previousElementSibling;
+        if (solutionHeader) { solutionHeader.dataset.detailedText = result.solution_detailed; solutionHeader.dataset.badgeHtml = constructedBadgeHtml; }
+
+        const cityDescHeader = document.getElementById('result-city-desc').previousElementSibling;
+        if (cityDescHeader) { cityDescHeader.dataset.detailedText = result.city_description_detailed; cityDescHeader.dataset.badgeHtml = constructedBadgeHtml; }
+
+        document.getElementById('result-dominant').textContent = result.dominant_pollutant;
+        document.getElementById('result-detail').textContent = result.detailed_reason;
+
+        resultContainer.style.display = 'block';
+        if (scrollToResult) {
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Start the visual countdown immediately
+        startInsightCountdown();
+    }
+
+    function startInsightCountdown() {
+        clearInterval(insightCountdownInterval);
+        insightCountdownSeconds = 60;
+        const cdEl = document.getElementById('insight-refresh-countdown');
+        if (cdEl) cdEl.innerHTML = `<i class="fa-solid fa-rotate" style="color:#10b981"></i> Auto-refreshes in 60s`;
+
+        insightCountdownInterval = setInterval(() => {
+            insightCountdownSeconds -= 1;
+            if (cdEl) cdEl.innerHTML = `<i class="fa-solid fa-rotate" style="color:#10b981"></i> Auto-refreshes in ${insightCountdownSeconds}s`;
+            if (insightCountdownSeconds <= 0) clearInterval(insightCountdownInterval);
+        }, 1000);
+    }
+
+    async function autoRefreshInsights() {
+        if (!lastPredictPayload || !resultContainer || resultContainer.style.display === 'none') return;
+        try {
+            const response = await fetch('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(lastPredictPayload)
+            });
+            const result = await response.json();
+            if (result.success) {
+                updateInsightsDisplay(result, false);
+                const cdEl = document.getElementById('insight-refresh-countdown');
+                if (cdEl) {
+                    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    cdEl.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981"></i> Updated at ${now}`;
+                    setTimeout(() => startInsightCountdown(), 2000);
+                }
+            }
+        } catch (err) { console.warn('Auto-refresh failed:', err); }
+    }
+
+    // === One and only submit listener ===
     document.getElementById('predict-form').addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -740,7 +863,6 @@
         const btnIcon = document.getElementById('btn-icon');
         const loader = document.getElementById('loader');
         const submitBtn = document.getElementById('submit-btn');
-        const resultContainer = document.getElementById('result-container');
 
         btnText.textContent = "Analyzing...";
         btnIcon.style.display = "none";
@@ -751,6 +873,10 @@
         const data = {};
         formData.forEach((value, key) => (data[key] = value));
 
+        if (window.waqiOfficialAqi) {
+            data.waqi_aqi = window.waqiOfficialAqi;
+        }
+
         try {
             const response = await fetch('/api/predict', {
                 method: 'POST',
@@ -759,33 +885,89 @@
             });
             const result = await response.json();
             if (result.success) {
-                document.getElementById('result-aqi').textContent = result.prediction;
-                const categoryEl = document.getElementById('result-category');
-                categoryEl.textContent = result.category;
-                const categoryClass = result.category.toLowerCase().replace(' ', '-');
-                categoryEl.className = 'category-badge ' + categoryClass;
-                document.getElementById('result-advice').textContent = result.advice;
+                lastPredictPayload = data;
+                updateInsightsDisplay(result, true);
 
-                document.getElementById('result-dominant').textContent = result.dominant_pollutant;
-                document.getElementById('result-detail').textContent = result.detailed_reason;
-                document.getElementById('result-city').textContent = result.city_name;
-                document.getElementById('result-city-desc').textContent = result.city_description;
+                // Show the Share button now that we have results
+                const shareBtn = document.getElementById('btn-share-results');
+                if (shareBtn) shareBtn.style.display = 'inline-flex';
 
-                resultContainer.style.display = 'block';
-                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                let cdEl = document.getElementById('insight-refresh-countdown');
+                if (!cdEl) {
+                    cdEl = document.createElement('div');
+                    cdEl.id = 'insight-refresh-countdown';
+                    cdEl.style.cssText = 'display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:20px;padding:3px 10px;margin-top:8px;';
+                    cdEl.innerHTML = `<i class="fa-solid fa-rotate" style="color:#10b981"></i> Auto-refreshes in 60s`;
+                    const rh = resultContainer.querySelector('.result-header');
+                    (rh || resultContainer).appendChild(cdEl);
+                }
+                clearInterval(insightRefreshTimer);
+                insightRefreshTimer = setInterval(autoRefreshInsights, 60000);
+                startInsightCountdown();
             } else {
-                alert("Error: " + result.error);
+                showError('Prediction failed: ' + (result.error || 'Unknown error'));
             }
         } catch (error) {
             console.error(error);
-            alert("An error occurred while communicating with the server.");
+            showError('Server connection error. Please restart the app and try again.');
         } finally {
             btnText.textContent = "Analyze Air Quality";
             btnIcon.style.display = "block";
             loader.style.display = "none";
             submitBtn.disabled = false;
+            fetchRecentLogs();
         }
     });
+
+    // --- LIVE FEED TICKER LOGIC ---
+    async function fetchRecentLogs() {
+        try {
+            const response = await fetch('/api/recent_logs');
+            const data = await response.json();
+            
+            if (data.success && data.logs.length > 0) {
+                const tbody = document.getElementById('live-logs-body');
+                tbody.innerHTML = ''; // clear loading message
+                
+                data.logs.forEach(log => {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const rowBorder = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+                    const rowHover = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)';
+                    
+                    // Create color badge for category
+                    let bgColor = '#10b981'; // good
+                    if(log.category === 'Moderate') bgColor = '#f59e0b';
+                    if(log.category === 'Unhealthy') bgColor = '#f43f5e';
+                    if(log.category === 'Very Unhealthy') bgColor = '#991b1b';
+                    if(log.category === 'Hazardous') bgColor = '#8b5cf6';
+                    
+                    const badgeBg = `${bgColor}11`;
+                    const badgeBorder = `${bgColor}22`;
+                    
+                    const row = `
+                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.3s; cursor: default;" onmouseover="this.style.background='rgba(0,0,0,0.02)'" onmouseout="this.style.background='none'">
+                            <td style="padding: 10px 5px; color: var(--text-secondary); font-size: 0.8rem;">${log.timestamp}</td>
+                            <td style="padding: 10px 5px; font-weight: 600;"><i class="fa-solid fa-location-dot" style="color:var(--accent); font-size:0.8rem; margin-right:4px;"></i>${log.city}</td>
+                            <td style="padding: 10px 5px;">${log.pm25} / ${log.no2}</td>
+                            <td style="padding: 10px 5px; font-weight: 600;">${log.aqi} AQI</td>
+                            <td style="padding: 10px 5px;">
+                                <span style="background: ${badgeBg}; color: ${bgColor}; border: 1px solid ${badgeBorder}; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">${log.category}</span>
+                            </td>
+                            <td style="padding: 10px 5px; font-size: 0.85rem; color: #f59e0b; font-weight: 600;">${log.dominant}</td>
+                        </tr>
+                    `;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+        } catch (error) {
+            console.error("Failed to fetch live logs:", error);
+        }
+    }
+
+    // Refresh live feed every 8 seconds
+    setInterval(fetchRecentLogs, 8000);
+    // Initial fetch on load
+    document.addEventListener('DOMContentLoaded', fetchRecentLogs);
 
     // Logic for Historical Dashboard
     let cityChartInstance = null;
@@ -883,79 +1065,7 @@
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         var d = R * c; // Distance in km
         return d;
-    }
 
-    function autoDetectCity(targetSelectId) {
-        const btnId = targetSelectId === 'predict-city' ? 'btn-detect-predict' : 'btn-detect-forecast';
-        const theBtn = document.getElementById(btnId);
-        const originalHtml = theBtn.innerHTML;
-
-        if (!navigator.geolocation) {
-            alert("Geolocation is not supported by your browser.");
-            return;
-        }
-
-        theBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Locating...';
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const userLat = position.coords.latitude;
-                const userLon = position.coords.longitude;
-                let closestCity = "Default";
-                let shortestDistance = Infinity;
-
-                // Simple nearest neighbor search
-                for (const [cityName, coords] of Object.entries(cityCoordinates)) {
-                    // Check if city exists in the target dropdown (Forecast only has 10 cities, Predict has 20)
-                    const dropdown = document.getElementById(targetSelectId);
-                    const optionExists = Array.from(dropdown.options).some(opt => opt.value === cityName);
-
-                    if (optionExists) {
-                        const distance = getDistanceFromLatLonInKm(userLat, userLon, coords.lat, coords.lon);
-                        if (distance < shortestDistance) {
-                            shortestDistance = distance;
-                            closestCity = cityName;
-                        }
-                    }
-                }
-
-                // If they are more than ~1500km from any of our cities, they are probably not in India.
-                if (shortestDistance > 1500 && closestCity !== "Default") {
-                    alert("You appear to be outside of India or too far from a supported city. Falling back to National Average / default.");
-                    closestCity = targetSelectId === 'predict-city' ? "Default" : "Delhi"; // Forecast defaults to Delhi if out of bounds
-                }
-
-                // Update UI
-                const dropdown = document.getElementById(targetSelectId);
-                dropdown.value = closestCity;
-
-                // Manually trigger the 'change' event to update graphs/forms
-                const event = new Event('change');
-                dropdown.dispatchEvent(event);
-
-                // Auto-fetch live data if it was the predict dropdown
-                if (targetSelectId === 'predict-city') {
-                    fetchLiveDataForSelectedCity();
-                }
-
-                theBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> ${closestCity}`;
-                setTimeout(() => { theBtn.innerHTML = originalHtml; }, 3000);
-            },
-            (error) => {
-                console.error("Geolocation error:", error);
-
-                let errorMsg = "Unable to retrieve your location. Please ensure you have granted browser location permissions.";
-                if (error.code === error.TIMEOUT) {
-                    errorMsg = "The request to get your location timed out. Please try again.";
-                }
-
-                // Use the custom UI modal instead of an intrusive browser alert box
-                openModal("Auto-Detect Failed", errorMsg);
-
-                theBtn.innerHTML = originalHtml;
-            },
-            { enableHighAccuracy: false, timeout: 15000, maximumAge: 0 }
-        );
     }
 
     function updateKPIs(data) {
@@ -1024,6 +1134,18 @@
             "O3": "Ground-level Ozone is created by chemical reactions between oxides of nitrogen and volatile organic compounds in sunlight. It triggers a variety of health problems."
         };
 
+        const getThemeColors = () => {
+            return {
+                text: '#1e293b',
+                grid: 'rgba(0,0,0,0.05)',
+                tooltipBg: '#ffffff',
+                tooltipText: '#0f172a',
+                tooltipBorder: 'rgba(0,0,0,0.2)'
+            };
+        };
+
+        const colors = getThemeColors();
+
         const commonOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -1047,21 +1169,22 @@
                 }
             },
             plugins: {
-                legend: { labels: { color: '#ffffff' } },
+                legend: { labels: { color: colors.text, font: { weight: '600' } } },
                 tooltip: {
-                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                    titleColor: '#38bdf8',
-                    bodyColor: '#fff',
-                    borderColor: 'rgba(255,255,255,0.1)',
+                    backgroundColor: '#ffffff',
+                    titleColor: '#0f172a',
+                    bodyColor: '#334155',
+                    borderColor: 'rgba(0,0,0,0.1)',
                     borderWidth: 1,
                     padding: 12,
                     cornerRadius: 8,
-                    displayColors: false
+                    displayColors: false,
+                    bodyFont: { weight: '700' }
                 }
             },
             scales: {
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },
-                x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                y: { ticks: { color: colors.text }, grid: { color: colors.grid } },
+                x: { ticks: { color: colors.text }, grid: { display: false } }
             }
         };
 
@@ -1120,7 +1243,7 @@
                     hoverOffset: 4
                 }]
             },
-            options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { position: 'right', labels: { color: '#fff' } } }, scales: {} }
+            options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { position: 'right', labels: { color: '#334155' } } }, scales: {} }
         });
 
         // 4. Comparison Chart (Best vs Worst)
@@ -1140,7 +1263,10 @@
             },
             options: commonOptions
         });
+
     }
+
+
 
     function updatePollutantBadges(pollutants) {
         const container = document.getElementById('pollutants-summary');
@@ -1170,19 +1296,39 @@
         }
     }
 
-    document.getElementById('year-select').addEventListener('change', function (e) {
-        loadDashboardData(e.target.value);
+    let yearDebounceTimer;
+    const yearSelect = document.getElementById('year-select');
+    const yearDisplay = document.getElementById('year-display');
+
+    yearSelect.addEventListener('input', function (e) {
+        yearDisplay.textContent = e.target.value;
+        clearTimeout(yearDebounceTimer);
+        yearDebounceTimer = setTimeout(() => {
+            loadDashboardData(e.target.value);
+        }, 150); // fast 150ms debounce for rapid timeline anim
     });
 
     // --- FORECASTING LOGIC ---
     let forecastChartInstance = null;
+    let currentForecastData = null;
 
     async function loadForecastData(city) {
         try {
+            // Provide immediate visual feedback that we are fetching new data
+            const badge = document.getElementById('forecast-city-badge'); // Assuming a badge element exists for feedback
+            if (badge) {
+                badge.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Fetching ${city}...`;
+                badge.style.display = 'block';
+                badge.style.background = 'rgba(16, 185, 129, 0.1)';
+                badge.style.borderColor = '#10b98166';
+                badge.style.color = '#10b981';
+            }
+
             const response = await fetch(`/api/forecast?city=${city}`);
             const data = await response.json();
 
             if (data.success) {
+                currentForecastData = data.forecast;
                 document.getElementById('forecast-insight-text').innerHTML = data.forecast.insight;
                 renderForecastChart(data);
             }
@@ -1192,6 +1338,17 @@
     }
 
     function renderForecastChart(data) {
+        const getThemeColors = () => {
+            return {
+                text: '#1e293b',
+                grid: 'rgba(0,0,0,0.05)',
+                tooltipBg: '#ffffff',
+                tooltipText: '#0f172a',
+                tooltipBorder: 'rgba(0,0,0,0.2)'
+            };
+        };
+        const colors = getThemeColors();
+
         const ctx = document.getElementById('forecastChart').getContext('2d');
         if (forecastChartInstance) {
             forecastChartInstance.destroy();
@@ -1267,21 +1424,22 @@
                 },
 
                 plugins: {
-                    legend: { labels: { color: '#ffffff' } },
+                    legend: { labels: { color: colors.text, font: { weight: '600' } } },
                     tooltip: {
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                        titleColor: '#38bdf8',
-                        bodyColor: '#fff',
-                        borderColor: 'rgba(255,255,255,0.1)',
+                        backgroundColor: '#ffffff',
+                        titleColor: '#0f172a',
+                        bodyColor: '#334155',
+                        borderColor: 'rgba(0,0,0,0.1)',
                         borderWidth: 1,
-                        padding: 12
+                        padding: 12,
+                        bodyFont: { weight: '700' }
                     }
                 },
                 scales: {
-                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                    y: { ticks: { color: colors.text }, grid: { color: colors.grid } },
                     x: {
                         type: 'category',
-                        ticks: { color: '#94a3b8', maxTicksLimit: 24 },
+                        ticks: { color: colors.text, maxTicksLimit: 24 },
                         grid: { display: false }
                     }
                 }
@@ -1312,9 +1470,17 @@
     });
 
     // --- CUSTOM MODAL LOGIC ---
-    function openModal(title, text) {
+    function openModal(title, text, badgeHtml = null) {
         document.getElementById('modal-title').textContent = title;
         document.getElementById('modal-text').innerHTML = text;
+        const badgeContainer = document.getElementById('modal-badge-container');
+        if (badgeHtml) {
+            badgeContainer.innerHTML = badgeHtml;
+            badgeContainer.style.display = "block";
+        } else {
+            badgeContainer.innerHTML = "";
+            badgeContainer.style.display = "none";
+        }
         document.getElementById('chart-insight-modal').classList.add('active');
     }
 
@@ -1327,14 +1493,227 @@
         if (e.target === this) closeModal();
     });
 
+
+
+    // --- LIVE API LOGIC ---
+    // Stores the official CPCB AQI from WAQI so we can pass it to the predict endpoint
+    window.waqiOfficialAqi = null;
+    window.waqiOfficialStation = null;
+
+    async function fetchLiveDataForSelectedCity() {
+        const city = document.getElementById('predict-city').value;
+        if (city === "Default") {
+            showError("Please select a specific city to fetch live data.");
+            return;
+        }
+
+        // Reset global city state to prevent 'Sticky City' bugs
+        window.waqiOfficialAqi = null;
+        window.waqiOfficialStation = null;
+
+        const btn = document.getElementById('btn-fetch-live');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Fetching ${city}...`;
+        btn.disabled = true;
+
+        try {
+            // === Step 1: Fetch OFFICIAL CPCB AQI from WAQI (via secure backend) ===
+            const waqiResp = await fetch(`/api/liveaqi?city=${encodeURIComponent(city)}`);
+            const waqiData = await waqiResp.json();
+
+            if (waqiData.success && waqiData.aqi > 0) {
+                window.waqiOfficialAqi = waqiData.aqi;
+                window.waqiOfficialStation = waqiData.station || city;
+                console.log(`WAQI Official AQI for ${city}: ${waqiData.aqi} (${waqiData.station})`);
+            } else {
+                // If backend returns a successful 0 AQI with a 'Calculated' station, it's a model fallback
+                window.waqiOfficialAqi = null;
+                window.waqiOfficialStation = waqiData.station || "Calculated (Regional Baseline)";
+                console.warn("WAQI fetch returned fallback status:", waqiData.message || waqiData.error);
+            }
+
+            // === Step 2: Fetch individual pollutant values from Open-Meteo (for sliders) ===
+            const coords = cityCoordinates[city];
+            if (coords) {
+                const apiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${coords.lat}&longitude=${coords.lon}&current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&timezone=auto`;
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const omData = await response.json();
+                    const current = omData.current;
+                    const liveData = {
+                        pm25: current.pm2_5 || 0,
+                        pm10: current.pm10 || 0,
+                        no2:  current.nitrogen_dioxide || 0,
+                        so2:  current.sulphur_dioxide || 0,
+                        o3:   current.ozone || 0,
+                        co:   (current.carbon_monoxide / 1000) || 0
+                    };
+                    liveData.pm25 = Math.min(500, Math.max(0, liveData.pm25));
+                    liveData.pm10 = Math.min(500, Math.max(0, liveData.pm10));
+                    liveData.no2  = Math.min(400, Math.max(0, liveData.no2));
+                    liveData.so2  = Math.min(1600, Math.max(0, liveData.so2));
+                    liveData.co   = Math.min(34, Math.max(0, liveData.co));
+                    liveData.o3   = Math.min(500, Math.max(0, liveData.o3));
+                    updateSliders(liveData);
+                }
+            }
+
+            const currentTime = new Date();
+            const timeString = currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const stationLabel = window.waqiOfficialStation ? ` · ${window.waqiOfficialStation}` : '';
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> Live Data as of ${timeString}${stationLabel}`;
+            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 5000);
+
+        } catch (error) {
+            console.error("Error fetching live data:", error);
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error';
+            setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 3000);
+            alert("Failed to fetch live data. Please check your internet connection.");
+        }
+    }
+
+
+
+    function autoDetectCity(targetSelectId) {
+        const btnId = targetSelectId === 'predict-city' ? 'btn-detect-predict' : 'btn-detect-forecast';
+        const theBtn = document.getElementById(btnId);
+        const originalHtml = theBtn.innerHTML;
+
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser.");
+            return;
+        }
+
+        theBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Locating...';
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+                let closestCity = "Default";
+                let shortestDistance = Infinity;
+
+                // Simple nearest neighbor search
+                for (const [cityName, coords] of Object.entries(cityCoordinates)) {
+                    // Check if city exists in the target dropdown (Forecast only has 10 cities, Predict has 20)
+                    const dropdown = document.getElementById(targetSelectId);
+                    const optionExists = Array.from(dropdown.options).some(opt => opt.value === cityName);
+
+                    if (optionExists) {
+                        const distance = getDistanceFromLatLonInKm(userLat, userLon, coords.lat, coords.lon);
+                        if (distance < shortestDistance) {
+                            shortestDistance = distance;
+                            closestCity = cityName;
+                        }
+                    }
+                }
+
+                // If they are more than ~1500km from any of our cities, they are probably not in India.
+                if (shortestDistance > 1500 && closestCity !== "Default") {
+                    showError("You appear to be outside of India or too far from a supported city. Falling back to National Average.");
+                    closestCity = targetSelectId === 'predict-city' ? "Default" : "Delhi"; // Forecast defaults to Delhi if out of bounds
+                }
+
+                // Update UI
+                const dropdown = document.getElementById(targetSelectId);
+                dropdown.value = closestCity;
+
+                // Manually trigger the 'change' event to update graphs/forms
+                const event = new Event('change');
+                dropdown.dispatchEvent(event);
+
+                // Auto-fetch live data if it was the predict dropdown
+                if (targetSelectId === 'predict-city') {
+                    fetchLiveDataForSelectedCity();
+                }
+
+                theBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> ${closestCity}`;
+                setTimeout(() => { theBtn.innerHTML = originalHtml; }, 3000);
+            },
+            (error) => {
+                console.error("Geolocation error:", error);
+
+                let errorMsg = "Unable to retrieve your location. Please ensure you have granted browser location permissions.";
+                if (error.code === error.TIMEOUT) {
+                    errorMsg = "The request to get your location timed out. Please try again.";
+                }
+
+                // Use the custom UI modal instead of an intrusive browser alert box
+                openModal("Auto-Detect Failed", errorMsg);
+
+                theBtn.innerHTML = originalHtml;
+            },
+            { enableHighAccuracy: false, timeout: 15000, maximumAge: 0 }
+        );
+    }
 </script>
+
+<!-- Hidden Share Card Template (Rendered as PNG via html2canvas) -->
+<div id="share-card-template" style="position: absolute; left: -9999px; top: -9999px;">
+    <div style="width: 500px; padding: 50px 40px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; font-family: 'Outfit', sans-serif; border-radius: 28px; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+        <!-- Decorative Background Element -->
+        <div style="position: absolute; top: -50px; right: -50px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%); border-radius: 50%;"></div>
+        
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 25px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; background: #10b981; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-leaf" style="color: white; font-size: 22px;"></i>
+                </div>
+                <div style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em;">AQI Intelligence</div>
+            </div>
+            <div style="font-size: 0.85rem; color: #94a3b8; text-align: right; line-height: 1.4;">
+                <div id="sc-date">-- --- ----</div>
+                <div id="sc-time" style="font-weight: 600; color: #cbd5e1;">--:--:--</div>
+            </div>
+        </div>
+
+        <!-- City & AQI -->
+        <div style="text-align: center; margin-bottom: 45px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #94a3b8; font-size: 0.95rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500;">
+                <i class="fa-solid fa-location-dot" style="color:#10b981"></i> <span id="sc-city">DELHI</span>
+            </div>
+            <!-- Removed background-clip for html2canvas compatibility -->
+            <div style="font-size: 6rem; font-weight: 800; line-height: 1; margin-bottom: 15px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.3);" id="sc-aqi">0</div>
+            <div id="sc-category-badge" style="display: inline-block; padding: 8px 20px; border-radius: 40px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.1);">UNKNOWN</div>
+        </div>
+
+        <!-- Insights Grid (Less congested, more gap) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 18px;">
+                <div style="color: #f59e0b; font-size: 0.8rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;"><i class="fa-solid fa-triangle-exclamation"></i> Health Risk</div>
+                <div id="sc-health" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; font-weight: 400;">Waiting for analysis...</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 18px;">
+                <div style="color: #10b981; font-size: 0.8rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;"><i class="fa-solid fa-shield-heart"></i> Precaution</div>
+                <div id="sc-precaution" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; font-weight: 400;">Waiting for analysis...</div>
+            </div>
+        </div>
+
+        <!-- Solution Footer -->
+        <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); padding: 25px; border-radius: 20px;">
+            <div style="color: #10b981; font-weight: 800; font-size: 0.85rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="fa-solid fa-lightbulb"></i> AI Recommendation
+            </div>
+            <div id="sc-solution" style="font-size: 1rem; color: #f1f5f9; line-height: 1.6; font-style: italic; border-left: 3px solid #10b981; padding-left: 15px;">Select parameters to generate custom AI solution.</div>
+        </div>
+
+        <!-- Footer Branding -->
+        <div style="margin-top: 40px; text-align: center; font-size: 0.75rem; color: #475569; letter-spacing: 0.1em; font-weight: 600;">
+            AI-POWERED ENVIRONMENTAL INTELLIGENCE • AQI-DASHBOARD.LIVE
+        </div>
+    </div>
+</div>
 
 <!-- Custom Insight Modal -->
 <div id="chart-insight-modal" class="custom-modal-overlay">
     <div class="custom-modal">
         <div class="custom-modal-header">
-            <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> Insight for <span
-                    id="modal-title"></span></h3>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+                <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> Insight for <span
+                        id="modal-title"></span></h3>
+                <div id="modal-badge-container"></div>
+            </div>
             <button class="custom-modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="custom-modal-body" id="modal-text">

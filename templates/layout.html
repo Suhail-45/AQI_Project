@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -25,11 +26,11 @@
                 <h2>AQI System</h2>
             </div>
             <div id="live-clock"
-                style="font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.9rem; color: #94a3b8; display: flex; align-items: center; gap: 8px;">
+                style="font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.9rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
                 <i class="fa-regular fa-clock"></i> <span id="clock-time">--:--:--</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#predictive"><i class="fa-solid fa-calculator"></i> Prediction</a></li>
+                <li><a href="#prediction-form-card"><i class="fa-solid fa-calculator"></i> Prediction</a></li>
                 <li><a href="#advisory"><i class="fa-solid fa-heart-pulse"></i> Health Advisory</a></li>
                 <li><a href="#methodology"><i class="fa-solid fa-book-open"></i> Methodology</a></li>
                 <li><a href="#dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>

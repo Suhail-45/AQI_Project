@@ -11,6 +11,7 @@
         {% if category == 'Good' %}good
         {% elif category == 'Moderate' %}moderate
         {% elif category == 'Unhealthy' %}unhealthy
+        {% elif category == 'Unhealthy for Sensitive People' %}unhealthy-for-sensitive-people
         {% elif category == 'Very Unhealthy' %}very-unhealthy
         {% else %}hazardous
         {% endif %}
@@ -18,7 +19,29 @@
         {{ category }}
     </div>
 
-    <p style="margin-top:20px;">{{ advice }}</p>
+    {% set badge_html = '<div class="category-badge ' + (
+        'good' if category == 'Good' else
+        'moderate' if category == 'Moderate' else
+        'unhealthy' if category == 'Unhealthy' else
+        'unhealthy-for-sensitive-people' if category == 'Unhealthy for Sensitive People' else
+        'very-unhealthy' if category == 'Very Unhealthy' else
+        'hazardous'
+    ) + '" style="display:inline-block; font-size: 0.85rem; padding: 4px 10px; margin-top: 5px;">' + category + '</div>' %}
+
+    <div style="margin-top: 20px; text-align: left; background: rgba(0, 0, 0, 0.03); border-radius: 12px; padding: 20px; border: 1px solid rgba(0, 0, 0, 0.1);">
+        <p style="margin-bottom: 15px; font-size: 0.95rem;">
+            <strong onclick="if(typeof openModal === 'function') openModal('Health Risk Details', '{{ health_risk_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Health Risk:</strong> 
+            <span style="color: var(--text-secondary);">{{ health_risk_short }}</span>
+        </p>
+        <p style="margin-bottom: 15px; font-size: 0.95rem;">
+            <strong onclick="if(typeof openModal === 'function') openModal('Precautionary Measures', '{{ precaution_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-shield-heart" style="color: #10b981;"></i> Precaution:</strong> 
+            <span style="color: var(--text-secondary);">{{ precaution_short }}</span>
+        </p>
+        <p style="margin: 0; font-size: 0.95rem;">
+            <strong onclick="if(typeof openModal === 'function') openModal('Required Solutions', '{{ solution_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-lightbulb" style="color: #3b82f6;"></i> Required Solution:</strong> 
+            <span style="color: var(--text-secondary);">{{ solution_short }}</span>
+        </p>
+    </div>
 
     <!-- AI Reasoning Section -->
     <div
@@ -41,13 +64,14 @@
 
         <div style="margin-top: 20px; margin-bottom: 10px;">
             <span style="color: var(--text-secondary); font-size: 0.9rem;">Regional Pollution Insight:</span><br>
-            <strong style="color: var(--text-primary); font-size: 1.05rem;"><i class="fa-solid fa-map-location-dot"></i>
-                {{ city_name }}</strong>
+            <strong onclick="if(typeof openModal === 'function') openModal('Regional Pollution Insight - {{ city_name }}', '{{ city_desc_detailed | escape }}', '{{ badge_html | safe }}')" style="color: var(--text-primary); font-size: 1.05rem; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                <i class="fa-solid fa-map-location-dot"></i> {{ city_name }}
+            </strong>
         </div>
 
         <p
             style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid #10b981;">
-            {{ city_description }}
+            {{ city_desc_short }}
         </p>
     </div>
 
