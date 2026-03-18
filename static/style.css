@@ -129,6 +129,21 @@ h6 {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
+/* Mobile Scroll Fade Indicator */
+@media screen and (max-width: 600px) {
+    .top-nav::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 40px;
+        height: 60px; /* Height of the nav-links area */
+        background: linear-gradient(to right, transparent, var(--glass-bg));
+        pointer-events: none;
+        z-index: 1001;
+    }
+}
+
 .nav-brand {
     display: flex;
     align-items: center;
@@ -588,7 +603,11 @@ button.btn-primary:active {
     }
 
     section {
-        padding: 40px 24px;
+        padding: 30px 15px;
+    }
+
+    .card {
+        padding: 20px 15px;
     }
 }
 
@@ -598,10 +617,11 @@ button.btn-primary:active {
     }
 
     .top-nav {
-        padding: 12px 16px;
+        padding: 12px 20px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
     }
 
     /* Convert navigation links to horizontal scrollable row on phones */
@@ -611,8 +631,15 @@ button.btn-primary:active {
         white-space: nowrap;
         justify-content: flex-start;
         gap: 20px;
-        padding-bottom: 5px;
+        padding-bottom: 8px; /* More space for scrollbar */
         -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) transparent;
+    }
+
+    .nav-links li {
+        scroll-snap-align: start;
     }
 
     /* Force space at the end of the scroll container */
@@ -656,7 +683,8 @@ button.btn-primary:active {
     }
 
     .chart-container {
-        height: 280px;
+        height: 250px;
+        padding: 10px;
     }
 
     /* Sliders: full width on mobile to prevent overflow */
