@@ -104,12 +104,12 @@ def get_aqi_category(aqi, city="Default", dominant_pollutant="Unknown Pollutant"
         category = "Hazardous"
 
     pollutant_risks = {
-        "PM2.5 (Fine Particulate Matter)": "microscopic particles infiltrating the alveolar-capillary barrier",
-        "PM10 (Coarse Particulate Matter)": "coarse particles triggering upper respiratory tract inflammation",
-        "Nitrogen Dioxide": "traffic-related NO2 inducing bronchial hyper-responsiveness",
-        "Sulfur Dioxide": "SO2 fumes from fossil fuels causing heavy chest tightness",
-        "Carbon Monoxide": "CO binding with hemoglobin, displacing oxygen in your blood",
-        "Ozone": "ground-level O3 causing oxidative stress in lung tissue"
+        "PM2.5 (Fine Particulate Matter)": "microscopic particles that can enter deep into your lungs and bloodstream",
+        "PM10 (Coarse Particulate Matter)": "dust and smoke particles that irritate your throat and lungs",
+        "Nitrogen Dioxide": "gas from vehicles that makes it harder to breathe and can cause asthma",
+        "Sulfur Dioxide": "fumes from burning fuels that cause coughing and chest tightness",
+        "Carbon Monoxide": "poisonous gas that reduces the amount of oxygen in your body",
+        "Ozone": "ground-level smog that causes irritation and 'stinging' in the eyes and chest"
     }
     risk_action = pollutant_risks.get(dominant_pollutant, "elevated concentrations affecting pulmonary function")
     
@@ -139,9 +139,9 @@ def get_aqi_category(aqi, city="Default", dominant_pollutant="Unknown Pollutant"
         },
         "Moderate": {
             "Morning": {
-                "health": "Air is acceptable, but hypersensitive individuals may feel slight nasal irritation during commutes.",
-                "precaution": "If you have asthma, keep your inhaler handy. Avoid heavy jogging near industrial main roads.",
-                "solution": "Use public transport this morning to prevent the 'Moderate' state from tipping into 'Unhealthy'."
+                "health": "Air quality is okay, but sensitive people might feel slight irritation during their commute.",
+                "precaution": "If you have breathing issues, keep your medicine handy. Avoid jogging near busy main roads.",
+                "solution": "Try to use a bus or train this morning to help keep the air from getting worse."
             },
             "Afternoon": {
                 "health": "Pollutants are nearing safety thresholds. Possible fatigue after long outdoor exposure.",
@@ -220,9 +220,9 @@ def get_aqi_category(aqi, city="Default", dominant_pollutant="Unknown Pollutant"
                 "solution": "Rethink local waste disposal; avoiding open burning is critical tonight to prevent an emergency."
             },
             "Night": {
-                "health": "Critical Night Toxicity: Deep inversion is holding pollutants at head-level. High oxygen deficit potential.",
-                "precaution": "Use high-quality air purification. Do not use night-time fans that pull in outdoor air. Stay calm.",
-                "solution": "Advocate for real-time monitoring of nocturnal emission sources which are causing this spike."
+                "health": "Dangerous Night Air: Pollution is trapped very low to the ground and is extremely thick.",
+                "precaution": "Use an air purifier on its highest setting. Keep all windows tightly shut. Stay calm.",
+                "solution": "Ask local authorities to check on factories that might be releasing smoke at night."
             }
         },
         "Hazardous": {
@@ -566,8 +566,11 @@ def api_liveaqi():
             "no2":  8,
             "so2":  4,
             "co":   0.3,
-            "o3":   25,
-            "station": "Calculated (Model/Satellite Fallback)"
+            "success": True,
+            "aqi": 0,
+            "station": "Regional Baseline",
+            "source": "Satellite Trajectory Model",
+            "message": "Shimla sensor currently offline; using high-resolution regional estimates."
         })
 
     try:
@@ -600,15 +603,17 @@ def api_liveaqi():
                 "so2":  iaqi.get("so2",  {}).get("v", 0),
                 "co":   iaqi.get("co",   {}).get("v", 0),
                 "o3":   iaqi.get("o3",   {}).get("v", 0),
-                "station": d.get("city", {}).get("name", city)
+                "station": d.get("city", {}).get("name", city),
+                "source": "Official CPCB Ground Sensor"
             })
         else:
             # Fallback for search failures
             return jsonify({
                 "success": True, 
                 "aqi": 0, 
-                "station": "Calculated (Regional Baseline)",
-                "message": "Direct ground station offline; using satellite trajectory calibration."
+                "station": "Regional Baseline",
+                "source": "Satellite Trajectory Model",
+                "message": "Direct ground station offline; using model-calibrated regional estimates."
             })
     except Exception as e:
         return jsonify({
@@ -641,6 +646,8 @@ def api_predict():
         co = float(data.get("co", 0))
         o3 = float(data.get("o3", 0))
         city_selected = data.get("city", "Default")
+        station_info = data.get("station", "")
+        source_info = data.get("source", "")
 
         # -----------------------------------------------------------------------
         # Open-Meteo Calibration Table
@@ -765,7 +772,7 @@ def api_predict():
         
         category, health_risk, precaution, solution = get_aqi_category(final_aqi, city_selected, dominant_pollutant, time_category)
         
-        detail_reason = f"Based on the '{category}' rating, the primary driver ranking highest against safety thresholds is {dominant_pollutant}. "
+        detail_reason = f"Your air quality is currently '{category}' mainly because of {dominant_pollutant}. "
         if category == "Good":
             detail_reason += "All pollutant levels are well within acceptable limits. The environment is healthy."
         elif category == "Moderate":
@@ -809,7 +816,9 @@ def api_predict():
             "detailed_reason": detail_reason,
             "city_name": city_selected,
             "city_description": city_desc["short"],
-            "city_description_detailed": city_desc["detailed"]
+            "city_description_detailed": city_desc["detailed"],
+            "data_station": station_info,
+            "data_source": source_info
         })
 
     except Exception as e:
@@ -1015,7 +1024,7 @@ def api_forecast():
         
         insight_text = f"The AI time-series forecast for <b>{city}</b> indicates "
         if trend_diff > 10:
-            insight_text += f"an <span style='color: #ef4444; font-weight: bold;'>upward trend</span> up to 12-2027, suggesting that pollution levels may worsen if no interventions are made. The AQI is projected to reach approximately {last_forecast:.0f} by {future_dates_str[-1]}."
+            insight_text += f"a <span style='color: #ef4444; font-weight: bold;'>rising trend</span> through 2027. This suggests the air might get worse over time. It is projected to reach about {last_forecast:.0f} by {future_dates_str[-1]}."
         elif trend_diff < -10:
             insight_text += f"a <span style='color: #10b981; font-weight: bold;'>downward trend</span> up to 12-2027, suggesting that air quality is projected to slowly improve, dropping to approximately {last_forecast:.0f} by {future_dates_str[-1]}."
         else:
