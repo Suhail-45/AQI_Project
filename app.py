@@ -117,134 +117,134 @@ def get_aqi_category(aqi, city="Default", dominant_pollutant="Unknown Pollutant"
     content_matrix = {
         "Good": {
             "Morning": {
-                "health": "Air quality is exceptional. Ideal for morning cardiovascular activities and deep breathing exercises.",
-                "precaution": "No masks required. Keep windows fully open to purge indoor air and refresh your living space.",
-                "solution": "Take the stairs or walk to work today to minimize your carbon footprint during this clean window."
+                "health": "Air quality is excellent right now. Go ahead and enjoy your morning walk, jog, or outdoor exercise — this is the best time to be out.",
+                "precaution": "No mask needed. Open your windows and let the fresh air into your home. Breathe freely!",
+                "solution": "This is a great day to walk or cycle instead of taking the car. Every small choice like this helps keep the air clean for everyone."
             },
             "Afternoon": {
-                "health": "Atmospheric conditions are pristine. Ideal for outdoor lunch and sustained physical activity.",
-                "precaution": "No respiratory precautions needed. Take advantage of the high visibility and clean air.",
-                "solution": "Advocate for long-term clean air policies to maintain these rare, ideal conditions."
+                "health": "The air is clean and clear. You can safely spend time outdoors, eat outside, or do any physical activity.",
+                "precaution": "Nothing special to worry about today. Just drink some water and enjoy the good weather and clean air.",
+                "solution": "Enjoy the clean air and try to keep it that way — switch off lights and fans when you leave a room to save energy."
             },
             "Evening": {
-                "health": "The air is extremely healthy. Perfect for evening strolls or outdoor recreational sports.",
-                "precaution": "Enjoy full outdoor freedom. Natural ventilation is safe and highly recommended.",
-                "solution": "Incorporate low-impact green habits to ensure the city wakes up to similar air tomorrow."
+                "health": "Air is very clean in the evening. A perfect time for a walk in the park or some outdoor time with family.",
+                "precaution": "No precautions needed. Go outside, get some fresh air, and enjoy the evening.",
+                "solution": "Share air quality updates with your neighbors so they can enjoy the fresh air too. Simple actions spread awareness."
             },
             "Night": {
-                "health": "Cleanest night air detected. High oxygen-to-pollutant ratio supports deep, restorative sleep.",
-                "precaution": "Safe to sleep with windows open. Natural nighttime cooling will refresh your home beautifully.",
-                "solution": "Ensure all electronic devices are in low-power mode to minimize overnight energy usage."
+                "health": "The night air is very clean and healthy. You will sleep well with fresh air around you.",
+                "precaution": "You can safely sleep with your windows open tonight. The cool night air will help you breathe better.",
+                "solution": "Turn off unnecessary gadgets at night to save power. Less power used = less pollution generated at power plants."
             }
         },
         "Moderate": {
             "Morning": {
-                "health": "Air quality is okay, but sensitive people might feel slight irritation during their commute.",
-                "precaution": "If you have breathing issues, keep your medicine handy. Avoid jogging near busy main roads.",
-                "solution": "Try to use a bus or train this morning to help keep the air from getting worse."
+                "health": "Air quality is okay but not perfect. Most people will be fine outside, but if you have breathing problems like asthma, be a little careful.",
+                "precaution": "If you have a breathing condition, carry your inhaler or medicine just in case. Avoid jogging on roadsides with heavy traffic.",
+                "solution": "Try to use public transport, share a cab, or carpool today. Fewer vehicles on the road means less smoke in the air for everyone."
             },
             "Afternoon": {
-                "health": "Pollutants are nearing safety thresholds. Possible fatigue after long outdoor exposure.",
-                "precaution": "Limit intense outdoor workouts between 12 PM - 4 PM when heat and local emissions peak.",
-                "solution": "Minimize air conditioner usage to reduce cooling-related industrial load in the afternoon."
+                "health": "The air is getting a little dirtier in the afternoon. You may feel slightly tired if you spend too long outside in the heat.",
+                "precaution": "Avoid heavy exercise outdoors between noon and 4 PM. Go inside when it gets too hot — the heat makes pollution worse.",
+                "solution": "Avoid unnecessary car trips in the afternoon. Even one less trip helps reduce smoke and fumes on the road."
             },
             "Evening": {
-                "health": "Moderate smog detected. Dropping temperatures are slowly concentrating localized vehicular exhaust.",
-                "precaution": "Wear a light mask if walking near heavy traffic. Hydrate well to flush out inhaled irritants.",
-                "solution": "Turn off your engine at traffic signals to reduce the evening localized toxic load."
+                "health": "Some smoke and dust is building up in the evening air. People near busy roads may feel slight throat irritation.",
+                "precaution": "If you are near heavy traffic, wear a simple mask. Drink plenty of water to help your body deal with dust.",
+                "solution": "Switch off your vehicle engine when waiting at traffic signals. This small habit reduces smoke significantly."
             },
             "Night": {
-                "health": "Subtle levels of pollutants are present. The air is slightly stale as it cools.",
-                "precaution": "Use an air purifier on low during sleep for optimal recovery. Keep windows closed after 11 PM.",
-                "solution": "Reducing nighttime energy consumption helps stabilize the power grid's emission output."
+                "health": "The air is slightly stale at night as it cools down. Most people will be fine, but light sensitivity is possible.",
+                "precaution": "Close your windows after 11 PM. If you have an air purifier, run it on low while sleeping.",
+                "solution": "Avoid using diesel generators or burning anything (garbage, leaves) at night — nighttime pollution lingers much longer."
             }
         },
         "Unhealthy for Sensitive People": {
             "Morning": {
-                "health": "Significant morning haze. Children and elderly should avoid outdoor exposure during peak traffic.",
-                "precaution": "Wear a high-filtering mask (N95) for your commute. Postpone early morning outdoor runs.",
-                "solution": "Work from home if possible this morning to reduce exposure to rising pollutant levels."
+                "health": "The morning air is hazy with pollution. Children, elderly people, and those with asthma or heart conditions should stay indoors.",
+                "precaution": "Wear an N95 mask if you must go out. Do not go for outdoor runs or morning exercise today.",
+                "solution": "If you can work from home today, please do. The fewer people on the road, the less smoke in the air for everyone."
             },
             "Afternoon": {
-                "health": "Heat is intensifying the impact of fine dust. Respiratory discomfort is likely for sensitive groups.",
-                "precaution": "Stay in well-ventilated, climate-controlled indoor spaces. Avoid high-exertion tasks.",
-                "solution": "Support urban greenery projects to provide much-needed shade and air filtration buffers."
+                "health": "Fine dust and pollutants are higher than normal. People with breathing issues may feel discomfort or shortness of breath.",
+                "precaution": "Stay in a cool, well-ventilated room. Avoid going out unless necessary. Don't do heavy physical work outdoors.",
+                "solution": "Plant trees or support local green cover initiatives in your colony or housing society — plants naturally clean the air."
             },
             "Evening": {
-                "health": "Evening air is heavy. Cooling air is trapping industrial soot near ground level.",
-                "precaution": "Avoid outdoor activities after sunset. Keep entryways sealed to prevent smog infiltration.",
-                "solution": "Support cleaner fuel initiatives; your switch away from diesel impacts local evening air."
+                "health": "Evening pollution is building up. The air near the ground feels heavier and can irritate your nose and throat.",
+                "precaution": "Stay indoors after sunset. Keep your doors and windows shut to stop polluted air from entering your home.",
+                "solution": "Switch to cleaner cooking fuels like LPG or induction cooktops. Burning wood or coal for cooking adds a lot to evening pollution."
             },
             "Night": {
-                "health": "Air is significantly concentrated. Possible sleep disruptions for those with breathing issues.",
-                "precaution": "Run air purifiers on high. Ensure all windows are tightly sealed against the nighttime inversion.",
-                "solution": "Check local air quality maps before planning any early-hours outdoor activity tomorrow."
+                "health": "Pollution is concentrated at night. If you already have breathing difficulties, you may feel worse than usual.",
+                "precaution": "Run your air purifier on high and keep all windows shut. Keep your inhaler or medication within reach just in case.",
+                "solution": "Check tomorrow morning's air quality on a free app before planning outdoor activities. Being informed helps you stay safe."
             }
         },
         "Unhealthy": {
             "Morning": {
-                "health": "Sharp dip in data. Healthy individuals may experience throat dryness and eye irritation.",
-                "precaution": "N95 masks are mandatory for all outdoor tasks. Keep children indoors during school hours.",
-                "solution": "Emergency carpooling is advised to reduce the sheer volume of morning exhaust emissions."
+                "health": "The air quality is bad this morning. Even healthy people may feel throat dryness, watery eyes, or difficulty breathing if outside for long.",
+                "precaution": "Wear an N95 mask before stepping outside — no exceptions. Keep children at home if possible, especially during school drop-off.",
+                "solution": "Share a cab or carpool this morning. Getting two or three families into one car instead of separate vehicles helps reduce morning exhaust pollution."
             },
             "Afternoon": {
-                "health": "Dangerous pollutant levels are peaking. Everyone will likely start feeling respiratory strain.",
-                "precaution": "Move all meetings and tasks indoors. Reduce all non-essential outdoor travel immediately.",
-                "solution": "Encourage local factories to temporarily downscale during this period of poor dispersion."
+                "health": "Pollution has reached dangerous levels this afternoon. Almost everyone will feel some discomfort — coughing, heavy breathing, or chest tightness.",
+                "precaution": "Move all your activities indoors. Cancel outdoor meetings or plans. Do not go out unless it is an emergency.",
+                "solution": "Avoid burning anything today — garbage, leaves, or incense in large quantities. Every bit of smoke makes the outdoor air much worse."
             },
             "Evening": {
-                "health": "Visible smog layers are forming. Rapid atmospheric cooling is compressing toxic pollutants.",
-                "precaution": "Do not exercise outdoors tonight. Use a mask even for short walks to your transport.",
-                "solution": "Switch to cleaner cooking methods to minimize household contributions to the nighttime haze."
+                "health": "You can visibly see smog forming. The air is getting very polluted as it cools down and traps the day's emissions near the ground.",
+                "precaution": "Do not go outside for walks or exercise. Even a short trip to the shop — wear a mask. Keep your windows tightly shut.",
+                "solution": "Use a pressure cooker or microwave instead of an open flame for cooking tonight. Less indoor smoke means less total pollution."
             },
             "Night": {
-                "health": "High levels of toxins detected. Overnight exposure without filtration could lead to morning wheezing.",
-                "precaution": "Ensure your bedroom air is purified. Do not open windows. Monitor heart rate if feeling tight.",
-                "solution": "Support city-wide 'clean nights' initiatives that restrict heavy vehicle transport after midnight."
+                "health": "Very high pollution levels are present overnight. Breathing this air without filtration can cause you to wake up coughing or wheezing.",
+                "precaution": "Make sure your bedroom is purified — run an air purifier all night and keep every window shut. If you feel chest pain, seek medical help.",
+                "solution": "Report any nearby factory, generator, or burning happening at night to your local municipal complaint portal. Night smoke is very dangerous."
             }
         },
         "Very Unhealthy": {
             "Morning": {
-                "health": "Severe Health Warning: Entire population likely to be affected. Increased risk of respiratory distress.",
-                "precaution": "Avoid all outdoor physical activity. Use medical-grade masks even inside semi-open transit.",
-                "solution": "Support immediate government measures like closing primary schools and high-polluting plants."
+                "health": "This is a health emergency. The entire population is at risk. You may feel heavy breathing, coughing, or chest tightness even if you are normally healthy.",
+                "precaution": "Do not go outside at all. If you must, wear an N95 or N99 mask. Keep pets and children strictly indoors.",
+                "solution": "Ask your children's school to cancel outdoor activities today. Spread the word in your family WhatsApp group or housing group so others stay safe."
             },
             "Afternoon": {
-                "health": "Toxic peak detected. Heart and lung stress are elevated for every individual in the area.",
-                "precaution": "Stay in a high-efficiency filtered environment. Avoid using internal combustion tools outdoors.",
-                "solution": "Support odd-even vehicle rationing to combat this critical level of urban emissions."
+                "health": "Pollution has reached a very serious level. Your heart and lungs are under real stress right now, even if you feel okay.",
+                "precaution": "Stay inside a room with closed doors and windows. Run your air purifier. Avoid any physical activity even indoors.",
+                "solution": "If your area has an odd-even road rule or vehicle ban in effect, please respect it. These rules exist to save lives on days exactly like this one."
             },
             "Evening": {
-                "health": "Visible toxic haze. Poor dispersion is creating a dangerous 'chamber' effect over the city.",
-                "precaution": "Stay completely indoors. Do not allow your pets outside. Keep the indoor air extremely clean.",
-                "solution": "Rethink local waste disposal; avoiding open burning is critical tonight to prevent an emergency."
+                "health": "There is a visible toxic haze outside. The air is barely moving and is trapping all the day's pollution like a blanket over the city.",
+                "precaution": "Stay completely indoors. Do not let your pets outside either. Seal gaps under doors with a towel to stop polluted air from creeping in.",
+                "solution": "Do not burn garbage, dry leaves, or crop waste. It is illegal during this level of pollution and it makes the situation life-threatening for others."
             },
             "Night": {
-                "health": "Dangerous Night Air: Pollution is trapped very low to the ground and is extremely thick.",
-                "precaution": "Use an air purifier on its highest setting. Keep all windows tightly shut. Stay calm.",
-                "solution": "Ask local authorities to check on factories that might be releasing smoke at night."
+                "health": "Extremely dangerous air at night. The pollution is very thick and stays close to the ground, making every breath harmful.",
+                "precaution": "Run your air purifier on the highest setting all night. Do not open windows even slightly. Keep emergency contacts and medicines handy.",
+                "solution": "Call your local municipal helpline if you notice any factory releasing smoke or any open fire burning near you. Night smoke is the biggest cause of this emergency."
             }
         },
         "Hazardous": {
             "Morning": {
-                "health": "Hazardous Emergency: Everyone will experience serious health effects. Immediate danger detected.",
-                "precaution": "Total lockdown on outdoor movement. Close all air-exchange vents. Use wet towels to seal doors.",
-                "solution": "Universal compliance with emergency climate mandates is the only way to save lives today."
+                "health": "DANGER: This is a serious health emergency. Everyone — including healthy adults — will experience symptoms like coughing, dizziness, or breathing difficulty.",
+                "precaution": "Do not go outside under any circumstances. Shut all windows and doors. Block gaps with wet cloth. Stay as still as possible.",
+                "solution": "Follow all government emergency orders today. Do not drive unnecessarily. Do not burn anything. Turn off industries that can be paused — even for one day it helps."
             },
             "Afternoon": {
-                "health": "Lethal Toxicity Levels: Immediate physical symptoms for all groups. High risk of cardiovascular events.",
-                "precaution": "Remain in a sterile, filtered indoor room. Do not run any gas-powered appliances indoors.",
-                "solution": "Support national 'Graded Response Action Plans' (GRAP) including absolute industrial shutdowns."
+                "health": "Life-threatening pollution levels. People with heart or lung conditions are in serious danger. Everyone else needs to take extreme care.",
+                "precaution": "Stay inside a sealed room. Do not run any diesel generator or gas stove more than needed. Call a doctor if you feel chest pain or difficulty breathing.",
+                "solution": "If you own a business or factory, please voluntarily reduce operations today. One day of reduced activity can prevent hospitalisations for thousands of people."
             },
             "Evening": {
-                "health": "Toxic Smog Emergency: Visually dark and lethal air. Atmospheric conditions are at their worst.",
-                "precaution": "Do not leave your home under any circumstances. Minimize physical activity to conserve oxygen.",
-                "solution": "Total societal cooperation to eliminate all smoke-generating activities is required right now."
+                "health": "The air outside is dangerously dark and thick with pollution. This is among the worst air quality levels possible — staying outside even briefly is harmful.",
+                "precaution": "Do not leave your house for any reason. Minimise all movement. Keep emergency numbers saved on your phone. Breathe slowly and stay calm.",
+                "solution": "Stop all burning immediately — garbage, crop waste, fireworks, or anything else. Alert your neighbours and local area committee to do the same. This is a city-wide emergency."
             },
             "Night": {
-                "health": "Life-Threatening Night Haze: Extreme accumulation of daytime toxins. Lung irritation is guaranteed.",
-                "precaution": "Use medical-grade indoor filtration on maximum. Keep an emergency medical contact ready. Stay in.",
-                "solution": "Support emergency climate laws to prevent the recurrence of such catastrophic air quality levels."
+                "health": "Extreme overnight danger. The daytime pollution has accumulated and is now extremely thick at ground level. Even sleeping without protection is harmful.",
+                "precaution": "Use the best air filter or purifier you have at full speed all night. Keep emergency medical contact details within reach. Do not sleep in a poorly ventilated room.",
+                "solution": "Demand stricter action from your local government and municipality. Share official air quality reports with your community — awareness and collective pressure are the most powerful tools to prevent this from happening again."
             }
         }
     }
@@ -298,53 +298,317 @@ CITY_DESCRIPTIONS = {
     "Chandigarh": "Chandigarh is visibly affected by exceptionally high per-capita vehicle ownership, post-harvest crop burning drifting in from surrounding Punjab/Haryana borders, and encroaching industrial emissions from nearby Baddi and Mohali."
 }
 
-def get_dynamic_city_description(city, category, dominant_pollutant="Unknown Pollutant", time_of_day="Day"):
-    base_desc = CITY_DESCRIPTIONS.get(city, "Showing standard National Average baseline without specific city-level multipliers applied.")
-    
-    pollutant_causes = {
-        "PM2.5 (Fine Particulate Matter)": "combustion from vehicle engines, power plants, and residential wood burning",
-        "PM10 (Coarse Particulate Matter)": "resuspended road dust, massive construction activities, and agricultural operations",
-        "Nitrogen Dioxide": "heavy-duty diesel traffic exhaust and high-temperature fossil fuel combustion",
-        "Sulfur Dioxide": "coal-fired power plants, oil refineries, and heavy industrial boiler operations",
-        "Carbon Monoxide": "incomplete combustion from dense, slow-moving vehicular traffic",
-        "Ozone": "volatile organic compounds baking in intense sunlight"
-    }
-    
-    time_context = {
-        "Morning": "Morning commuter traffic and overnight trapped smog are heavily contributing.",
-        "Afternoon": "Afternoon sunlight and resuspended road dust from daytime activity are peaking.",
-        "Evening": "Evening rush hour traffic and dropping temperatures are beginning to visibly trap emissions.",
-        "Night": "Cooler night air creates a temperature inversion, effectively putting a 'lid' on the city and aggressively trapping all accumulated daytime pollution near the ground."
-    }
+# -----------------------------------------------------------------------
+# Per-city specific pollution source database
+# Maps city → source type → list of specific, named local sources
+# -----------------------------------------------------------------------
+CITY_POLLUTION_SOURCES = {
+    "Delhi": {
+        "traffic":      ["heavy diesel truck traffic on NH-48 and the Outer Ring Road",
+                         "auto-rickshaws and two-wheelers choking Karol Bagh and Lajpat Nagar",
+                         "congested bus fleet emissions at ISBT Kashmere Gate and Anand Vihar"],
+        "industrial":   ["chemical factories in the Bawana Industrial Area",
+                         "coal-fired Rajghat Power Station near the Yamuna bank",
+                         "manufacturing units in the Narela and Okhla industrial clusters"],
+        "construction": ["Metro Phase IV works near Janakpuri and Tughlakabad",
+                         "flyover expansion on NH-44 near Mukarba Chowk",
+                         "large residential construction in Dwarka and Rohini sectors"],
+        "agriculture":  ["crop stubble burning drifting in from Punjab and Haryana paddy fields"],
+        "other":        ["open waste burning at Bhalswa and Ghazipur landfill sites"],
+    },
+    "Mumbai": {
+        "traffic":      ["slow-moving traffic on the Western Express Highway near Borivali",
+                         "heavy JNPT port trucks on NH-348 through Navi Mumbai",
+                         "auto and taxi congestion at Andheri junction and Kurla bus depot"],
+        "industrial":   ["BPCL and HPCL oil refineries releasing SO₂ at Chembur",
+                         "chemical plants in the Taloja and Ambernath industrial estate",
+                         "textile and dyeing units inside Dharavi"],
+        "construction": ["Coastal Road Project work near Worli and Haji Ali",
+                         "Metro Line 2A/7 construction in western suburbs",
+                         "skyscraper developments in Bandra-Kurla Complex"],
+        "other":        ["open waste burning at Deonar dumping ground"],
+    },
+    "Kolkata": {
+        "traffic":      ["older diesel buses and minibuses on Jessore Road and EM Bypass",
+                         "heavy truck movement near Kidderpore Dock and Garden Reach"],
+        "industrial":   ["Kolaghat and Budge Budge coal-fired thermal power plants",
+                         "foundry and iron units in Howrah and Garden Reach industrial area",
+                         "jute mills along the Hooghly river belt"],
+        "construction": ["ongoing East-West Metro tunnel work near Esplanade and Howrah",
+                         "underpass construction on VIP Road and E.M. Bypass"],
+        "other":        ["open solid-waste burning at Dhapa dumping ground",
+                         "burning of biomass for cooking in low-income settlements"],
+    },
+    "Bangalore": {
+        "traffic":      ["IT-corridor traffic jams on Outer Ring Road and Sarjapur Road",
+                         "two-wheeler and auto congestion on Old Madras Road and Hosur Road",
+                         "peak-hour standstills near Electronic City and Whitefield flyovers"],
+        "industrial":   ["heavy manufacturing units in the Peenya Industrial Area",
+                         "garment factories and dyeing units near Bommanahalli",
+                         "paint and chemical factories in Nelamangala industrial zone"],
+        "construction": ["Metro Purple and Green line extension works at multiple corridors",
+                         "flyover and underpass projects at K.R. Puram and Hebbal",
+                         "massive apartment complexes coming up in Devanahalli and Sarjapur"],
+        "other":        ["road dust from newly widened potholed roads across the city"],
+    },
+    "Chennai": {
+        "traffic":      ["heavy port trucks on GST Road and Rajiv Gandhi Salai",
+                         "vehicle congestion near CMBT (Koyambedu bus terminus)",
+                         "diesel suburban trains emitting fumes at Park and Beach stations"],
+        "industrial":   ["North Chennai coal-fired thermal power station at Ennore",
+                         "SIPCOT chemical and auto manufacturing park at Oragadam",
+                         "shipbuilding and repair yards at Garden Reach and ICF"],
+        "construction": ["Chennai Metro Phase 2 civil works at Kellys and Teynampet",
+                         "elevated expressway construction near Vandalur and Mudichur"],
+        "other":        ["sea-breeze pushing port shipping emissions inland during evening"],
+    },
+    "Hyderabad": {
+        "traffic":      ["IT crowd vehicles stacking up on HITEC City and Gachibowli junction",
+                         "heavy commercial traffic on Outer Ring Road near Shamshabad",
+                         "auto-rickshaws and buses near Secunderabad railway station"],
+        "industrial":   ["bulk drug and pharma factories in Patancheru and Jeedimetla",
+                         "chemical manufacturing clusters in Bollaram and Kazipally",
+                         "cement plants near Nalgonda highway approach roads"],
+        "construction": ["Metro Line extension work near Raidurg and LB Nagar",
+                         "high-rise IT park construction in Kokapet and Nanakramguda",
+                         "road-widening projects on Outer Ring Road spurs"],
+        "other":        ["open burning of garbage in peripheral colonies and slum clusters"],
+    },
+    "Ahmedabad": {
+        "traffic":      ["heavy goods vehicles on SG Highway and NH-48",
+                         "two-wheeler and auto overload in Navrangpura and Maninagar"],
+        "industrial":   ["GIDC chemical factories in Vatva, Odhav, and Naroda estates",
+                         "textile dyeing and printing units releasing VOCs near Narol",
+                         "ceramics and tiles factories on Ahmedabad-Mehsana highway"],
+        "construction": ["BRTS corridor expansion and flyover projects in Chandkheda",
+                         "large township developments near Sanand and Bavla"],
+        "agriculture":  ["cotton gin dust and farm vehicle exhaust from Saurashtra corridor"],
+        "other":        ["dry, dusty soil in surrounding Thar fringe fuelling PM10 spikes"],
+    },
+    "Pune": {
+        "traffic":      ["bumper-to-bumper two-wheeler traffic on Swargate–Hadapsar corridor",
+                         "heavy trucks at Bhosari and Pimpri-Chinchwad auto hubs on NH-48",
+                         "peak-hour gridlock on Kothrud and Baner Road"],
+        "industrial":   ["Tata Motors, Bajaj, and Volkswagen automotive plants in Chakan",
+                         "engineering factories in Bhosari MIDC industrial area",
+                         "foundries and forging units in Pimpri-Chinchwad"],
+        "construction": ["Pune Metro Reach 6 construction near Vanaz and Ramwadi",
+                         "IT park and residential towers in Hinjewadi and Wakad"],
+        "other":        ["road dust from unpaved internal roads in peripheral areas"],
+    },
+    "Jaipur": {
+        "traffic":      ["tourist buses and private cars congesting MI Road and Tonk Road",
+                         "diesel-loaded trucks on NH-48 (Delhi–Mumbai expressway spur)",
+                         "auto-rickshaw clusters near Sindhi Camp and Sanganer zone"],
+        "industrial":   ["marble-cutting and stone-polishing factories in Durgapura",
+                         "textile printing and dyeing units in Sanganer",
+                         "engineering workshops in Vishwakarma Industrial Area (VKIA)"],
+        "construction": ["Jaipur Metro Phase 2 underground work on Transport Nagar corridor",
+                         "highway widening projects near Ajmer Road and Sirsi junction"],
+        "agriculture":  ["dust from dry agricultural fields blowing in from Thar fringes"],
+        "other":        ["windblown desert dust from the Thar desert entering the city"],
+    },
+    "Lucknow": {
+        "traffic":      ["heavy diesel vehicles on Amausi–Kanpur Road and Ring Road",
+                         "overcrowded shared autos and minibuses near Charbagh station",
+                         "goods trucks queuing near Alambagh transport nagar"],
+        "industrial":   ["brick kilns lining the Lucknow–Raebareli and Unnao highways",
+                         "thermal power plant emissions drifting from Unchahar (90 km away)",
+                         "small foundries and workshops in Sarojini Nagar industrial area"],
+        "construction": ["underpass and flyover construction near Hazratganj",
+                         "Lucknow Metro Phase 2 earthworks near Vasant Kunj and Amausi"],
+        "agriculture":  ["paddy stubble smoke drifting in from Barabanki and Sitapur districts"],
+        "other":        ["biomass burning for cooking in low-income areas near Gomti bank"],
+    },
+    "Coimbatore": {
+        "traffic":      ["heavy vehicle congestion near Gandhipuram central bus stand",
+                         "textile lorries clogging Avinashi Road and Mettupalayam Road"],
+        "industrial":   ["spinning mills and textile factories in SIDCO industrial estate",
+                         "foundry and pump manufacturing units in Kurichi",
+                         "dyeing and bleaching units releasing SO₂ near Tirupur boundary"],
+        "construction": ["road-widening and flyover work on Avinashi Road",
+                         "new IT and residential parks coming up near Saravanampatty"],
+        "other":        ["quarry dust from gravel and granite operations on city outskirts"],
+    },
+    "Kochi": {
+        "traffic":      ["port container trucks on NH-544 through Edapally and Kalamassery",
+                         "commuter congestion on MG Road and Palarivattom junction",
+                         "slow-moving traffic near Cochin International Airport approach"],
+        "industrial":   ["BPCL oil refinery emissions at Ambalamugal in Ernakulam district",
+                         "Cochin Shipyard welding and coating operations",
+                         "fish processing and chemical plants in coastal Munambam area"],
+        "construction": ["Kochi Metro Phase 2 works near Kakkanad and Infopark",
+                         "coastal road and sea-link bridge construction near Vypeen"],
+        "other":        ["ship exhaust from container vessels anchored at Vallarpadam terminal",
+                         "high humidity trapping sea-level fumes near backwater areas"],
+    },
+    "Nagpur": {
+        "traffic":      ["national highway crossroads traffic (NH-44, NH-7, NH-6) at Nagpur Zero Mile",
+                         "coal-loaded lorries on Wardha Road toward railway yards"],
+        "industrial":   ["Koradi and Khaperkheda coal-fired thermal power plants on city edges",
+                         "open-cast coal mine transport on Nagpur–Yavatmal corridor",
+                         "paper mill and chemical plant near Butibori MIDC"],
+        "construction": ["metro rail Phase 2 extension work near Hingna and Airport South",
+                         "outer ring road expansion creating persistent dust near Kamptee"],
+        "agriculture":  ["cotton and orange crop burning in surrounding Vidarbha districts"],
+        "other":        ["fly-ash settling from Koradi power plant chimneys on windy days"],
+    },
+    "Indore": {
+        "traffic":      ["heavy commercial vehicles on AB Road and Bypass near Rau",
+                         "auto and two-wheeler rush at Rajwada and Palasia junction"],
+        "industrial":   ["auto-component and pharma factories in Pithampur AURIC zone",
+                         "plastics and packaging units in Sanwer Road industrial area",
+                         "boiler emissions from food-processing units near Lasudia"],
+        "construction": ["Metro Rail civil works on Bypass Road and Super Corridor",
+                         "IT and commercial towers being built in Vijay Nagar and Scheme 140"],
+        "other":        ["waste burning at Devguradiya solid waste dump on city outskirts"],
+    },
+    "Bhopal": {
+        "traffic":      ["moderate traffic near DB Mall and ISBT Nadra bus stand"],
+        "industrial":   ["Mandideep industrial area chemical and pharmaceutical factories",
+                         "paper mill and boiler units at Govindpura industrial cluster"],
+        "construction": ["overbridge and road redevelopment near Hamidia Hospital area"],
+        "other":        ["lake evaporation from Upper and Lower Lake reduces dispersion on humid days"],
+    },
+    "Patna": {
+        "traffic":      ["slow-moving diesel auto and bus traffic on Bailey Road and Ashok Rajpath",
+                         "heavy goods vehicles crossing Mahatma Gandhi Setu bridge"],
+        "industrial":   ["small brick kilns and lime kilns on city periphery roads",
+                         "flour mills and boiler units near Patna City old town"],
+        "construction": ["NH-30 four-laning construction stirring dust near Danapur",
+                         "housing projects and road works in Rajendra Nagar and Khagaul"],
+        "agriculture":  ["paddy and wheat straw burning in surrounding Saran and Vaishali fields"],
+        "other":        ["alluvial dust blown off dry Ganga river bed in summer months"],
+    },
+    "Visakhapatnam": {
+        "traffic":      ["port container trucks on NH-16 through Gajuwaka and Kommadi",
+                         "heavy vehicle congestion near Visakhapatnam Harbour entrance"],
+        "industrial":   ["Rashtriya Ispat Nigam (Vizag Steel Plant) at Gajuwaka releasing PM and SO₂",
+                         "HPCL oil refinery at Malkapuram releasing hydrocarbon fumes",
+                         "chemical plants along the Jawaharlal Nehru Pharma City (JNPC) at Parawada"],
+        "construction": ["metro rail preliminary works and national highway widening near Kommadi"],
+        "other":        ["coastal wind pushing ship exhaust from the port inland during evenings"],
+    },
+    "Guwahati": {
+        "traffic":      ["traffic congestion on NH-37 and GS Road near Ganeshguri flyover",
+                         "heavy trucks crossing Saraighat Bridge on Brahmaputra"],
+        "industrial":   ["Noonmati oil refinery emissions in northern Guwahati",
+                         "sand quarrying and stone crushing operations on hill slopes"],
+        "construction": ["ring road and hill-cutting for residential colonies near Bhetapara",
+                         "flyover and bypass construction on NH-27"],
+        "other":        ["valley geography trapping fumes between Nilachal and Narakasur hills"],
+    },
+    "Shimla": {
+        "traffic":      ["tourist buses and private cars on the Shimla–Chandigarh NH-5 corridor",
+                         "diesel taxis idling near the Ridge and Mall Road tourist zones"],
+        "industrial":   ["small workshops and hotel boiler emissions near Cart Road"],
+        "construction": ["retaining-wall construction and road repairs on hillside stretches"],
+        "other":        ["wood and coal burning for winter heating in households and hotels"],
+    },
+    "Chandigarh": {
+        "traffic":      ["high per-capita car ownership clogging Sector 17 and 22 roundabouts",
+                         "commercial vehicle movement on Ambala–Patiala NH-7"],
+        "industrial":   ["industrial estate emissions from Mohali Phase 7 and 8 units",
+                         "pharmaceutical factories in Baddi (Himachal Pradesh) drifting in"],
+        "construction": ["airport expansion and road redevelopment near Sector 66 and 67"],
+        "agriculture":  ["post-harvest wheat and paddy stubble burning drifting from Punjab–Haryana border"],
+        "other":        ["dry winter air trapping vehicle exhaust close to the ground"],
+    },
+}
 
-    cause = pollutant_causes.get(dominant_pollutant, "various urban emission sources")
-    t_desc = time_context.get(time_of_day, "")
+# Pollutant → which source types are most responsible
+POLLUTANT_SOURCE_MAP = {
+    "PM2.5 (Fine Particulate Matter)": ["traffic", "industrial", "other", "agriculture"],
+    "PM10 (Coarse Particulate Matter)": ["construction", "traffic", "other"],
+    "Nitrogen Dioxide":                 ["traffic", "industrial"],
+    "Sulfur Dioxide":                   ["industrial", "other"],
+    "Carbon Monoxide":                  ["traffic", "other"],
+    "Ozone":                            ["traffic", "industrial"],
+}
 
-    short_desc = f"Local AQI is currently driven by {cause}."
-    if city == "Default":
+def get_dynamic_city_description(city, category, dominant_pollutant="Unknown Pollutant", time_of_day="Day", aqi=0):
+    sources = CITY_POLLUTION_SOURCES.get(city)
+
+    # AQI-level framing prefix
+    aqi = round(float(aqi))
+    if aqi <= 50:
+        aqi_frame = f"The current AQI of {aqi} is good."
+        severity_verb = "Despite generally good air, the usual background sources here include"
+    elif aqi <= 100:
+        aqi_frame = f"The current AQI of {aqi} is moderate."
+        severity_verb = f"The moderate AQI of {aqi} is being driven by"
+    elif aqi <= 150:
+        aqi_frame = f"The current AQI of {aqi} is elevated and unhealthy for sensitive people."
+        severity_verb = f"The elevated AQI of {aqi} is mainly caused by"
+    elif aqi <= 200:
+        aqi_frame = f"The current AQI of {aqi} is unhealthy for everyone."
+        severity_verb = f"The unhealthy AQI of {aqi} is being pushed up by"
+    elif aqi <= 300:
+        aqi_frame = f"The current AQI of {aqi} is very unhealthy — a serious air quality emergency."
+        severity_verb = f"The very dangerous AQI of {aqi} is primarily due to"
+    else:
+        aqi_frame = f"🚨 The AQI of {aqi} is hazardous — an extreme health emergency."
+        severity_verb = f"The life-threatening AQI of {aqi} is being caused by"
+
+    # Time context
+    time_note = {
+        "Morning": "This morning, overnight trapped smog is combining with fresh commuter exhaust.",
+        "Afternoon": "In the afternoon, heat is intensifying the ground-level concentration of these pollutants.",
+        "Evening": "This evening, rush-hour traffic is adding fresh fumes to pollutants already trapped near the ground.",
+        "Night": "At night, cooler air acts like a lid — trapping everything emitted during the day close to ground level.",
+    }.get(time_of_day, "")
+
+    short_desc = f"AQI {aqi} in {city} — mainly driven by {dominant_pollutant.lower()}."
+
+    if not sources or city == "Default":
+        base_desc = CITY_DESCRIPTIONS.get(city, "a mix of urban emission sources across India.")
         return {
             "short": short_desc,
-            "detailed": f"{t_desc} Currently driven by {cause}. " + base_desc
+            "detailed": f"{aqi_frame} {time_note} {base_desc}"
         }
-    
-    detailed_desc = ""
-    if category == "Good":
-        detailed_desc = f"Despite its typical challenges, {city} is currently experiencing excellent air quality. {t_desc} The usual {cause} is being effectively dispersed by favorable weather conditions. Background context: " + base_desc
-    elif category == "Moderate":
-        detailed_desc = f"{city} is seeing moderate pollution right now, primarily driven by {cause}. {t_desc} Background context: " + base_desc
-    elif category in ["Unhealthy for Sensitive People", "Unhealthy"]:
-        detailed_desc = f"{city}'s air quality has degraded. The high levels of {dominant_pollutant} are directly caused by {cause} concentrating in the local atmosphere. {t_desc} Background context: " + base_desc
-    elif category == "Very Unhealthy":
-        detailed_desc = f"Severe atmospheric conditions in {city} right now are trapping high volumes of {dominant_pollutant} generated by {cause}. {t_desc} Background context: " + base_desc
-    elif category == "Hazardous":
-        detailed_desc = f"CRITICAL HAZARD: {city} is currently facing an extreme pollution event severely compounding its everyday emissions. The toxic {dominant_pollutant} levels are heavily driven by {cause}. {t_desc} Background context: " + base_desc
+
+    # Pick top source types for this pollutant
+    source_types = POLLUTANT_SOURCE_MAP.get(dominant_pollutant, ["traffic", "industrial", "other"])
+    picked = []
+    for stype in source_types:
+        items = sources.get(stype, [])
+        if items:
+            picked.append(items[0])  # Take the most prominent source for each type
+        if len(picked) >= 3:
+            break
+
+    # Also pull a second item from the top source type for richness
+    top_type = source_types[0] if source_types else "traffic"
+    top_items = sources.get(top_type, [])
+    if len(top_items) > 1 and len(picked) < 4:
+        picked.append(top_items[1])
+
+    if not picked:
+        picked = ["local vehicular traffic and industrial activity"]
+
+    # Build the named-cause sentence
+    if len(picked) == 1:
+        causes_text = picked[0]
+    elif len(picked) == 2:
+        causes_text = f"{picked[0]} and {picked[1]}"
     else:
-        detailed_desc = base_desc
-        
+        causes_text = ", ".join(picked[:-1]) + f", and {picked[-1]}"
+
+    detailed = (
+        f"{aqi_frame} "
+        f"{severity_verb} {causes_text}. "
+        f"{time_note} "
+        f"The dominant pollutant in the air right now is {dominant_pollutant}, which is a strong indicator of these specific local sources. "
+        f"Here is some background on why {city} regularly sees this type of pollution: "
+        f"{CITY_DESCRIPTIONS.get(city, '')}"
+    )
+
     return {
         "short": short_desc,
-        "detailed": detailed_desc
+        "detailed": detailed
     }
+
+
 
 
 
@@ -479,7 +743,7 @@ def predict():
 
         detail_reason += time_suffix
         
-        city_desc = get_dynamic_city_description(city_selected, category, dominant_pollutant, time_category)
+        city_desc = get_dynamic_city_description(city_selected, category, dominant_pollutant, time_category, aqi=final_aqi)
 
         return render_template(
             "result.html",
@@ -784,7 +1048,7 @@ def api_predict():
 
         detail_reason += time_suffix
         
-        city_desc = get_dynamic_city_description(city_selected, category, dominant_pollutant, time_category)
+        city_desc = get_dynamic_city_description(city_selected, category, dominant_pollutant, time_category, aqi=final_aqi)
         aqi_val = round(float(final_aqi), 2) # pyre-ignore
 
         # Save to global history for 'Live Logs' feature
@@ -933,6 +1197,41 @@ def api_visualize():
         return response
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 400
+# -----------------------------------------------------------------------
+# Monthly seasonal reasons for chart insights
+# Maps city → month (1-12) → reason string
+# -----------------------------------------------------------------------
+CITY_SEASONAL_REASONS = {
+    "Delhi": {
+        10: "Post-monsoon retreat and early stubble burning in Punjab/Haryana start pushing PM2.5 upwards.",
+        11: "Peak pollution season: Massive crop stubble burning and low wind speeds create a toxic smog blanket.",
+        12: "Severe winter inversion traps vehicle exhaust and ground-level smoke close to the surface.",
+        1:  "Dense winter fog (smog) and cold temperatures prevent pollutants from dispersing.",
+        2:  "Gradual warming helps dispersion, but biomass burning for heating remains high.",
+        3:  "Spring winds begin to clear the air, though road dust starts rising as it dries.",
+        4:  "High temperatures start pushing up Ozone (O₃) levels as exhaust bakes in the sun.",
+        5:  "Peak summer: Dust storms from the Thar desert often cause major PM10 spikes.",
+        6:  "Pre-monsoon heat keeps Ozone levels high until the first rains wash the air.",
+        7:  "Monsoon rains provide 'washout' effect, leading to the year's cleanest air.",
+        8:  "Ongoing rains keep dust and particles grounded; air remains relatively good.",
+        9:  "Late monsoon moisture can trap some humidity-bound pollutants, but air is generally fresh.",
+    },
+    "Mumbai": {
+        10: "Humidity and post-monsoon haze can trap coastal industrial emissions.",
+        11: "Cooling sea breezes lose strength, leading to slightly higher local vehicle exhaust buildup.",
+        12: "Winter peaks for Mumbai: Low inversion heights trap refinery and traffic fumes.",
+        1:  "Clearest winter skies often see PM2.5 stay trapped in the early mornings.",
+        2:  "Transition period with varying sea-breeze strength affecting air clarity.",
+        3:  "Rising heat increases secondary pollutant formation from port activities.",
+        4:  "Intense sunlight leads to higher ground-level Ozone near the Western Express Highway.",
+        5:  "Pre-monsoon dust and high humidity can make the air feel heavy with particles.",
+        6:  "Arrival of monsoon: Significant drop in AQI as rain cleanses the atmosphere.",
+        7:  "Peak monsoon: Air quality is at its best due to constant rain and sea winds.",
+        8:  "Clean air continues as rain washes away industrial and vehicular soot.",
+        9:  "Monsoon retreat signals the start of the gradual rise in winter pollution.",
+    },
+    # General templates for other cities will be handled by a default fallback
+}
 
 @app.route("/api/forecast", methods=["GET"])
 @cache.cached(timeout=600, query_string=True)
@@ -944,91 +1243,69 @@ def api_forecast():
         df_city = historical_df[historical_df["city"] == city].copy()
         
         # Create a datetime index for proper time-series forecasting
-        # For simplicity, we combine year and month into a "YYYY-MM" format
         df_city['date'] = pd.to_datetime(df_city['year'].astype(str) + '-' + df_city['month'].astype(str))
         
-        # Sort and group by date to ensure sequential order
         ts_data = df_city.groupby('date')['aqi'].mean().reset_index()
         ts_data = ts_data.sort_values('date')
         
-        # Prepare the actual historical values
         historical_dates = ts_data['date'].dt.strftime('%Y-%m').tolist()
         historical_values = ts_data['aqi'].round(2).tolist()
         
-        # Fast Time-Series Forecasting using Linear Regression + Seasonality
-        # Render's free tier (0.1 CPU) cannot handle statsmodels Holt-Winters on the fly.
         global forecast_cache
-            
         if city in forecast_cache:
             forecast_values, future_dates_str = forecast_cache[city]
         else:
             series = ts_data['aqi'].values
             n_months = len(series)
             
-            # 1. Very fast linear trend calculation
             from sklearn.linear_model import LinearRegression # type: ignore
             X = np.arange(n_months).reshape(-1, 1)
             y = series
             lr = LinearRegression()
             lr.fit(X, y)
 
-            # 2. Extract historical seasonality (average offset per month)
             ts_data['month_num'] = ts_data['date'].dt.month
             monthly_avgs = ts_data.groupby('month_num')['aqi'].mean()
             overall_avg = ts_data['aqi'].mean()
             seasonality = (monthly_avgs - overall_avg).to_dict()
             
-            # 3. To anchor the forecast realistically, start the trend from the last known actual value (deseasonalized)
             last_date = ts_data['date'].iloc[-1]
             last_actual_val = ts_data['aqi'].iloc[-1]
             last_month_num = last_date.month
-            
-            # We calculate what the "base" trend value must be today so that base + seasonality = last_actual_val
             anchored_base = last_actual_val - seasonality.get(last_month_num, 0)
             
             target_date = pd.to_datetime('2027-12-01')
             months_to_forecast = (target_date.year - last_date.year) * 12 + (target_date.month - last_date.month)
-            months_to_forecast = max(1, months_to_forecast) # safeguard
+            months_to_forecast = max(1, months_to_forecast) 
 
-            # Generate future dates
             future_dates = pd.date_range(start=last_date + pd.DateOffset(months=1), periods=months_to_forecast, freq='MS')
             future_dates_str = future_dates.strftime('%Y-%m').tolist()
             
-            # Dampen the regression slope by 50% so it doesn't spiral linearly out of control over 5 future years
             slope = lr.coef_[0]
             damped_slope = slope * 0.5 
             
             forecast_values = []
             current_base = anchored_base
-            
             for i, d in enumerate(future_dates):
                 current_base += damped_slope
                 m = d.month
-                # Ensure AQI doesn't drop below 10
                 val = max(10, current_base + seasonality.get(m, 0))
-                # Add a tiny bit of random noise for realism
                 np.random.seed(int(d.timestamp()))
                 noise = np.random.uniform(-5, 5)
                 forecast_values.append(val + noise)
-                
             forecast_values = np.array(forecast_values).round(2)
-            
-            # Save to cache
             forecast_cache[city] = (forecast_values, future_dates_str)
         
-        # Calculate AI Forecast Insight safely whether array or series
         f_list = forecast_values.tolist()
-        first_forecast = f_list[0]
-        last_forecast = f_list[-1]
-        trend_diff = last_forecast - first_forecast
+        trend_diff = f_list[-1] - f_list[0]
         
         insight_text = f"The AI time-series forecast for <b>{city}</b> indicates "
         if trend_diff > 10:
-            insight_text += f"a <span style='color: #ef4444; font-weight: bold;'>rising trend</span> through 2027. This suggests the air might get worse over time. It is projected to reach about {last_forecast:.0f} by {future_dates_str[-1]}."
+            insight_text += f"a <span style='color: #ef4444; font-weight: bold;'>rising trend</span> through 2027. This suggests the air might get worse over time. It is projected to reach about {f_list[-1]:.0f} by {future_dates_str[-1]}."
         elif trend_diff < -10:
-            insight_text += f"a <span style='color: #10b981; font-weight: bold;'>downward trend</span> up to 12-2027, suggesting that air quality is projected to slowly improve, dropping to approximately {last_forecast:.0f} by {future_dates_str[-1]}."
+            insight_text += f"a <span style='color: #10b981; font-weight: bold;'>downward trend</span> up to 12-2027, suggesting that air quality is projected to slowly improve, dropping to approximately {f_list[-1]:.0f} by {future_dates_str[-1]}."
         else:
-            insight_text += f"a <span style='color: #fcd34d; font-weight: bold;'>stable trend</span> up to 12-2027, with AQI levels hovering around {last_forecast:.0f}. Seasonal fluctuations will still occur, but the baseline remains unchanged."
+            insight_text += f"a <span style='color: #fcd34d; font-weight: bold;'>stable trend</span> up to 12-2027, with AQI levels hovering around {f_list[-1]:.0f}. Seasonal fluctuations will still occur, but the baseline remains unchanged."
 
         return jsonify({
             "success": True,
@@ -1039,9 +1316,10 @@ def api_forecast():
             },
             "forecast": {
                 "dates": future_dates_str,
-                "values": forecast_values.round(2).tolist(),
+                "values": f_list,
                 "insight": insight_text
-            }
+            },
+            "seasonal_reasons": CITY_SEASONAL_REASONS.get(city, CITY_SEASONAL_REASONS["Delhi"])
         })
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 400
