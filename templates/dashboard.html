@@ -203,7 +203,7 @@
                     Awaiting
                     analysis...</p>
 
-                <h3 onclick="openModal('Regional Insight', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Select a city to retrieve AI regional profiling." style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 5px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 5px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+                <h3 id="regional-insight-header" onclick="openModal('Detailed Regional Insights', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="No prediction has been run yet. To see the AI regional profile for your city, please: 1) Select your city from the dropdown above, 2) Adjust the pollutant sliders or click 'Fetch Live Data', and 3) Click 'Analyze Air Quality'. The regional insight will then explain what is causing the air quality in your chosen city." style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 5px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 5px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
                     <i class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city" style="color: var(--text-primary);">--</span>
                 </h3>
                 <div id="result-data-source" style="display:none; align-items:center; gap:6px; font-size:0.7rem; color: #10b981; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; width: fit-content;"></div>
@@ -807,7 +807,7 @@
         const solutionHeader = document.getElementById('result-solution').previousElementSibling;
         if (solutionHeader) { solutionHeader.dataset.detailedText = result.solution_detailed; solutionHeader.dataset.badgeHtml = constructedBadgeHtml; }
 
-        const cityDescHeader = document.getElementById('result-city-desc').previousElementSibling;
+        const cityDescHeader = document.getElementById('regional-insight-header');
         if (cityDescHeader) { cityDescHeader.dataset.detailedText = result.city_description_detailed; cityDescHeader.dataset.badgeHtml = constructedBadgeHtml; }
 
         document.getElementById('result-dominant').textContent = result.dominant_pollutant;
@@ -1426,10 +1426,17 @@
                         if (value === null) return;
 
                         let text = "";
+                        const monthNum = parseInt(label.split('-')[1]);
+                        const reason = (data.seasonal_reasons && data.seasonal_reasons[monthNum]) || "This is driven by a mix of regional industrial output, local traffic patterns, and seasonal weather conditions.";
+
                         if (datasetLabel === 'Historical Data') {
-                            text = `This data point represents the historically recorded average AQI of <b style="color:var(--accent);">${value.toFixed(2)}</b> for <b>${label}</b>. This data is part of the ground-truth baseline used to train the forecasting model.`;
+                            text = `<b>Historical Record:</b> This data point represents the recorded average AQI of <b style="color:var(--accent);">${value.toFixed(2)}</b> for <b>${label}</b>.<br><br>
+                                    <b>Reasoning:</b> ${reason}<br><br>
+                                    <i>This data serves as the ground-truth baseline used to train the AI forecasting model.</i>`;
                         } else {
-                            text = `This data point represents an AI-predicted AQI of <b style="color:#ef4444;">${value.toFixed(2)}</b> for <b>${label}</b>. The model calculated this projection by extending the historical linear trend and mapping recognized seasonal volatility (like winter spikes or monsoon drops).`;
+                            text = `<b>AI Projection:</b> This data point represents an AI-predicted AQI of <b style="color:#ef4444;">${value.toFixed(2)}</b> for <b>${label}</b>.<br><br>
+                                    <b>Projected Cause:</b> ${reason}<br><br>
+                                    <i>The model calculated this by extending the historical linear trend and mapping recognized seasonal volatility observed in past years.</i>`;
                         }
                         openModal(`${datasetLabel} Point: ${label}`, text);
                     }
