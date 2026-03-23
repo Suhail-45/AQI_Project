@@ -74,11 +74,15 @@ limiter = Limiter(
     storage_uri="memory://"
 )
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Load model
-model = joblib.load("final_aqi_model.pkl")
+model_path = os.path.join(BASE_DIR, "final_aqi_model.pkl")
+model = joblib.load(model_path)
 
 # Load feature order
-with open("feature_columns.json", "r") as f:
+features_path = os.path.join(BASE_DIR, "feature_columns.json")
+with open(features_path, "r") as f:
     feature_columns = json.load(f)
 
 # Initialize stores
@@ -88,7 +92,8 @@ recent_predictions = [] # Global store for the 'Live Logs' dashboard feature
 
 # Load dataset globally for fast visualization and forecasting dashboard
 try:
-    historical_df = pd.read_csv("india_city_aqi_2015_2025_10cities_encoded.csv", low_memory=False)
+    csv_path = os.path.join(BASE_DIR, "india_city_aqi_2015_2025_10cities_encoded.csv")
+    historical_df = pd.read_csv(csv_path, low_memory=False)
 except Exception as e:
     print(f"Warning: Could not load historical data: {e}")
     historical_df = pd.DataFrame()
