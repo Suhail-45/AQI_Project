@@ -1,6 +1,4 @@
-# AQI Prediction System
-
-**Real-Time Atmospheric Pollution Analysis and Prediction Using Machine Learning in a Web-Based System**
+# Real-Time Atmospheric Pollution Analysis and Prediction Using Machine Learning in a Web-Based System
 
 ## Overview
 This project is an interactive, analytical dashboard and machine learning prediction system for monitoring and forecasting Air Quality Index (AQI) levels across India's largest metropolitan cities. 
