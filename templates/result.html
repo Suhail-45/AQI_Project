@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<div class="card">
-    <h2>AQI Prediction Result</h2>
+<div class="card staggered-item" style="--i:1; text-align: center;">
+    <h2 style="margin-bottom: 20px;"><i class="fa-solid fa-chart-pie"></i> AQI Prediction Result</h2>
 
-    <div class="result-value">{{ prediction }}</div>
+    <div class="result-value {% if prediction|float > 200 %}hazardous-pulse{% endif %}" style="font-size: 5rem; line-height: 1; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);">{{ prediction }}</div>
 
     <div class="category-badge 
         {% if category == 'Good' %}good
@@ -14,8 +14,7 @@
         {% elif category == 'Unhealthy for Sensitive People' %}unhealthy-for-sensitive-people
         {% elif category == 'Very Unhealthy' %}very-unhealthy
         {% else %}hazardous
-        {% endif %}
-    ">
+        {% endif %}" style="font-size: 1.4rem; padding: 8px 20px; margin-top: 15px;">
         {{ category }}
     </div>
 
@@ -28,49 +27,49 @@
         'hazardous'
     ) + '" style="display:inline-block; font-size: 0.85rem; padding: 4px 10px; margin-top: 5px;">' + category + '</div>' %}
 
-    <div style="margin-top: 20px; text-align: left; background: rgba(0, 0, 0, 0.03); border-radius: 12px; padding: 20px; border: 1px solid rgba(0, 0, 0, 0.1);">
-        <p style="margin-bottom: 15px; font-size: 0.95rem;">
+    <div class="staggered-item" style="--i:2; margin-top: 30px; text-align: left; background: rgba(0, 0, 0, 0.03); border-radius: 12px; padding: 25px; border: 1px solid rgba(0, 0, 0, 0.1);">
+        <p style="margin-bottom: 20px; font-size: 1rem;">
             <strong onclick="if(typeof openModal === 'function') openModal('Health Risk Details', '{{ health_risk_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Health Risk:</strong> 
-            <span style="color: var(--text-secondary);">{{ health_risk_short }}</span>
+            <span style="color: var(--text-secondary); line-height: 1.6;">{{ health_risk_short }}</span>
         </p>
-        <p style="margin-bottom: 15px; font-size: 0.95rem;">
+        <p style="margin-bottom: 20px; font-size: 1rem;">
             <strong onclick="if(typeof openModal === 'function') openModal('Precautionary Measures', '{{ precaution_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-shield-heart" style="color: #10b981;"></i> Precaution:</strong> 
-            <span style="color: var(--text-secondary);">{{ precaution_short }}</span>
+            <span style="color: var(--text-secondary); line-height: 1.6;">{{ precaution_short }}</span>
         </p>
-        <p style="margin: 0; font-size: 0.95rem;">
+        <p style="margin: 0; font-size: 1rem;">
             <strong onclick="if(typeof openModal === 'function') openModal('Required Solutions', '{{ solution_detailed | escape }}', '{{ badge_html | safe }}')" style="cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation"><i class="fa-solid fa-lightbulb" style="color: #3b82f6;"></i> Required Solution:</strong> 
-            <span style="color: var(--text-secondary);">{{ solution_short }}</span>
+            <span style="color: var(--text-secondary); line-height: 1.6;">{{ solution_short }}</span>
         </p>
     </div>
 
     <!-- AI Reasoning Section -->
-    <div
-        style="margin-top: 30px; text-align: left; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 20px;">
+    <div class="staggered-item"
+        style="--i:3; margin-top: 30px; text-align: left; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 25px;">
         <h3
-            style="color: var(--accent); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            style="color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
             <i class="fa-solid fa-robot"></i> AI Diagnostic Reasoning
         </h3>
 
-        <div style="margin-bottom: 15px;">
-            <span style="color: var(--text-secondary); font-size: 0.9rem;">Dominant Threat Factor:</span><br>
-            <strong style="color: var(--text-primary); font-size: 1.05rem;"><i class="fa-solid fa-virus"></i> {{
+        <div style="margin-bottom: 18px;">
+            <span style="color: var(--text-secondary); font-size: 0.95rem;">Dominant Threat Factor:</span><br>
+            <strong style="color: var(--text-primary); font-size: 1.15rem;"><i class="fa-solid fa-virus"></i> {{
                 dominant_pollutant }}</strong>
         </div>
 
         <p
-            style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid var(--accent);">
+            style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin: 0; padding-left: 15px; border-left: 4px solid var(--accent);">
             {{ detail_reason }}
         </p>
 
-        <div style="margin-top: 20px; margin-bottom: 10px;">
-            <span style="color: var(--text-secondary); font-size: 0.9rem;">Regional Pollution Insight:</span><br>
-            <strong onclick="if(typeof openModal === 'function') openModal('Regional Pollution Insight - {{ city_name }}', '{{ city_desc_detailed | escape }}', '{{ badge_html | safe }}')" style="color: var(--text-primary); font-size: 1.05rem; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
+        <div style="margin-top: 25px; margin-bottom: 12px;">
+            <span style="color: var(--text-secondary); font-size: 0.95rem;">Regional Pollution Insight:</span><br>
+            <strong onclick="if(typeof openModal === 'function') openModal('Regional Pollution Insight - {{ city_name }}', '{{ city_desc_detailed | escape }}', '{{ badge_html | safe }}')" style="color: var(--text-primary); font-size: 1.15rem; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
                 <i class="fa-solid fa-map-location-dot"></i> {{ city_name }}
             </strong>
         </div>
 
         <p
-            style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid #10b981;">
+            style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin: 0; padding-left: 15px; border-left: 4px solid #10b981;">
             {{ city_desc_short }}
         </p>
     </div>

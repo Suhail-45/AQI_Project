@@ -2,6 +2,8 @@
 
 {% block content %}
 
+            
+
 <!-- Section 1: Predictive Analysis -->
 <section id="predictive" class="reveal">
     <div class="section-header">
@@ -15,18 +17,19 @@
         <p style="color: var(--text-secondary); margin-bottom: 15px;">If you're not a scientist, don't worry! Here is a
             simple guide to what each metric means:</p>
         <div class="grid-3" style="gap: 15px;">
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">PM2.5</span> (Fine Dust)</b>: Tiny
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-smog" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">PM2.5</span> (Fine Dust)</b>: Tiny
                 particles from car exhaust or smoke that can enter your bloodstream.</div>
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">PM10</span> (Coarse Dust)</b>: Larger
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-wind" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">PM10</span> (Coarse Dust)</b>: Larger
                 dust from construction or dirt roads that irritates the lungs.</div>
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">NO2</span> (Nitrogen Dioxide)</b>: Toxic
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-biohazard" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">NO2</span> (Nitrogen Dioxide)</b>: Toxic
                 gas from burning fuel, causes asthma and coughing.</div>
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">CO</span> (Carbon Monoxide)</b>:
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-car-rear" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">CO</span> (Carbon Monoxide)</b>:
                 Poisonous gas from vehicles and machinery.</div>
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">SO2</span> (Sulfur Dioxide)</b>: Harsh
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-tower-industrial" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">SO2</span> (Sulfur Dioxide)</b>: Harsh
                 fumes mostly from industrial factories.</div>
-            <div style="font-size: 14px;"><b><span style="color:var(--accent);">O3</span> (Ozone)</b>: "Bad" ozone
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-circle-nodes" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">O3</span> (Ozone)</b>: "Bad" ozone
                 created when sunlight reacts with smog at ground level.</div>
+
         </div>
     </div>
 
@@ -105,7 +108,7 @@
             <div class="form-grid">
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="pm25">PM2.5 (µg/m³)</label>
+                        <label for="pm25"><i class="fa-solid fa-smog" style="color: var(--accent); margin-right: 4px;"></i>PM2.5 (µg/m³)</label>
                         <span class="slider-value" id="val-pm25">45.2</span>
                     </div>
                     <input type="range" min="0" max="500" step="0.1" id="pm25" name="pm25" value="45.2"
@@ -115,7 +118,7 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="pm10">PM10 (µg/m³)</label>
+                        <label for="pm10"><i class="fa-solid fa-wind" style="color: var(--accent); margin-right: 4px;"></i>PM10 (µg/m³)</label>
                         <span class="slider-value" id="val-pm10">80.5</span>
                     </div>
                     <input type="range" min="0" max="500" step="0.1" id="pm10" name="pm10" value="80.5"
@@ -125,7 +128,7 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="no2">NO2 (ppb)</label>
+                        <label for="no2"><i class="fa-solid fa-biohazard" style="color: var(--accent); margin-right: 4px;"></i>NO2 (ppb)</label>
                         <span class="slider-value" id="val-no2">20.1</span>
                     </div>
                     <input type="range" min="0" max="400" step="0.1" id="no2" name="no2" value="20.1"
@@ -135,7 +138,7 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="so2">SO2 (ppb)</label>
+                        <label for="so2"><i class="fa-solid fa-tower-industrial" style="color: var(--accent); margin-right: 4px;"></i>SO2 (ppb)</label>
                         <span class="slider-value" id="val-so2">10.5</span>
                     </div>
                     <input type="range" min="0" max="1000" step="0.1" id="so2" name="so2" value="10.5"
@@ -145,7 +148,7 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="co">CO (ppm)</label>
+                        <label for="co"><i class="fa-solid fa-car-rear" style="color: var(--accent); margin-right: 4px;"></i>CO (ppm)</label>
                         <span class="slider-value" id="val-co">1.2</span>
                     </div>
                     <input type="range" min="0" max="50" step="0.1" id="co" name="co" value="1.2"
@@ -155,7 +158,7 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="o3">O3 (ppb)</label>
+                        <label for="o3"><i class="fa-solid fa-circle-nodes" style="color: var(--accent); margin-right: 4px;"></i>O3 (ppb)</label>
                         <span class="slider-value" id="val-o3">50.3</span>
                     </div>
                     <input type="range" min="0" max="200" step="0.1" id="o3" name="o3" value="50.3"
@@ -163,6 +166,7 @@
                     <div style="font-size: 11px; color: #10b981; margin-top: 5px;"><i
                             class="fa-solid fa-check-circle"></i> Safe Limit: &le; 100</div>
                 </div>
+
             </div>
 
 
@@ -336,35 +340,36 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight: 700; color: #ef4444;">PM2.5</td>
+                        <td style="font-weight: 700; color: #ef4444;"><i class="fa-solid fa-smog" style="margin-right: 6px;"></i>PM2.5</td>
                         <td>Fine Particulate Matter (&lt;2.5 µm) from vehicle exhaust and power plants.</td>
                         <td>Can penetrate deep into the lungs and blood, causing severe respiratory/cardiovascular issues.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #f97316;">PM10</td>
+                        <td style="font-weight: 700; color: #f97316;"><i class="fa-solid fa-wind" style="margin-right: 6px;"></i>PM10</td>
                         <td>Coarse Particulate Matter from construction sites, unpaved roads, and crushing operations.</td>
                         <td>Inhalable dust that irritates airways and frequently triggers severe asthma attacks.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #eab308;">NO2</td>
+                        <td style="font-weight: 700; color: #eab308;"><i class="fa-solid fa-biohazard" style="margin-right: 6px;"></i>NO2</td>
                         <td>Nitrogen Dioxide, a highly reactive gas emitted by heavy vehicle traffic and fossil fuels.</td>
                         <td>Highly suffocating; causes severe lung inflammation and reduces immunity to infections.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: var(--accent);">SO2</td>
+                        <td style="font-weight: 700; color: var(--accent);"><i class="fa-solid fa-tower-industrial" style="margin-right: 6px;"></i>SO2</td>
                         <td>Sulfur Dioxide, a toxic gas produced by burning sulfur-heavy fossil fuels like coal.</td>
                         <td>Causes chest tightness, breathing pain, and contributes heavily to acid rain formation.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #64748b;">CO</td>
+                        <td style="font-weight: 700; color: #64748b;"><i class="fa-solid fa-car-rear" style="margin-right: 6px;"></i>CO</td>
                         <td>Carbon Monoxide, an odorless gas resulting from incomplete fuel burning in traffic.</td>
                         <td>Deprives the body of vital oxygen, causing rapid onset of headaches and dizziness.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #14b8a6;">O3</td>
+                        <td style="font-weight: 700; color: #14b8a6;"><i class="fa-solid fa-circle-nodes" style="margin-right: 6px;"></i>O3</td>
                         <td>Ground-Level Ozone, a reactive gas created when sunlight bakes other urban pollutants.</td>
                         <td>Irritates the throat, causes chest pain, and forms the main chemical ingredient of smog.</td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
@@ -407,15 +412,15 @@
         <div id="dashboard-content-area">
             <!-- KPI Cards -->
             <div class="grid-3" style="margin-bottom: 30px;">
-                <div class="kpi-card">
+                <div class="kpi-card hover-lift" id="kpi-card-avg" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title">National Average AQI</div>
                     <div class="kpi-value" id="kpi-avg-aqi">--</div>
                 </div>
-                <div class="kpi-card">
+                <div class="kpi-card hover-lift" id="kpi-card-worst" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(239,68,68,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title" style="color: #ef4444;">Most Polluted City</div>
                     <div class="kpi-value" id="kpi-worst-city">--</div>
                 </div>
-                <div class="kpi-card">
+                <div class="kpi-card hover-lift" id="kpi-card-best" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(16,185,129,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title" style="color: #10b981;">Cleanest City</div>
                     <div class="kpi-value" id="kpi-best-city">--</div>
                 </div>
@@ -686,6 +691,11 @@
             const health = document.getElementById('result-health-risk')?.textContent || '--';
             const precaution = document.getElementById('result-precaution')?.textContent || '--';
             const solution = document.getElementById('result-solution')?.textContent || '--';
+            
+            const detailPart = document.getElementById('result-detail')?.textContent || '';
+            const descPart = document.getElementById('result-city-desc')?.textContent || '';
+            const reason = (detailPart + " " + descPart).trim() || '--';
+            
             const now = new Date();
             
             // 2. Update Hidden Template
@@ -695,6 +705,7 @@
             document.getElementById('sc-health').textContent = health;
             document.getElementById('sc-precaution').textContent = precaution;
             document.getElementById('sc-solution').textContent = solution;
+            document.getElementById('sc-reason').textContent = reason;
             document.getElementById('sc-date').textContent = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
             document.getElementById('sc-time').textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
@@ -716,19 +727,17 @@
             shareBtn.disabled = true;
 
             // 4. Render to Canvas
-            const template = document.getElementById('share-card-template');
-            // Temporarily move to visible area but transparent to ensure fonts/icons render
-            template.style.left = '50%';
-            template.style.top = '50%';
-            template.style.transform = 'translate(-50%, -50%)';
-            template.style.opacity = '0.01';
-            template.style.zIndex = '-1';
+            // Add a tiny delay to ensure template styles are updated before capture
+            await new Promise(resolve => setTimeout(resolve, 50));
 
-            const canvas = await html2canvas(template.querySelector('div'), {
-                scale: 2, // Consistent high resolution
+            const templateWrap = document.getElementById('share-card-template');
+            const target = templateWrap.firstElementChild; // The actual card div
+
+            const canvas = await html2canvas(target, {
+                scale: 2,
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: null,
+                backgroundColor: '#0f172a', // Solid background instead of null
                 logging: false,
                 width: 500
             });
@@ -740,11 +749,7 @@
             link.href = image;
             link.click();
 
-            // 6. Reset Template and Button
-            template.style.left = '-9999px';
-            template.style.top = '-9999px';
-            template.style.opacity = '1';
-            
+            // 6. Reset UI
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i> Card Saved!';
             shareBtn.style.color = '#10b981';
             shareBtn.style.borderColor = '#10b98144';
@@ -829,8 +834,25 @@
             resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
+        // Trigger staggered animations
+        const animatedElements = [
+            resultContainer.querySelector('.grid-2 > div:first-child'), // Left: Score
+            resultContainer.querySelector('.grid-2 > div:last-child'),  // Right: Insights
+            resultContainer.querySelector('div[style*="padding-top: 20px"]') // Bottom: Health/Precaution
+        ];
+
+        animatedElements.forEach((el, index) => {
+            if (el) {
+                el.classList.remove('animate-fade-in-up', 'delay-100', 'delay-200', 'delay-300');
+                // Trigger reflow to restart animation
+                void el.offsetWidth;
+                el.classList.add('animate-fade-in-up', `delay-${(index + 1) * 100}`);
+            }
+        });
+
         // Start the visual countdown immediately
         startInsightCountdown();
+
     }
 
     function startInsightCountdown() {
@@ -1086,11 +1108,82 @@
 
     }
 
+    // Global Insight Maps
+    const cityModalText = {
+        "Delhi": "Delhi experiences severe pollution due to winter crop stubble burning in neighboring states, massive vehicle congestion, and winter inversion layers that trap smog at ground level.",
+        "Mumbai": "Mumbai faces heavy coastal industrial emissions, localized traffic bottlenecks, and significant construction dust from rapid urbanization.",
+        "Kolkata": "Kolkata struggles with emissions from older diesel vehicles, nearby coal-fired power plants, and open burning of solid waste.",
+        "Bangalore": "Bangalore's pollution spike is driven by rapidly growing IT-corridor traffic, constant infrastructure construction, and road dust resuspension.",
+        "Chennai": "Chennai's air quality is impacted by thermal power stations, port activities, and heavy vehicular emissions along major arterial roads.",
+        "Hyderabad": "Hyderabad sees elevated AQI due to rapid urbanization, pharmaceutical and manufacturing industries, and increasing daily traffic.",
+        "Ahmedabad": "Ahmedabad's pollution is heavily influenced by nearby industrial estates, textile manufacturing emissions, and dry weather dust.",
+        "Pune": "Pune faces rising pollution from increasing two-wheeler traffic, construction activities, and geographical features that can trap pollutants.",
+        "Jaipur": "Jaipur's AQI is affected by dry, dusty geographical conditions, tourist and local traffic, and seasonal agricultural activities.",
+        "Lucknow": "Lucknow suffers from severe winter inversion trapping local biomass burning, vehicular exhaust, and construction dust.",
+        "Coimbatore": "Coimbatore experiences growing textile mill operations, foundry emissions, and localized urban traffic bottlenecks.",
+        "Kochi": "Kochi's air is affected by coastal shipping and port operations, construction, and high humidity trapping localized exhaust.",
+        "Nagpur": "Nagpur is impacted by nearby thermal power plants, extensive coal transport, and centrally located highway traffic.",
+        "Indore": "Indore faces rapid commercial expansion, persistent construction activities, and a massive surge in private vehicle usage.",
+        "Bhopal": "Bhopal's AQI is driven by growing industrial zones, older public transport fleets, and localized waste burning.",
+        "Patna": "Patna struggles heavily due to reliance on solid fuels for cooking, massive resuspended road dust, and geographic trapping of Gangetic plain smog.",
+        "Visakhapatnam": "Visakhapatnam sees pollution from dense port/shipping operations, heavy industries like steel refineries, and coastal maritime traffic.",
+        "Guwahati": "Guwahati suffers from valley topography trapping emissions, widespread construction, and growing vehicular density.",
+        "Shimla": "Shimla has generally good air, but faces increasing tourist traffic and localized winter wood-burning for heating, though offset by altitude dispersion.",
+        "Chandigarh": "Chandigarh is affected by high per-capita vehicle ownership, post-harvest crop burning from border regions, and urban expansion."
+    };
+
+    const monthModalText = {
+        "Jan": "January sees massive PM2.5 spikes across Northern India due to severe winter temperature inversions trapping pollutants close to the ground, exacerbated by heating fires.",
+        "Feb": "February remains highly polluted as winter conditions persist, though late-month wind changes begin to slightly disperse trapped particulate matter.",
+        "Mar": "March brings rising temperatures and improved atmospheric mixing, leading to a noticeable drop in severe smog events compared to winter peak.",
+        "Apr": "April air quality is generally moderate, though dry conditions can lead to increased resuspended dust (PM10) in arid western and central regions.",
+        "May": "May experiences intense heat and pre-monsoon winds that suspend large amounts of coarse dust (PM10), though fine particulate (PM2.5) levels are lower.",
+        "Jun": "June marks the onset of the Southwest Monsoon in many regions. Rain acts as a natural scrubber, drastically washing particulate matter from the air.",
+        "Jul": "July typically records the cleanest air quality of the year nationwide due to heavy, sustained monsoon rains washing away both coarse and fine pollutants.",
+        "Aug": "August continues the trend of excellent air quality as monsoon conditions persist, preventing the accumulation of airborne emissions.",
+        "Sep": "September air quality remains relatively clean as the monsoon withdraws, but late-month drying begins to allow dust and emissions to resuspend.",
+        "Oct": "October marks a sharp deterioration in air quality due to dropping temperatures, reduced wind speed, festival emissions, and the onset of agricultural crop stubble burning.",
+        "Nov": "November is historically the most toxic month. Massive crop burning plumes merge with winter inversions and festival fireworks, creating hazardous smog blankets.",
+        "Dec": "December maintains hazardous pollution levels. While crop burning ends, extreme winter cold creates persistent inversion layers that trap localized vehicular and industrial exhaust."
+    };
+
+    const pollutantModalText = {
+        "PM25": "Fine Particulate Matter (PM2.5) consists of microscopic particles smaller than 2.5 microns. They are the most lethal pollutant as they can bypass the respiratory system's defenses, enter the bloodstream, and cause severe cardiovascular and respiratory diseases.",
+        "PM10": "Coarse Particulate Matter (PM10) includes dust, pollen, and mold. While less dangerous than PM2.5, high levels cause severe irritation to the eyes, nose, and throat.",
+        "NO2": "Nitrogen Dioxide is a toxic reddish-brown gas emitted primarily by vehicles and power plants. It inflames the lining of the lungs and can reduce immunity to lung infections.",
+        "SO2": "Sulfur Dioxide is a toxic gas produced by burning fossil fuels like coal. It causes eye irritation, worsens asthma, and contributes to the formation of acid rain.",
+        "CO": "Carbon Monoxide is a colorless, odorless gas from incomplete combustion in vehicles. It interferes with the blood's ability to carry oxygen, causing headaches and dizziness.",
+        "O3": "Ground-level Ozone is created by chemical reactions between oxides of nitrogen and volatile organic compounds in sunlight. It triggers a variety of health problems."
+    };
+
     function updateKPIs(data) {
         document.getElementById('kpi-avg-aqi').textContent = data.kpis.avg_aqi;
         document.getElementById('kpi-worst-city').textContent = data.kpis.worst_city;
         document.getElementById('kpi-best-city').textContent = data.kpis.best_city;
         document.getElementById('insight-text').innerHTML = data.insight;
+        
+        // Update Year Context for clicks
+        const currentYear = document.getElementById('year-select').value;
+        const insights = data.kpi_insights || {
+            national: `National Average AQI in ${currentYear} was ${data.kpis.avg_aqi}.`,
+            worst: `Most Polluted City in ${currentYear} was ${data.kpis.worst_city}.`,
+            best: `Cleanest City in ${currentYear} was ${data.kpis.best_city}.`
+        };
+        
+        // National Average Click
+        document.getElementById('kpi-card-avg').onclick = () => {
+            openModal(`${currentYear} National Average`, insights.national);
+        };
+        
+        // Worst City Click
+        document.getElementById('kpi-card-worst').onclick = () => {
+            openModal(`Most Polluted City (${currentYear}): ${data.kpis.worst_city}`, insights.worst);
+        };
+        
+        // Best City Click
+        document.getElementById('kpi-card-best').onclick = () => {
+            openModal(`Cleanest City (${currentYear}): ${data.kpis.best_city}`, insights.best);
+        };
     }
 
     function updateCharts(data) {
@@ -1103,54 +1196,6 @@
         if (monthChartInstance) monthChartInstance.destroy();
         if (donutChartInstance) donutChartInstance.destroy();
         if (compareChartInstance) compareChartInstance.destroy();
-
-        // Modal Logic for City Clicks
-        const cityModalText = {
-            "Delhi": "Delhi experiences severe pollution due to winter crop stubble burning in neighboring states, massive vehicle congestion, and winter inversion layers that trap smog at ground level.",
-            "Mumbai": "Mumbai faces heavy coastal industrial emissions, localized traffic bottlenecks, and significant construction dust from rapid urbanization.",
-            "Kolkata": "Kolkata struggles with emissions from older diesel vehicles, nearby coal-fired power plants, and open burning of solid waste.",
-            "Bangalore": "Bangalore's pollution spike is driven by rapidly growing IT-corridor traffic, constant infrastructure construction, and road dust resuspension.",
-            "Chennai": "Chennai's air quality is impacted by thermal power stations, port activities, and heavy vehicular emissions along major arterial roads.",
-            "Hyderabad": "Hyderabad sees elevated AQI due to rapid urbanization, pharmaceutical and manufacturing industries, and increasing daily traffic.",
-            "Ahmedabad": "Ahmedabad's pollution is heavily influenced by nearby industrial estates, textile manufacturing emissions, and dry weather dust.",
-            "Pune": "Pune faces rising pollution from increasing two-wheeler traffic, construction activities, and geographical features that can trap pollutants.",
-            "Jaipur": "Jaipur's AQI is affected by dry, dusty geographical conditions, tourist and local traffic, and seasonal agricultural activities.",
-            "Lucknow": "Lucknow suffers from severe winter inversion trapping local biomass burning, vehicular exhaust, and construction dust.",
-            "Coimbatore": "Coimbatore experiences growing textile mill operations, foundry emissions, and localized urban traffic bottlenecks.",
-            "Kochi": "Kochi's air is affected by coastal shipping and port operations, construction, and high humidity trapping localized exhaust.",
-            "Nagpur": "Nagpur is impacted by nearby thermal power plants, extensive coal transport, and centrally located highway traffic.",
-            "Indore": "Indore faces rapid commercial expansion, persistent construction activities, and a massive surge in private vehicle usage.",
-            "Bhopal": "Bhopal's AQI is driven by growing industrial zones, older public transport fleets, and localized waste burning.",
-            "Patna": "Patna struggles heavily due to reliance on solid fuels for cooking, massive resuspended road dust, and geographic trapping of Gangetic plain smog.",
-            "Visakhapatnam": "Visakhapatnam sees pollution from dense port/shipping operations, heavy industries like steel refineries, and coastal maritime traffic.",
-            "Guwahati": "Guwahati suffers from valley topography trapping emissions, widespread construction, and growing vehicular density.",
-            "Shimla": "Shimla has generally good air, but faces increasing tourist traffic and localized winter wood-burning for heating, though offset by altitude dispersion.",
-            "Chandigarh": "Chandigarh is affected by high per-capita vehicle ownership, post-harvest crop burning from border regions, and urban expansion."
-        };
-
-        const monthModalText = {
-            "Jan": "January sees massive PM2.5 spikes across Northern India due to severe winter temperature inversions trapping pollutants close to the ground, exacerbated by heating fires.",
-            "Feb": "February remains highly polluted as winter conditions persist, though late-month wind changes begin to slightly disperse trapped particulate matter.",
-            "Mar": "March brings rising temperatures and improved atmospheric mixing, leading to a noticeable drop in severe smog events compared to winter peak.",
-            "Apr": "April air quality is generally moderate, though dry conditions can lead to increased resuspended dust (PM10) in arid western and central regions.",
-            "May": "May experiences intense heat and pre-monsoon winds that suspend large amounts of coarse dust (PM10), though fine particulate (PM2.5) levels are lower.",
-            "Jun": "June marks the onset of the Southwest Monsoon in many regions. Rain acts as a natural scrubber, drastically washing particulate matter from the air.",
-            "Jul": "July typically records the cleanest air quality of the year nationwide due to heavy, sustained monsoon rains washing away both coarse and fine pollutants.",
-            "Aug": "August continues the trend of excellent air quality as monsoon conditions persist, preventing the accumulation of airborne emissions.",
-            "Sep": "September air quality remains relatively clean as the monsoon withdraws, but late-month drying begins to allow dust and emissions to resuspend.",
-            "Oct": "October marks a sharp deterioration in air quality due to dropping temperatures, reduced wind speed, festival emissions, and the onset of agricultural crop stubble burning.",
-            "Nov": "November is historically the most toxic month. Massive crop burning plumes merge with winter inversions and festival fireworks, creating hazardous smog blankets.",
-            "Dec": "December maintains hazardous pollution levels. While crop burning ends, extreme winter cold creates persistent inversion layers that trap localized vehicular and industrial exhaust."
-        };
-
-        const pollutantModalText = {
-            "PM25": "Fine Particulate Matter (PM2.5) consists of microscopic particles smaller than 2.5 microns. They are the most lethal pollutant as they can bypass the respiratory system's defenses, enter the bloodstream, and cause severe cardiovascular and respiratory diseases.",
-            "PM10": "Coarse Particulate Matter (PM10) includes dust, pollen, and mold. While less dangerous than PM2.5, high levels cause severe irritation to the eyes, nose, and throat.",
-            "NO2": "Nitrogen Dioxide is a toxic reddish-brown gas emitted primarily by vehicles and power plants. It inflames the lining of the lungs and can reduce immunity to lung infections.",
-            "SO2": "Sulfur Dioxide is a toxic gas produced by burning fossil fuels like coal. It causes eye irritation, worsens asthma, and contributes to the formation of acid rain.",
-            "CO": "Carbon Monoxide is a colorless, odorless gas from incomplete combustion in vehicles. It interferes with the blood's ability to carry oxygen, causing headaches and dizziness.",
-            "O3": "Ground-level Ozone is created by chemical reactions between oxides of nitrogen and volatile organic compounds in sunlight. It triggers a variety of health problems."
-        };
 
         const getThemeColors = () => {
             return {
@@ -1182,7 +1227,8 @@
                     } else if (pollutantModalText[label]) {
                         openModal(`${label} Analysis`, pollutantModalText[label]);
                     } else if (label === 'National Average') {
-                        openModal('National Average', 'The National Average represents the aggregated baseline of air toxicity across all measured major metropolitan areas for the selected year, serving as a critical benchmark for evaluating localized extremes.');
+                        const curYear = document.getElementById('year-select').value;
+                        openModal(`${curYear} National Average`, `The National Average for ${curYear} represents the aggregated baseline of air toxicity across all measured major metropolitan areas, serving as a critical benchmark for evaluating localized extremes.`);
                     }
                 }
             },
@@ -1244,7 +1290,7 @@
         });
 
         // 3. Pollutant Donut Chart
-        const pNames = Object.keys(data.pollutants).map(k => k.toUpperCase());
+        const pNames = Object.keys(data.pollutants).map(k => k.toUpperCase().replace('PM25', 'PM 2.5'));
         const pVals = Object.values(data.pollutants);
 
         donutChartInstance = new Chart(donutCtx, {
@@ -1265,21 +1311,31 @@
         });
 
         // 4. Comparison Chart (Best vs Worst)
-        const bestIdx = data.cities.indexOf(data.kpis.best_city);
-        const worstIdx = data.cities.indexOf(data.kpis.worst_city);
-
         compareChartInstance = new Chart(compareCtx, {
             type: 'bar',
             data: {
                 labels: [data.kpis.best_city, data.kpis.worst_city, 'National Average'],
                 datasets: [{
                     label: 'AQI Comparison',
-                    data: [data.city_aqi[bestIdx], data.city_aqi[worstIdx], data.kpis.avg_aqi],
+                    data: [data.kpis.best_aqi, data.kpis.worst_aqi, data.kpis.avg_aqi],
                     backgroundColor: ['#10b981', '#ef4444', '#38bdf8'],
                     borderRadius: 4
                 }]
             },
-            options: commonOptions
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false } // Hide the misleading green legend
+                },
+                scales: {
+                    ...commonOptions.scales,
+                    y: { 
+                        ...commonOptions.scales.y,
+                        beginAtZero: true // Ensure the smallest bar (Cleanest city) doesn't disappear
+                    }
+                }
+            }
         });
 
     }
@@ -1291,7 +1347,7 @@
         container.innerHTML = '';
 
         const descriptions = {
-            "pm2.5": "Fine Particulate Matter (<2.5μm): Highly lethal microscopic particles that enter the bloodstream.",
+            "pm25": "Fine Particulate Matter (<2.5μm): Highly lethal microscopic particles that enter the bloodstream.",
             "pm10": "Inhalable Particulate Matter (<10μm): Dust, pollen, and mold that irritate the respiratory tract.",
             "no2": "Nitrogen Dioxide: Toxic gas from vehicle exhaust causing severe lung inflammation.",
             "so2": "Sulfur Dioxide: Corrosive gas from industrial burning, leading to acid rain and asthma.",
@@ -1303,13 +1359,14 @@
             const div = document.createElement('div');
             div.className = 'pollutant-badge';
 
+            const displayKey = key.toUpperCase().replace('PM25', 'PM 2.5');
             const desc = descriptions[key.toLowerCase()] || "Chemical Pollutant";
 
             // Make the badge clickable to trigger the custom UI modal
             div.style.cursor = 'pointer';
-            div.onclick = () => openModal(`${key.toUpperCase()} Pollution Metric`, desc);
+            div.onclick = () => openModal(`${displayKey} Pollution Metric`, desc);
 
-            div.innerHTML = `${key.toUpperCase()}: <span>${value}</span>`;
+            div.innerHTML = `${displayKey}: <span>${value}</span>`;
             container.appendChild(div);
         }
     }
@@ -1681,54 +1738,67 @@
 </script>
 
 <!-- Hidden Share Card Template (Rendered as PNG via html2canvas) -->
-<div id="share-card-template" style="position: absolute; left: -9999px; top: -9999px;">
-    <div style="width: 500px; padding: 50px 40px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; font-family: 'Outfit', sans-serif; border-radius: 28px; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
-        <!-- Decorative Background Element -->
-        <div style="position: absolute; top: -50px; right: -50px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%); border-radius: 50%;"></div>
+<div id="share-card-template" style="position: fixed; left: 0; top: 0; opacity: 0; pointer-events: none; z-index: -1000;">
+    <div style="width: 500px; padding: 40px; background: #0f172a; color: white; font-family: 'Outfit', sans-serif; border-radius: 24px; position: relative; overflow: hidden;">
+        <!-- Static background instead of complex gradient for html2canvas stability -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); z-index: -1;"></div>
         
         <!-- Header -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 25px;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-                <div style="width: 44px; height: 44px; background: #10b981; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fa-solid fa-leaf" style="color: white; font-size: 22px;"></i>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 40px; height: 40px; background: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-leaf" style="color: white; font-size: 20px;"></i>
                 </div>
-                <div style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em;">AQI Intelligence</div>
+                <div style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em;">AQI Intelligence</div>
             </div>
-            <div style="font-size: 0.85rem; color: #94a3b8; text-align: right; line-height: 1.4;">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-align: right;">
                 <div id="sc-date">-- --- ----</div>
                 <div id="sc-time" style="font-weight: 600; color: #cbd5e1;">--:--:--</div>
             </div>
         </div>
 
         <!-- City & AQI -->
-        <div style="text-align: center; margin-bottom: 45px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #94a3b8; font-size: 0.95rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">
                 <i class="fa-solid fa-location-dot" style="color:#10b981"></i> <span id="sc-city">DELHI</span>
             </div>
-            <!-- Removed background-clip for html2canvas compatibility -->
-            <div style="font-size: 6rem; font-weight: 800; line-height: 1; margin-bottom: 15px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.3);" id="sc-aqi">0</div>
-            <div id="sc-category-badge" style="display: inline-block; padding: 8px 20px; border-radius: 40px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.1);">UNKNOWN</div>
+            <div style="font-size: 5.5rem; font-weight: 800; line-height: 1; margin-bottom: 15px; color: #ffffff;" id="sc-aqi">0</div>
+            <div id="sc-category-badge" style="display: inline-block; padding: 6px 18px; border-radius: 40px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2);">UNKNOWN</div>
         </div>
 
-        <!-- Insights Grid (Less congested, more gap) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px;">
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 18px;">
-                <div style="color: #f59e0b; font-size: 0.8rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;"><i class="fa-solid fa-triangle-exclamation"></i> Health Risk</div>
-                <div id="sc-health" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; font-weight: 400;">Waiting for analysis...</div>
+        <!-- Insights Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="color: #f59e0b; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;"><i class="fa-solid fa-triangle-exclamation"></i> Health Risk</div>
+                <div id="sc-health" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting...</div>
             </div>
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 18px;">
-                <div style="color: #10b981; font-size: 0.8rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;"><i class="fa-solid fa-shield-heart"></i> Precaution</div>
-                <div id="sc-precaution" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; font-weight: 400;">Waiting for analysis...</div>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="color: #10b981; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;"><i class="fa-solid fa-shield-heart"></i> Precaution</div>
+                <div id="sc-precaution" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting...</div>
             </div>
         </div>
 
-        <!-- Solution Footer -->
-        <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); padding: 25px; border-radius: 20px;">
-            <div style="color: #10b981; font-weight: 800; font-size: 0.85rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.05em;">
+        <!-- Solution & Insights Footer -->
+        <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+                <div style="color: #38bdf8; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-map-location-dot"></i> Regional AI Insight
+                </div>
+                <div id="sc-reason" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting for analysis...</div>
+            </div>
+            
+            <div style="color: #10b981; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
                 <i class="fa-solid fa-lightbulb"></i> AI Recommendation
             </div>
-            <div id="sc-solution" style="font-size: 1rem; color: #f1f5f9; line-height: 1.6; font-style: italic; border-left: 3px solid #10b981; padding-left: 15px;">Select parameters to generate custom AI solution.</div>
+            <div id="sc-solution" style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5; font-style: italic; border-left: 3px solid #10b981; padding-left: 12px;">Waiting...</div>
         </div>
+
+        <!-- Footer Branding -->
+        <div style="margin-top: 30px; text-align: center; font-size: 0.7rem; color: #64748b; letter-spacing: 0.05em; font-weight: 600;">
+            AI-POWERED ENVIRONMENTAL INTELLIGENCE • AQI-DASHBOARD.LIVE
+        </div>
+    </div>
+</div>
 
         <!-- Footer Branding -->
         <div style="margin-top: 40px; text-align: center; font-size: 0.75rem; color: #475569; letter-spacing: 0.1em; font-weight: 600;">
@@ -1754,4 +1824,6 @@
     </div>
 </div>
 
+
+        
 {% endblock %}
