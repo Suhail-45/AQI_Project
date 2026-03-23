@@ -592,6 +592,29 @@ button.btn-primary:active {
     transform: translateY(0);
 }
 
+/* Staggered Entry Animations for Prediction Results */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+
 /* Responsive */
 @media screen and (max-width: 900px) {
     .grid-3 {
@@ -856,4 +879,132 @@ button.btn-primary:active {
 
 .methodology-table tr:hover {
     background: rgba(20, 184, 166, 0.05); /* Soft teal hover */
+}
+
+/* =========================================================================
+   MOBILE RESPONSIVE OPTIMIZATION
+   ========================================================================= */
+
+@media (max-width: 768px) {
+    /* Base Typography & Spacing */
+    html {
+        font-size: 14px; /* Scale down base font size for smaller screens */
+    }
+
+    body {
+        padding: 0;
+    }
+
+    /* Top Navigation fixes */
+    .top-nav {
+        flex-direction: column;
+        padding: 10px 15px;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .nav-brand {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-links li a {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    #live-clock {
+        display: none !important; /* Hide clock on mobile to save space */
+    }
+
+    /* Main Container Padding */
+    .dashboard, .prediction-container {
+        padding: 150px 15px 40px 15px; /* Adjust top padding for taller stacked nav */
+    }
+
+    /* KPI Grid adjustments */
+    .kpi-container {
+        grid-template-columns: 1fr; /* Stack KPI cards vertically */
+        gap: 15px;
+    }
+
+    /* Charts Grid adjustments */
+    .chart-grid {
+        grid-template-columns: 1fr; /* Stack charts vertically */
+        gap: 20px;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .year-slider-container {
+        width: 100%;
+    }
+
+    #year-select {
+        width: 100%;
+    }
+
+    /* Forms */
+    .split-layout {
+        flex-direction: column;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack form inputs vertically */
+    }
+
+    /* Methodology Table */
+    .methodology-table-wrapper {
+        border-radius: 8px;
+    }
+
+    .methodology-table th, .methodology-table td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Pollutant Badges */
+    .pollutants-summary {
+        justify-content: center;
+    }
+
+    .pollutant-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    /* Modals */
+    .custom-modal {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .chart-card {
+        padding: 15px;
+        min-height: 250px;
+    }
 }
