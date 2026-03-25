@@ -11,9 +11,8 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.0.1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2.2.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
@@ -23,7 +22,7 @@
         <nav class="top-nav glass-panel">
             <div class="nav-brand">
                 <i class="fa-solid fa-leaf"></i>
-                <h2>AQI System</h2>
+                <h2 style="font-family: 'Outfit', sans-serif;">Atmospheric Analysis AI</h2>
             </div>
             <div id="live-clock"
                 style="font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.9rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
@@ -39,7 +38,8 @@
         </nav>
 
         <main class="content-area">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </main>
 
         <footer class="glass-panel" style="margin-top: 60px; padding: 40px 20px; text-align: center; border-radius: 20px 20px 0 0; border-bottom: none;">
@@ -79,14 +79,23 @@
 
 
         // Floating Navbar on Scroll
+        // Throttled with requestAnimationFrame: runs at most once per paint frame
+        // instead of 60+ unthrottled calls per second.
+        const nav = document.querySelector('.top-nav');
+        let scrollTicking = false;
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.top-nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+            if (!scrollTicking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
             }
-        });
+        }, { passive: true });
 
         // Smooth Scroll for Navigation Links (Bypasses CSS Caching Issues)
         document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
@@ -110,6 +119,39 @@
                 }
             });
         });
+
+        // === Scroll-Reveal: IntersectionObserver ===
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Once revealed, no need to keep observing
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -60px 0px'  // trigger a little before element reaches viewport bottom
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // === Active Nav Link Tracker (section in view) ===
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        const isMatch = link.getAttribute('href') === `#${id}`;
+                        link.style.color = isMatch ? 'var(--accent)' : '';
+                        link.style.fontWeight = isMatch ? '600' : '';
+                    });
+                }
+            });
+        }, { threshold: 0.35 });
+
+        document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
     </script>
 </body>
 

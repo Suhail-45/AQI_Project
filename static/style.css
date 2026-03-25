@@ -30,13 +30,60 @@ html {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg-body);
-    background-attachment: fixed;
+    /* NOTE: background-attachment:fixed intentionally removed — it forces full
+       GPU repaint on every scroll frame and is the #1 cause of scroll jank */
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.5;
     transition: background 0.4s ease, color 0.4s ease;
 }
+
+/* ============================================================
+   Custom Premium Scrollbar
+   ============================================================ */
+::-webkit-scrollbar              { width: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        {
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-hover) 100%);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover  { background: var(--accent-hover); border-radius: 10px; }
+
+/* ============================================================
+   Global Micro-Interaction Defaults
+   ============================================================ */
+/* NOTE: 'i { transition }' intentionally removed.
+   Applying transitions to every single <i> icon causes hundreds of style
+   recalculations per frame and is a major source of scroll jank.
+   Only transition icons where explicitly needed via targeted selectors. */
+a { transition: color 0.2s ease; }
+button:not(.btn-primary) { transition: opacity 0.2s ease, color 0.2s ease; }
+input, select, textarea {
+    transition: border-color 0.25s ease,
+                box-shadow   0.25s ease;
+}
+
+/* ============================================================
+   KPI Card Value Animation
+   ============================================================ */
+@keyframes kpiCountUp {
+    from { opacity: 0.3; transform: translateY(6px); }
+    to   { opacity: 1;   transform: translateY(0); }
+}
+.kpi-value { animation: kpiCountUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Insight-box left border pulse on hover */
+.insight-box {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.insight-box:hover {
+    box-shadow: 0 4px 20px rgba(13, 148, 136, 0.12);
+    border-left-color: var(--accent-hover);
+}
+
 
 h1,
 h2,
@@ -55,15 +102,18 @@ h6 {
     z-index: 1;
 }
 
-/* Subtle Animated Background Blobs for depth, reduced intensity */
+/* Background blobs — isolated on their own compositing layer.
+   filter:blur is kept minimal; blobs are position:fixed to prevent
+   them from triggering scroll-induced repaints. */
 .blob {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
-    filter: blur(100px);
+    filter: blur(80px);
     z-index: -1;
     opacity: var(--blob-opacity);
-    animation: float 15s infinite ease-in-out alternate;
-    transition: opacity 0.5s ease;
+    will-change: transform;
+    animation: float 20s infinite ease-in-out alternate;
+    pointer-events: none;
 }
 
 .blob-1 {
@@ -86,20 +136,29 @@ h6 {
 
 
 @keyframes float {
-    0% {
-        transform: translateY(0) scale(1);
-    }
+    0%   { transform: translate3d(0, 0px, 0) scale(1); }
+    33%  { transform: translate3d(8px, -14px, 0) scale(1.03); }
+    66%  { transform: translate3d(-6px, 10px, 0) scale(0.98); }
+    100% { transform: translate3d(0, 22px, 0) scale(1.05); }
+}
 
-    100% {
-        transform: translateY(20px) scale(1.05);
-    }
+/* Page-entry fade-in */
+@keyframes pageEntry {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.content-area {
+    animation: pageEntry 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Glassmorphism Panel Refined */
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    /* backdrop-filter kept minimal (8px) — the higher the blur value,
+       the more expensive compositing is during scroll. */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--card-shadow);
     transition: background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
@@ -116,7 +175,10 @@ h6 {
     align-items: center;
     padding: 20px 40px;
     z-index: 1000;
-    transition: all 0.3s ease;
+    /* Use specific properties instead of 'all' to avoid re-compositing
+       unrelated properties on every scroll. */
+    transition: padding 0.3s ease, background 0.3s ease,
+                border-color 0.3s ease, box-shadow 0.3s ease;
     border-bottom: 1px solid transparent;
 }
 
@@ -172,12 +234,24 @@ h6 {
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: color 0.2s ease;
+    position: relative;
+    transition: color 0.25s ease;
 }
 
-.nav-links a:hover {
-    color: var(--text-primary);
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
 
 /* Main Content */
 .main-content {
@@ -208,6 +282,10 @@ section {
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
+    /* Skip rendering off-screen sections completely during scroll —
+       the single biggest render performance win for long pages. */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px;
 }
 
 /* Section Header */
@@ -235,14 +313,22 @@ section {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--card-shadow);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;
+    /* NOTE: will-change removed from here — applying it to many cards
+       simultaneously wastes GPU memory and causes more jank, not less.
+       The browser handles card hover transitions fine without it. */
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.4s ease,
+                border-color 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-} [data-theme="dark"] .card:hover { 
-    box-shadow: 0 30px 40px -10px rgba(0, 0, 0, 0.6); 
+    transform: translateY(-6px) scale(1.008);
+    box-shadow: 0 24px 40px -8px rgba(20, 184, 166, 0.18), 0 12px 16px -6px rgba(0, 0, 0, 0.06);
+    border-color: rgba(20, 184, 166, 0.4);
+}
+[data-theme="dark"] .card:hover {
+    box-shadow: 0 30px 50px -10px rgba(0, 0, 0, 0.65);
 }
 
 .card h2 {
@@ -363,21 +449,26 @@ button.btn-primary {
     cursor: pointer;
     font-weight: 500;
     font-size: 14px;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    transition: background 0.25s ease,
+                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 6px -1px rgba(20, 184, 166, 0.2);
+    box-shadow: 0 4px 10px -2px rgba(20, 184, 166, 0.25);
 }
 
 button.btn-primary:hover {
     background: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 12px -2px rgba(20, 184, 166, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -4px rgba(20, 184, 166, 0.35);
 }
 
 button.btn-primary:active {
-    transform: translateY(1px);
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 6px -1px rgba(20, 184, 166, 0.2);
+    transition-duration: 0.1s;
 }
 
 /* Results Display */
@@ -493,12 +584,15 @@ button.btn-primary:active {
 }
 
 .chart-container {
+    position: relative;
     width: 100%;
     height: 350px;
     background: var(--container-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
     padding: 16px;
+    overflow: hidden;
+    box-sizing: border-box;
     transition: background 0.4s ease;
 }
 
@@ -570,10 +664,12 @@ button.btn-primary:active {
 }
 
 .pollutant-badge:hover {
-    background: rgba(56, 189, 248, 0.15);
-    border-color: rgba(56, 189, 248, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: rgba(20, 184, 166, 0.15);
+    border-color: rgba(20, 184, 166, 0.5);
+    color: var(--accent);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.18);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pollutant-badge span {
@@ -583,14 +679,22 @@ button.btn-primary:active {
 
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
 }
 
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Stagger children within revealed sections */
+.reveal.active .reveal-delay-1 { transition-delay: 80ms; }
+.reveal.active .reveal-delay-2 { transition-delay: 160ms; }
+.reveal.active .reveal-delay-3 { transition-delay: 240ms; }
+.reveal.active .reveal-delay-4 { transition-delay: 320ms; }
 
 /* Staggered Entry Animations for Prediction Results */
 @keyframes fadeInUp {
@@ -757,7 +861,7 @@ button.btn-primary:active {
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .custom-modal-overlay.active {
@@ -768,14 +872,16 @@ button.btn-primary:active {
 .custom-modal {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
+    box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.4);
+    border-radius: 14px;
     padding: 30px;
     max-width: 500px;
     width: 90%;
-    transform: scale(0.95) translateY(20px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.92) translateY(24px);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.35s ease;
     position: relative;
+    will-change: transform;
 }
 
 .custom-modal-overlay.active .custom-modal {
