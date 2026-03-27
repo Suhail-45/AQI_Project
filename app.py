@@ -1,3 +1,4 @@
+
 # ==============================================================================
 # NOTE ON IDE / LINTER WARNINGS:
 # If your code editor shows "Could not find import" errors for Flask, pandas, 
@@ -21,14 +22,10 @@ from flask_limiter.util import get_remote_address # type: ignore
 from dotenv import load_dotenv # type: ignore
 from flask_cors import CORS # type: ignore
 
-# Load environment variables from .env file
+
 load_dotenv()
 
-# ---------------------------------------------------------------
-# WAQI (World Air Quality Index) — aggregates official CPCB data
-# Token is loaded from .env for security (never hardcode in prod)
-# ---------------------------------------------------------------
-WAQI_TOKEN = os.getenv("WAQI_TOKEN", "") # Load from .env
+WAQI_TOKEN = os.getenv("WAQI_TOKEN", "") 
 WAQI_CITY_MAP = {
     "Ahmedabad": "ahmedabad",
     "Bangalore": "bangalore",
@@ -615,15 +612,10 @@ def get_dynamic_city_description(city, category, dominant_pollutant="Unknown Pol
     if len(picked) == 1:
         causes_text = picked[0]
     else:
-        # Avoid slicing and LiteralString issues for linter
-        all_but_last = []
-        count = len(picked)
-        for i in range(count - 1):
-            item = str(picked[i])
-            all_but_last.append(item)
-        
-        last_item = str(picked[-1])
-        causes_text = ", ".join(all_but_last) + f", and {last_item}"
+        # Use pop and join to completely avoid indexing/slicing which triggers Pyre linter bugs
+        temp_input = [str(x) for x in picked]
+        last_item = temp_input.pop()
+        causes_text = ", ".join(temp_input) + ", and " + last_item
 
 
     detailed = (
@@ -985,13 +977,24 @@ def api_liveaqi():
 @app.route("/api/recent_logs", methods=["GET"])
 def api_recent_logs():
     """Returns the most recent 10 predictions for the live dashboard feed."""
-    # Copy and reverse to keep newest first while satisfying linter
-    logs_to_return = list(recent_predictions)
-    logs_to_return.reverse()
-    return jsonify({
-        "success": True,
-        "logs": logs_to_return[:15]
-    })
+    # Explicitly build subset list using a loop to avoid indexing/slicing linter faults
+    try:
+        raw_list = list(recent_predictions)
+        raw_list.reverse()
+        subset_logs = []
+        count = 0
+        for item in raw_list:
+            if count >= 15:
+                break
+            subset_logs.append(item)
+            count += 1
+            
+        return jsonify({
+            "success": True,
+            "logs": subset_logs
+        })
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
 
 
 @app.route("/api/predict", methods=["POST"])
