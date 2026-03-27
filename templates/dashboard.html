@@ -259,7 +259,7 @@
             </div>
 
             <div style="padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
-                <h3 onclick="openModal('Health Risk Details', this.dataset.detailedText, this.dataset.badgeHtml)"
+                <h3 onclick="openModal('Insight: Health Risk Profile', this.dataset.detailedText, this.dataset.badgeHtml)"
                     data-detailed-text="Please input metrics to see detailed risk profile."
                     style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;"
                     onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
@@ -269,7 +269,7 @@
                 <p class="advice-text" id="result-health-risk" style="margin-bottom: 15px;">Please input metrics to see
                     risk profile.</p>
 
-                <h3 onclick="openModal('Precautionary Measures', this.dataset.detailedText, this.dataset.badgeHtml)"
+                <h3 onclick="openModal('Insight: Precautionary Measures', this.dataset.detailedText, this.dataset.badgeHtml)"
                     data-detailed-text="Please input metrics to see recommended precautions."
                     style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;"
                     onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
@@ -279,7 +279,7 @@
                 <p class="advice-text" id="result-precaution" style="margin-bottom: 15px;">Please input metrics to see
                     recommended precautions.</p>
 
-                <h3 onclick="openModal('Required Solutions', this.dataset.detailedText, this.dataset.badgeHtml)"
+                <h3 onclick="openModal('Insight: AI-Recommended Solutions', this.dataset.detailedText, this.dataset.badgeHtml)"
                     data-detailed-text="Please input metrics to see the required solution."
                     style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;"
                     onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
@@ -1260,17 +1260,17 @@
 
         // National Average Click
         document.getElementById('kpi-card-avg').onclick = () => {
-            openModal(`${currentYear} National Average`, insights.national);
+            openModal(`Insight: ${currentYear} National Average`, insights.national);
         };
 
         // Worst City Click
         document.getElementById('kpi-card-worst').onclick = () => {
-            openModal(`Most Polluted City (${currentYear}): ${data.kpis.worst_city}`, insights.worst);
+            openModal(`Insight: Most Polluted City (${currentYear})`, insights.worst);
         };
 
         // Best City Click
         document.getElementById('kpi-card-best').onclick = () => {
-            openModal(`Cleanest City (${currentYear}): ${data.kpis.best_city}`, insights.best);
+            openModal(`Insight: Cleanest City (${currentYear})`, insights.best);
         };
     }
 
@@ -1309,14 +1309,14 @@
                     const dataIndex = activeElements[0].index;
                     const label = chart.data.labels[dataIndex];
                     if (cityModalText[label]) {
-                        openModal(label, cityModalText[label]);
+                        openModal(`City Insight: ${label}`, cityModalText[label]);
                     } else if (monthModalText[label]) {
-                        openModal(`${label} Trend`, monthModalText[label]);
+                        openModal(`Seasonal Insight: ${label}`, monthModalText[label]);
                     } else if (pollutantModalText[label]) {
-                        openModal(`${label} Analysis`, pollutantModalText[label]);
+                        openModal(`Pollutant Insight: ${label}`, pollutantModalText[label]);
                     } else if (label === 'National Average') {
                         const curYear = document.getElementById('year-select').value;
-                        openModal(`${curYear} National Average`, `The National Average for ${curYear} represents the aggregated baseline of air toxicity across all measured major metropolitan areas, serving as a critical benchmark for evaluating localized extremes.`);
+                        openModal(`Insight: ${curYear} National Average`, `The National Average for ${curYear} represents...`);
                     }
                 }
             },
@@ -1824,12 +1824,57 @@
                 }
 
                 // Use the custom UI modal instead of an intrusive browser alert box
-                openModal("Auto-Detect Failed", errorMsg);
-
-                theBtn.innerHTML = originalHtml;
+                console.log("Geolocation failed, trying IP-based fallback...");
+                fetchIpBasedLocation(targetSelectId, originalHtml);
             },
-            { enableHighAccuracy: false, timeout: 15000, maximumAge: 0 }
+            { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
         );
+    }
+
+    async function fetchIpBasedLocation(targetSelectId, originalHtml) {
+        const theBtn = document.getElementById(targetSelectId === 'predict-city' ? 'btn-detect-predict' : 'btn-detect-forecast');
+        try {
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            
+            if (data.city) {
+                const userCity = data.city;
+                let closestCity = "Default";
+                let shortestDistance = Infinity;
+                const userLat = data.latitude;
+                const userLon = data.longitude;
+
+                for (const [cityName, coords] of Object.entries(cityCoordinates)) {
+                    const dropdown = document.getElementById(targetSelectId);
+                    const optionExists = Array.from(dropdown.options).some(opt => opt.value === cityName);
+                    if (optionExists) {
+                        const distance = getDistanceFromLatLonInKm(userLat, userLon, coords.lat, coords.lon);
+                        if (distance < shortestDistance) {
+                            shortestDistance = distance;
+                            closestCity = cityName;
+                        }
+                    }
+                }
+
+                if (shortestDistance > 1500 && closestCity !== "Default") {
+                    closestCity = targetSelectId === 'predict-city' ? "Default" : "Delhi";
+                }
+
+                const dropdown = document.getElementById(targetSelectId);
+                dropdown.value = closestCity;
+                dropdown.dispatchEvent(new Event('change'));
+                if (targetSelectId === 'predict-city') fetchLiveDataForSelectedCity();
+
+                theBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> ${closestCity} (IP)`;
+                setTimeout(() => { theBtn.innerHTML = originalHtml; }, 3000);
+            } else {
+                throw new Error("IP Geolocation failed");
+            }
+        } catch (error) {
+            console.error("IP Fallback error:", error);
+            openModal("Auto-Detect Failed", "Unable to retrieve your location via browser or IP. Please select your city manually.");
+            theBtn.innerHTML = originalHtml;
+        }
     }
 </script>
 
@@ -1931,7 +1976,7 @@
     <div class="custom-modal">
         <div class="custom-modal-header">
             <div style="display:flex; flex-direction:column; gap:5px;">
-                <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> Insight for <span
+                <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> <span
                         id="modal-title"></span></h3>
                 <div id="modal-badge-container"></div>
             </div>
