@@ -1258,9 +1258,9 @@
             best: `Cleanest City in ${currentYear} was ${data.kpis.best_city}.`
         };
 
-        // National Average Click
+        // National Average Click — opens bar chart modal
         document.getElementById('kpi-card-avg').onclick = () => {
-            openModal(`Insight: ${currentYear} National Average`, insights.national);
+            openNationalAverageModal(currentYear);
         };
 
         // Worst City Click
@@ -1315,8 +1315,7 @@
                     } else if (pollutantModalText[label]) {
                         openModal(`Pollutant Insight: ${label}`, pollutantModalText[label]);
                     } else if (label === 'National Average') {
-                        const curYear = document.getElementById('year-select').value;
-                        openModal(`Insight: ${curYear} National Average`, `The National Average for ${curYear} represents...`);
+                        openNationalAverageModal(document.getElementById('year-select').value);
                     }
                 }
             },
@@ -1640,9 +1639,13 @@
     });
 
     // --- CUSTOM MODAL LOGIC ---
+    let modalNationalChartInstance = null;
+
     function openModal(title, text, badgeHtml = null) {
         document.getElementById('modal-title').textContent = title;
         document.getElementById('modal-text').innerHTML = text;
+        // Hide the chart area (used only by National Average modal)
+        document.getElementById('modal-chart-area').style.display = 'none';
         const badgeContainer = document.getElementById('modal-badge-container');
         if (badgeHtml) {
             badgeContainer.innerHTML = badgeHtml;
@@ -1652,6 +1655,123 @@
             badgeContainer.style.display = "none";
         }
         document.getElementById('chart-insight-modal').classList.add('active');
+    }
+
+    async function openNationalAverageModal(year) {
+        // Set title immediately so modal opens fast
+        const displayYear = year || document.getElementById('year-select').value;
+        document.getElementById('modal-title').textContent = `National Average AQI Trend (2015 – 2025)`;
+        document.getElementById('modal-text').innerHTML =
+            `<div style="text-align:center; padding:10px 0; color:var(--text-secondary);">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size:1.4rem; color:var(--accent);"></i>
+                <p style="margin-top:8px; font-size:0.9rem;">Loading decade-wide AQI data…</p>
+             </div>`;
+        document.getElementById('modal-chart-area').style.display = 'none';
+        document.getElementById('modal-badge-container').innerHTML = '';
+        document.getElementById('modal-badge-container').style.display = 'none';
+        document.getElementById('chart-insight-modal').classList.add('active');
+
+        try {
+            const resp = await fetch('/api/national_trend');
+            const data = await resp.json();
+            if (!data.success) throw new Error(data.error || 'Failed');
+
+            // Replace spinner with compact summary text
+            const currentYearAqi = data.values[data.labels.indexOf(String(displayYear))];
+            const currentYearText = currentYearAqi
+                ? `The selected year <b>${displayYear}</b> had a national average AQI of <b>${currentYearAqi}</b>.`
+                : '';
+            document.getElementById('modal-text').innerHTML =
+                `<p style="font-size:0.93rem; color:var(--text-secondary); margin:0 0 4px;">
+                    The chart below shows how India's average urban AQI evolved over the past decade.
+                    ${currentYearText} Bars are colour-coded by AQI health bracket.
+                 </p>`;
+
+            // Show chart area
+            const chartArea = document.getElementById('modal-chart-area');
+            chartArea.style.display = 'block';
+
+            // Destroy previous chart instance if any
+            if (modalNationalChartInstance) {
+                modalNationalChartInstance.destroy();
+                modalNationalChartInstance = null;
+            }
+
+            const ctx = document.getElementById('modalNationalChart').getContext('2d');
+
+            // Highlight the selected year with a brighter border
+            const selIdx = data.labels.indexOf(String(displayYear));
+            const borderWidths = data.labels.map((_, i) => i === selIdx ? 3 : 1);
+            const borderColors = data.labels.map((_, i) =>
+                i === selIdx ? 'rgba(56,189,248,1)' : 'rgba(0,0,0,0.15)');
+
+            modalNationalChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'National Avg AQI',
+                        data: data.values,
+                        backgroundColor: data.colors,
+                        borderColor: borderColors,
+                        borderWidth: borderWidths,
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 700, easing: 'easeOutExpo' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: '#0f172a',
+                            bodyColor: '#334155',
+                            borderColor: 'rgba(0,0,0,0.1)',
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: ctx => ` AQI: ${ctx.parsed.y}`,
+                                afterLabel: ctx => {
+                                    const v = ctx.parsed.y;
+                                    if (v <= 50)  return '  ● Good';
+                                    if (v <= 100) return '  ● Moderate';
+                                    if (v <= 200) return '  ● Unhealthy';
+                                    if (v <= 300) return '  ● Very Unhealthy';
+                                    return '  ● Hazardous';
+                                }
+                            }
+                        },
+                        annotation: {}
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: { color: '#334155', stepSize: 20 },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            title: { display: true, text: 'AQI', color: '#64748b', font: { size: 11 } }
+                        },
+                        x: {
+                            ticks: { color: '#334155', font: { weight: ctx => ctx.index === selIdx ? '800' : '400' } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Insight paragraph
+            document.getElementById('modal-chart-insight').innerHTML =
+                `<i class="fa-solid fa-lightbulb" style="color:#f59e0b; margin-right:6px;"></i>${data.insight}`;
+
+        } catch (err) {
+            console.error('National trend fetch failed:', err);
+            document.getElementById('modal-text').innerHTML =
+                '<p style="color:#ef4444;">Failed to load national trend data. Please try again.</p>';
+        }
     }
 
     function closeModal() {
@@ -1973,7 +2093,7 @@
 
 <!-- Custom Insight Modal -->
 <div id="chart-insight-modal" class="custom-modal-overlay">
-    <div class="custom-modal">
+    <div class="custom-modal" style="max-width: 680px; width: 95%;">
         <div class="custom-modal-header">
             <div style="display:flex; flex-direction:column; gap:5px;">
                 <h3 class="custom-modal-title"><i class="fa-solid fa-circle-info"></i> <span
@@ -1984,6 +2104,15 @@
         </div>
         <div class="custom-modal-body" id="modal-text">
             <!-- Content injected here -->
+        </div>
+        <!-- National Average bar chart (only visible when opened via openNationalAverageModal) -->
+        <div id="modal-chart-area" style="display:none; padding: 0 20px 20px;">
+            <div style="position:relative; height:260px; width:100%;">
+                <canvas id="modalNationalChart"></canvas>
+            </div>
+            <p id="modal-chart-insight"
+               style="font-size:0.88rem; color:var(--text-secondary); margin-top:14px; line-height:1.65; padding: 12px 14px; background:rgba(56,189,248,0.05); border:1px solid rgba(56,189,248,0.15); border-radius:10px;">
+            </p>
         </div>
     </div>
 </div>
