@@ -108,10 +108,12 @@ h6 {
 .blob {
     position: fixed;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(40px);
     z-index: -1;
     opacity: var(--blob-opacity);
     will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     animation: float 20s infinite ease-in-out alternate;
     pointer-events: none;
 }
@@ -155,10 +157,6 @@ h6 {
 /* Glassmorphism Panel Refined */
 .glass-panel {
     background: var(--glass-bg);
-    /* backdrop-filter kept minimal (8px) — the higher the blur value,
-       the more expensive compositing is during scroll. */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--card-shadow);
     transition: background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
@@ -282,9 +280,8 @@ section {
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-    /* Skip rendering off-screen sections completely during scroll —
-       the single biggest render performance win for long pages. */
     content-visibility: auto;
+    contain: layout paint;
     contain-intrinsic-size: 0 800px;
 }
 
@@ -313,9 +310,7 @@ section {
     background: var(--glass-bg);
     border: 1.5px solid rgba(13, 148, 136, 0.45);
     box-shadow: var(--card-shadow);
-    /* NOTE: will-change removed from here — applying it to many cards
-       simultaneously wastes GPU memory and causes more jank, not less.
-       The browser handles card hover transitions fine without it. */
+    contain: layout style;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                 background 0.4s ease,
