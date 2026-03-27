@@ -4,13 +4,16 @@
 
 <!-- Project Header / Hero Section -->
 <header class="project-hero reveal" style="text-align: center; margin-bottom: 50px; padding: 40px 20px; background: rgba(13, 148, 136, 0.03); border-radius: 20px; border: 1px solid rgba(13, 148, 136, 0.1);">
-    <h1 style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.8rem; background: linear-gradient(135deg, var(--accent), #0f766e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 15px; letter-spacing: -0.03em;">
+    <h1 style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; background: linear-gradient(135deg, var(--accent), #0f766e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 15px; letter-spacing: -0.03em;">
         Real-Time Atmospheric Pollution Analysis and Prediction Using Machine Learning in a Web-Based System
     </h1>
     <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; font-family: 'Inter', sans-serif; font-weight: 400;">
         An Advanced AI-Driven Framework for Quantifying Air Quality Vulnerability and Forecasting Urban Toxicity Trends Across India.
     </p>
 </header>
+
+
+
 <!-- Section 1: Predictive Analysis -->
 <section id="predictive" class="reveal">
     <div class="section-header">
@@ -24,17 +27,29 @@
         <p style="color: var(--text-secondary); margin-bottom: 15px;">If you're not a scientist, don't worry! Here is a
             simple guide to what each metric means:</p>
         <div class="grid-3" style="gap: 15px;">
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-smog" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">PM2.5</span> (Fine Dust)</b>: Tiny
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-smog"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">PM2.5</span> (Fine Dust)</b>: Tiny
                 particles from car exhaust or smoke that can enter your bloodstream.</div>
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-wind" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">PM10</span> (Coarse Dust)</b>: Larger
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-wind"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">PM10</span> (Coarse Dust)</b>: Larger
                 dust from construction or dirt roads that irritates the lungs.</div>
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-biohazard" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">NO2</span> (Nitrogen Dioxide)</b>: Toxic
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-biohazard"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">NO2</span> (Nitrogen Dioxide)</b>: Toxic
                 gas from burning fuel, causes asthma and coughing.</div>
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-car-rear" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">CO</span> (Carbon Monoxide)</b>:
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-car-rear"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">CO</span> (Carbon Monoxide)</b>:
                 Poisonous gas from vehicles and machinery.</div>
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-tower-industrial" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">SO2</span> (Sulfur Dioxide)</b>: Harsh
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-tower-industrial"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">SO2</span> (Sulfur Dioxide)</b>: Harsh
                 fumes mostly from industrial factories.</div>
-            <div style="font-size: 14px;"><b><i class="fa-solid fa-circle-nodes" style="color: var(--accent); margin-right: 4px;"></i><span style="color:var(--accent);">O3</span> (Ozone)</b>: "Bad" ozone
+            <div style="font-size: 14px;"><b><i class="fa-solid fa-circle-nodes"
+                        style="color: var(--accent); margin-right: 4px;"></i><span
+                        style="color:var(--accent);">O3</span> (Ozone)</b>: "Bad" ozone
                 created when sunlight reacts with smog at ground level.</div>
 
         </div>
@@ -59,14 +74,14 @@
                                 class="btn-primary"
                                 style="padding: 6px 14px; font-size: 0.8rem; background: var(--container-bg); border: 1px solid #10b98166; color: #10b981; min-width: auto; position: relative; border-radius: 20px; transition: all 0.3s ease;"
                                 title="Fetch real-time data from Open-Meteo"
-                                onmouseover="this.style.background='rgba(16, 185, 129, 0.1)'; this.style.transform='translateY(-1px)';" 
+                                onmouseover="this.style.background='rgba(16, 185, 129, 0.1)'; this.style.transform='translateY(-1px)';"
                                 onmouseout="this.style.background='var(--container-bg)'; this.style.transform='translateY(0)';">
                                 <i class="fa-solid fa-cloud-arrow-down"></i> Live Data
                             </button>
                             <button type="button" onclick="autoDetectCity('predict-city')" id="btn-detect-predict"
                                 class="btn-primary"
                                 style="padding: 6px 14px; font-size: 0.8rem; background: var(--container-bg); border: 1px solid var(--accent); color: var(--accent); min-width: auto; position: relative; border-radius: 20px; transition: all 0.3s ease;"
-                                onmouseover="this.style.background='rgba(14, 165, 233, 0.1)'; this.style.transform='translateY(-1px)';" 
+                                onmouseover="this.style.background='rgba(14, 165, 233, 0.1)'; this.style.transform='translateY(-1px)';"
                                 onmouseout="this.style.background='var(--container-bg)'; this.style.transform='translateY(0)';">
                                 <i class="fa-solid fa-crosshairs"></i> Auto-Detect
                             </button>
@@ -115,7 +130,8 @@
             <div class="form-grid">
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="pm25"><i class="fa-solid fa-smog" style="color: var(--accent); margin-right: 4px;"></i>PM2.5 (µg/m³)</label>
+                        <label for="pm25"><i class="fa-solid fa-smog"
+                                style="color: var(--accent); margin-right: 4px;"></i>PM2.5 (µg/m³)</label>
                         <span class="slider-value" id="val-pm25">45.2</span>
                     </div>
                     <input type="range" min="0" max="500" step="0.1" id="pm25" name="pm25" value="45.2"
@@ -125,7 +141,8 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="pm10"><i class="fa-solid fa-wind" style="color: var(--accent); margin-right: 4px;"></i>PM10 (µg/m³)</label>
+                        <label for="pm10"><i class="fa-solid fa-wind"
+                                style="color: var(--accent); margin-right: 4px;"></i>PM10 (µg/m³)</label>
                         <span class="slider-value" id="val-pm10">80.5</span>
                     </div>
                     <input type="range" min="0" max="500" step="0.1" id="pm10" name="pm10" value="80.5"
@@ -135,7 +152,8 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="no2"><i class="fa-solid fa-biohazard" style="color: var(--accent); margin-right: 4px;"></i>NO2 (ppb)</label>
+                        <label for="no2"><i class="fa-solid fa-biohazard"
+                                style="color: var(--accent); margin-right: 4px;"></i>NO2 (ppb)</label>
                         <span class="slider-value" id="val-no2">20.1</span>
                     </div>
                     <input type="range" min="0" max="400" step="0.1" id="no2" name="no2" value="20.1"
@@ -145,7 +163,8 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="so2"><i class="fa-solid fa-tower-industrial" style="color: var(--accent); margin-right: 4px;"></i>SO2 (ppb)</label>
+                        <label for="so2"><i class="fa-solid fa-tower-industrial"
+                                style="color: var(--accent); margin-right: 4px;"></i>SO2 (ppb)</label>
                         <span class="slider-value" id="val-so2">10.5</span>
                     </div>
                     <input type="range" min="0" max="1000" step="0.1" id="so2" name="so2" value="10.5"
@@ -155,7 +174,8 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="co"><i class="fa-solid fa-car-rear" style="color: var(--accent); margin-right: 4px;"></i>CO (ppm)</label>
+                        <label for="co"><i class="fa-solid fa-car-rear"
+                                style="color: var(--accent); margin-right: 4px;"></i>CO (ppm)</label>
                         <span class="slider-value" id="val-co">1.2</span>
                     </div>
                     <input type="range" min="0" max="50" step="0.1" id="co" name="co" value="1.2"
@@ -165,7 +185,8 @@
                 </div>
                 <div class="input-group">
                     <div class="slider-header">
-                        <label for="o3"><i class="fa-solid fa-circle-nodes" style="color: var(--accent); margin-right: 4px;"></i>O3 (ppb)</label>
+                        <label for="o3"><i class="fa-solid fa-circle-nodes"
+                                style="color: var(--accent); margin-right: 4px;"></i>O3 (ppb)</label>
                         <span class="slider-value" id="val-o3">50.3</span>
                     </div>
                     <input type="range" min="0" max="200" step="0.1" id="o3" name="o3" value="50.3"
@@ -185,63 +206,91 @@
             </button>
         </form>
 
-    <div class="card" id="result-container" style="margin-top: 30px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
-            <h2 style="margin:0;"><i class="fa-solid fa-chart-pie"></i> Detailed Analysis Result</h2>
-            <button onclick="shareResults()" id="btn-share-results"
-                style="padding:7px 16px; font-size:0.8rem; border-radius:20px; border:1px solid rgba(99,102,241,0.4); background:rgba(99,102,241,0.08); color:#818cf8; cursor:pointer; display:none; transition:all 0.3s;" 
-                onmouseover="this.style.background='rgba(99,102,241,0.18)'" onmouseout="this.style.background='rgba(99,102,241,0.08)'">
-                <i class="fa-solid fa-share-nodes"></i> Share Results
-            </button>
-        </div>
-        <div id="error-banner" style="display:none; padding:10px 16px; margin-bottom:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; color:#ef4444; font-size:0.9rem;"></div>
-        <div class="grid-2" style="align-items: center; margin-bottom: 25px;">
-            <div style="text-align: center;">
-                <div class="result-value-wrapper" style="justify-content: center; margin-bottom: 10px;">
-                    <div class="result-value" id="result-aqi" style="font-size: 4rem;">0</div>
-                </div>
-                <div class="category-badge" id="result-category" style="font-size: 1.2rem;">Unknown</div>
-            </div>
-
+        <div class="card" id="result-container" style="margin-top: 30px;">
             <div
-                style="background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0,0,0,0.05); padding: 20px; border-radius: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px;"><i
-                        class="fa-solid fa-microscope"></i> Diagnostic Findings</h3>
-                <p style="margin-bottom: 10px; font-size: 0.95rem;"><strong>Primary Driver:</strong> <span
-                        id="result-dominant" style="color: #fcd34d; font-weight: 600;">--</span></p>
-                <p id="result-detail"
-                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
-                    Awaiting
-                    analysis...</p>
-
-                <h3 id="regional-insight-header" onclick="openModal('Detailed Regional Insights', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="No prediction has been run yet. To see the AI regional profile for your city, please: 1) Select your city from the dropdown above, 2) Adjust the pollutant sliders or click 'Fetch Live Data', and 3) Click 'Analyze Air Quality'. The regional insight will then explain what is causing the air quality in your chosen city." style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 5px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 5px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
-                    <i class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city" style="color: var(--text-primary);">--</span>
-                </h3>
-                <div id="result-data-source" style="display:none; align-items:center; gap:6px; font-size:0.7rem; color: #10b981; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; width: fit-content;"></div>
-                <p id="result-city-desc"
-                    style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Select a city
-                    to retrieve AI regional profiling.</p>
+                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+                <h2 style="margin:0;"><i class="fa-solid fa-chart-pie"></i> Detailed Analysis Result</h2>
+                <button onclick="shareResults()" id="btn-share-results"
+                    style="padding:7px 16px; font-size:0.8rem; border-radius:20px; border:1px solid rgba(99,102,241,0.4); background:rgba(99,102,241,0.08); color:#818cf8; cursor:pointer; display:none; transition:all 0.3s;"
+                    onmouseover="this.style.background='rgba(99,102,241,0.18)'"
+                    onmouseout="this.style.background='rgba(99,102,241,0.08)'">
+                    <i class="fa-solid fa-share-nodes"></i> Share Results
+                </button>
             </div>
+            <div id="error-banner"
+                style="display:none; padding:10px 16px; margin-bottom:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; color:#ef4444; font-size:0.9rem;">
+            </div>
+            <div class="grid-2" style="align-items: center; margin-bottom: 25px;">
+                <div style="text-align: center;">
+                    <div class="result-value-wrapper" style="justify-content: center; margin-bottom: 10px;">
+                        <div class="result-value" id="result-aqi" style="font-size: 4rem;">0</div>
+                    </div>
+                    <div class="category-badge" id="result-category" style="font-size: 1.2rem;">Unknown</div>
+                </div>
+
+                <div
+                    style="background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0,0,0,0.05); padding: 20px; border-radius: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px;"><i
+                            class="fa-solid fa-microscope"></i> Diagnostic Findings</h3>
+                    <p style="margin-bottom: 10px; font-size: 0.95rem;"><strong>Primary Driver:</strong> <span
+                            id="result-dominant" style="color: #fcd34d; font-weight: 600;">--</span></p>
+                    <p id="result-detail"
+                        style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                        Awaiting
+                        analysis...</p>
+
+                    <h3 id="regional-insight-header"
+                        onclick="openModal('Detailed Regional Insights', this.dataset.detailedText, this.dataset.badgeHtml)"
+                        data-detailed-text="No prediction has been run yet. To see the AI regional profile for your city, please: 1) Select your city from the dropdown above, 2) Adjust the pollutant sliders or click 'Fetch Live Data', and 3) Click 'Analyze Air Quality'. The regional insight will then explain what is causing the air quality in your chosen city."
+                        style="margin-top: 15px; color: #10b981; font-size: 1.1rem; margin-bottom: 5px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 5px; transition: 0.2s;"
+                        onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
+                        title="Click for Detailed Explanation">
+                        <i class="fa-solid fa-map-location-dot"></i> Regional Insight: <span id="result-city"
+                            style="color: var(--text-primary);">--</span>
+                    </h3>
+                    <div id="result-data-source"
+                        style="display:none; align-items:center; gap:6px; font-size:0.7rem; color: #10b981; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; width: fit-content;">
+                    </div>
+                    <p id="result-city-desc"
+                        style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">Select a
+                        city
+                        to retrieve AI regional profiling.</p>
+                </div>
+            </div>
+
+            <div style="padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+                <h3 onclick="openModal('Health Risk Details', this.dataset.detailedText, this.dataset.badgeHtml)"
+                    data-detailed-text="Please input metrics to see detailed risk profile."
+                    style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;"
+                    onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
+                    title="Click for Detailed Explanation">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Health Risk
+                </h3>
+                <p class="advice-text" id="result-health-risk" style="margin-bottom: 15px;">Please input metrics to see
+                    risk profile.</p>
+
+                <h3 onclick="openModal('Precautionary Measures', this.dataset.detailedText, this.dataset.badgeHtml)"
+                    data-detailed-text="Please input metrics to see recommended precautions."
+                    style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;"
+                    onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
+                    title="Click for Detailed Explanation">
+                    <i class="fa-solid fa-shield-heart" style="color: #10b981;"></i> Precaution
+                </h3>
+                <p class="advice-text" id="result-precaution" style="margin-bottom: 15px;">Please input metrics to see
+                    recommended precautions.</p>
+
+                <h3 onclick="openModal('Required Solutions', this.dataset.detailedText, this.dataset.badgeHtml)"
+                    data-detailed-text="Please input metrics to see the required solution."
+                    style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;"
+                    onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"
+                    title="Click for Detailed Explanation">
+                    <i class="fa-solid fa-lightbulb" style="color: #3b82f6;"></i> Required Solution
+                </h3>
+                <p class="advice-text" id="result-solution" style="margin-bottom: 0;">Please input metrics to see the
+                    required solution.</p>
+            </div>
+
         </div>
-
-        <div style="padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
-            <h3 onclick="openModal('Health Risk Details', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see detailed risk profile." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(245, 158, 11, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
-                <i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Health Risk
-            </h3>
-            <p class="advice-text" id="result-health-risk" style="margin-bottom: 15px;">Please input metrics to see risk profile.</p>
-
-            <h3 onclick="openModal('Precautionary Measures', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see recommended precautions." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(16, 185, 129, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
-                <i class="fa-solid fa-shield-heart" style="color: #10b981;"></i> Precaution
-            </h3>
-            <p class="advice-text" id="result-precaution" style="margin-bottom: 15px;">Please input metrics to see recommended precautions.</p>
-
-            <h3 onclick="openModal('Required Solutions', this.dataset.detailedText, this.dataset.badgeHtml)" data-detailed-text="Please input metrics to see the required solution." style="margin-top: 0; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-decoration: underline dashed rgba(59, 130, 246, 0.5); text-underline-offset: 4px; transition: 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1" title="Click for Detailed Explanation">
-                <i class="fa-solid fa-lightbulb" style="color: #3b82f6;"></i> Required Solution
-            </h3>
-            <p class="advice-text" id="result-solution" style="margin-bottom: 0;">Please input metrics to see the required solution.</p>
-        </div>
-
-    </div>
 
 </section>
 
@@ -266,7 +315,8 @@
             <i class="fa-solid fa-mask-face" style="font-size:40px; color:#f59e0b; margin-top:20px;"></i>
         </div>
         <div class="card text-center reveal reveal-delay-3" style="border-top: 5px solid #fb923c;">
-            <div class="category-badge unhealthy-for-sensitive-people" style="display:inline-block; margin-bottom: 20px;">101 - 150:
+            <div class="category-badge unhealthy-for-sensitive-people"
+                style="display:inline-block; margin-bottom: 20px;">101 - 150:
                 UNHEALTHY FOR SENSITIVE PEOPLE</div>
             <p>Sensitive people may experience health effects. The general public is less likely to be affected.</p>
             <i class="fa-solid fa-lungs" style="font-size:40px; color:#fb923c; margin-top:20px;"></i>
@@ -277,7 +327,8 @@
             <p>Everyone may begin to experience health effects. Wear masks and avoid prolonged outdoor activity.</p>
             <i class="fa-solid fa-lungs-virus" style="font-size:40px; color:#f43f5e; margin-top:20px;"></i>
         </div>
-        <div class="card text-center reveal" style="grid-column: 1 / span 4; max-width: 600px; margin: 0 auto; margin-top: 24px; border-top: 5px solid #8b5cf6;">
+        <div class="card text-center reveal"
+            style="grid-column: 1 / span 4; max-width: 600px; margin: 0 auto; margin-top: 24px; border-top: 5px solid #8b5cf6;">
             <div class="category-badge hazardous" style="display:inline-block; margin-bottom: 20px;">> 300: HAZARDOUS
             </div>
             <p>Health warning of emergency conditions. The entire population is more likely to be affected. Stay
@@ -306,27 +357,32 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><i class="fa-solid fa-car-side" style="color: var(--accent); margin-right: 8px;"></i> Transport</td>
+                    <td><i class="fa-solid fa-car-side" style="color: var(--accent); margin-right: 8px;"></i> Transport
+                    </td>
                     <td>Vehicular Emissions & Traffic Congestion</td>
                     <td>Transition to Electric Vehicles (EVs) & Promote Public Transit</td>
                 </tr>
                 <tr>
-                    <td><i class="fa-solid fa-industry" style="color: var(--accent); margin-right: 8px;"></i> Industry</td>
+                    <td><i class="fa-solid fa-industry" style="color: var(--accent); margin-right: 8px;"></i> Industry
+                    </td>
                     <td>Heavy Industrial Exhausts & Manufacturing Waste</td>
                     <td>Enforce Strict Industrial Emission Standards</td>
                 </tr>
                 <tr>
-                    <td><i class="fa-solid fa-fire-flame-curved" style="color: var(--accent); margin-right: 8px;"></i> Agriculture</td>
+                    <td><i class="fa-solid fa-fire-flame-curved" style="color: var(--accent); margin-right: 8px;"></i>
+                        Agriculture</td>
                     <td>Crop Burning & Agricultural Biomass Waste</td>
                     <td>Introduce Sustainable Bio-Waste Management Tools</td>
                 </tr>
                 <tr>
-                    <td><i class="fa-solid fa-city" style="color: var(--accent); margin-right: 8px;"></i> Urbanization</td>
+                    <td><i class="fa-solid fa-city" style="color: var(--accent); margin-right: 8px;"></i> Urbanization
+                    </td>
                     <td>Construction Dust & Unpaved Roads</td>
                     <td>Increase Urban Afforestation & Green Belts</td>
                 </tr>
                 <tr>
-                    <td><i class="fa-solid fa-trash-can" style="color: var(--accent); margin-right: 8px;"></i> Energy & Waste</td>
+                    <td><i class="fa-solid fa-trash-can" style="color: var(--accent); margin-right: 8px;"></i> Energy &
+                        Waste</td>
                     <td>Improper Solid Waste Management & Coal Heating</td>
                     <td>Invest in Renewable Energy Sources (Solar/Wind)</td>
                 </tr>
@@ -334,8 +390,10 @@
         </table>
     </div>
 
-    <div class="card reveal reveal-delay-3" style="margin-top: 30px; padding: 0; background: transparent; border: none; box-shadow: none;">
-        <h2 style="margin-bottom: 15px;"><i class="fa-solid fa-book" style="color: var(--accent);"></i> Pollutant Glossary: What Are We Measuring?</h2>
+    <div class="card reveal reveal-delay-3"
+        style="margin-top: 30px; padding: 0; background: transparent; border: none; box-shadow: none;">
+        <h2 style="margin-bottom: 15px;"><i class="fa-solid fa-book" style="color: var(--accent);"></i> Pollutant
+            Glossary: What Are We Measuring?</h2>
         <div class="methodology-table-wrapper">
             <table class="methodology-table">
                 <thead>
@@ -347,34 +405,44 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight: 700; color: #ef4444;"><i class="fa-solid fa-smog" style="margin-right: 6px;"></i>PM2.5</td>
+                        <td style="font-weight: 700; color: #ef4444;"><i class="fa-solid fa-smog"
+                                style="margin-right: 6px;"></i>PM2.5</td>
                         <td>Fine Particulate Matter (&lt;2.5 µm) from vehicle exhaust and power plants.</td>
-                        <td>Can penetrate deep into the lungs and blood, causing severe respiratory/cardiovascular issues.</td>
+                        <td>Can penetrate deep into the lungs and blood, causing severe respiratory/cardiovascular
+                            issues.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #f97316;"><i class="fa-solid fa-wind" style="margin-right: 6px;"></i>PM10</td>
-                        <td>Coarse Particulate Matter from construction sites, unpaved roads, and crushing operations.</td>
+                        <td style="font-weight: 700; color: #f97316;"><i class="fa-solid fa-wind"
+                                style="margin-right: 6px;"></i>PM10</td>
+                        <td>Coarse Particulate Matter from construction sites, unpaved roads, and crushing operations.
+                        </td>
                         <td>Inhalable dust that irritates airways and frequently triggers severe asthma attacks.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #eab308;"><i class="fa-solid fa-biohazard" style="margin-right: 6px;"></i>NO2</td>
-                        <td>Nitrogen Dioxide, a highly reactive gas emitted by heavy vehicle traffic and fossil fuels.</td>
+                        <td style="font-weight: 700; color: #eab308;"><i class="fa-solid fa-biohazard"
+                                style="margin-right: 6px;"></i>NO2</td>
+                        <td>Nitrogen Dioxide, a highly reactive gas emitted by heavy vehicle traffic and fossil fuels.
+                        </td>
                         <td>Highly suffocating; causes severe lung inflammation and reduces immunity to infections.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: var(--accent);"><i class="fa-solid fa-tower-industrial" style="margin-right: 6px;"></i>SO2</td>
+                        <td style="font-weight: 700; color: var(--accent);"><i class="fa-solid fa-tower-industrial"
+                                style="margin-right: 6px;"></i>SO2</td>
                         <td>Sulfur Dioxide, a toxic gas produced by burning sulfur-heavy fossil fuels like coal.</td>
                         <td>Causes chest tightness, breathing pain, and contributes heavily to acid rain formation.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #64748b;"><i class="fa-solid fa-car-rear" style="margin-right: 6px;"></i>CO</td>
+                        <td style="font-weight: 700; color: #64748b;"><i class="fa-solid fa-car-rear"
+                                style="margin-right: 6px;"></i>CO</td>
                         <td>Carbon Monoxide, an odorless gas resulting from incomplete fuel burning in traffic.</td>
                         <td>Deprives the body of vital oxygen, causing rapid onset of headaches and dizziness.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700; color: #14b8a6;"><i class="fa-solid fa-circle-nodes" style="margin-right: 6px;"></i>O3</td>
+                        <td style="font-weight: 700; color: #14b8a6;"><i class="fa-solid fa-circle-nodes"
+                                style="margin-right: 6px;"></i>O3</td>
                         <td>Ground-Level Ozone, a reactive gas created when sunlight bakes other urban pollutants.</td>
-                        <td>Irritates the throat, causes chest pain, and forms the main chemical ingredient of smog.</td>
+                        <td>Irritates the throat, causes chest pain, and forms the main chemical ingredient of smog.
+                        </td>
                     </tr>
 
                 </tbody>
@@ -394,13 +462,16 @@
         <div class="dashboard-controls"
             style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <div style="flex-grow: 1; max-width: 400px; margin-right: 20px;">
-                <label for="year-select" style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">
+                <label for="year-select"
+                    style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">
                     <span>Historical Year Timeline</span>
-                    <span id="year-display" style="color: var(--accent); font-size: 1.2rem; font-weight: 800;">2015</span>
+                    <span id="year-display"
+                        style="color: var(--accent); font-size: 1.2rem; font-weight: 800;">2015</span>
                 </label>
-                <input type="range" id="year-select" min="2015" max="2025" value="2015" step="1" 
+                <input type="range" id="year-select" min="2015" max="2025" value="2015" step="1"
                     style="width: 100%; cursor: pointer; accent-color: var(--accent);">
-                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
+                <div
+                    style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
                     <span>2015</span>
                     <span>2020</span>
                     <span>2025</span>
@@ -419,15 +490,24 @@
         <div id="dashboard-content-area">
             <!-- KPI Cards -->
             <div class="grid-3" style="margin-bottom: 30px;">
-                <div class="kpi-card hover-lift" id="kpi-card-avg" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="kpi-card hover-lift" id="kpi-card-avg"
+                    style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title">National Average AQI</div>
                     <div class="kpi-value" id="kpi-avg-aqi">--</div>
                 </div>
-                <div class="kpi-card hover-lift" id="kpi-card-worst" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(239,68,68,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="kpi-card hover-lift" id="kpi-card-worst"
+                    style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(239,68,68,0.15)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title" style="color: #ef4444;">Most Polluted City</div>
                     <div class="kpi-value" id="kpi-worst-city">--</div>
                 </div>
-                <div class="kpi-card hover-lift" id="kpi-card-best" style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(16,185,129,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="kpi-card hover-lift" id="kpi-card-best"
+                    style="cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(16,185,129,0.15)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                     <div class="kpi-title" style="color: #10b981;">Cleanest City</div>
                     <div class="kpi-value" id="kpi-best-city">--</div>
                 </div>
@@ -557,7 +637,7 @@
                 <button type="button" onclick="autoDetectCity('forecast-city-select')" id="btn-detect-forecast"
                     class="btn-primary"
                     style="padding: 6px 14px; font-size: 0.8rem; background: #f0f9ff; border: 1px solid #bae6fd; color: #0ea5e9; min-width: auto; border-radius: 20px; transition: all 0.3s ease;"
-                    onmouseover="this.style.background='#e0f2fe'; this.style.transform='translateY(-1px)';" 
+                    onmouseover="this.style.background='#e0f2fe'; this.style.transform='translateY(-1px)';"
                     onmouseout="this.style.background='#f0f9ff'; this.style.transform='translateY(0)';">
                     <i class="fa-solid fa-crosshairs"></i> Auto-Detect
                 </button>
@@ -689,7 +769,7 @@
     async function shareResults() {
         const shareBtn = document.getElementById('btn-share-results');
         const originalHtml = shareBtn.innerHTML;
-        
+
         try {
             // 1. Prepare data
             const aqi = document.getElementById('result-aqi')?.textContent || '0';
@@ -698,13 +778,13 @@
             const health = document.getElementById('result-health-risk')?.textContent || '--';
             const precaution = document.getElementById('result-precaution')?.textContent || '--';
             const solution = document.getElementById('result-solution')?.textContent || '--';
-            
+
             const detailPart = document.getElementById('result-detail')?.textContent || '';
             const descPart = document.getElementById('result-city-desc')?.textContent || '';
             const reason = (detailPart + " " + descPart).trim() || '--';
-            
+
             const now = new Date();
-            
+
             // 2. Update Hidden Template
             document.getElementById('sc-aqi').textContent = aqi;
             document.getElementById('sc-city').textContent = city.toUpperCase();
@@ -723,7 +803,7 @@
             if (catLower.includes('unhealthy')) catColor = '#f43f5e'; // Rose
             if (catLower.includes('very unhealthy')) catColor = '#991b1b'; // Maroon
             if (catLower.includes('hazardous')) catColor = '#8b5cf6'; // Purple
-            
+
             const scBadge = document.getElementById('sc-category-badge');
             scBadge.style.background = `${catColor}22`;
             scBadge.style.color = catColor;
@@ -760,12 +840,12 @@
             shareBtn.innerHTML = '<i class="fa-solid fa-check"></i> Card Saved!';
             shareBtn.style.color = '#10b981';
             shareBtn.style.borderColor = '#10b98144';
-            
+
             // Also copy text as fallback (Wrapped in separate try-catch to prevent main flow crash)
-            try { 
+            try {
                 const textSummary = `🌿 AQI Report: ${city} | AQI: ${aqi} (${cat})\nHealth: ${health}\nSolution: ${solution}`;
-                navigator.clipboard.writeText(textSummary); 
-            } catch(e) { console.warn("Clipboard fallback failed, but PNG was generated."); }
+                navigator.clipboard.writeText(textSummary);
+            } catch (e) { console.warn("Clipboard fallback failed, but PNG was generated."); }
 
             setTimeout(() => {
                 shareBtn.innerHTML = originalHtml;
@@ -840,7 +920,7 @@
         if (scrollToResult) {
             resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-        
+
         // Trigger staggered animations
         const animatedElements = [
             resultContainer.querySelector('.grid-2 > div:first-child'), // Left: Score
@@ -971,26 +1051,26 @@
         try {
             const response = await fetch('/api/recent_logs');
             const data = await response.json();
-            
+
             if (data.success && data.logs.length > 0) {
                 const tbody = document.getElementById('live-logs-body');
                 tbody.innerHTML = ''; // clear loading message
-                
+
                 data.logs.forEach(log => {
                     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
                     const rowBorder = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
                     const rowHover = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)';
-                    
+
                     // Create color badge for category
                     let bgColor = '#10b981'; // good
-                    if(log.category === 'Moderate') bgColor = '#f59e0b';
-                    if(log.category === 'Unhealthy') bgColor = '#f43f5e';
-                    if(log.category === 'Very Unhealthy') bgColor = '#991b1b';
-                    if(log.category === 'Hazardous') bgColor = '#8b5cf6';
-                    
+                    if (log.category === 'Moderate') bgColor = '#f59e0b';
+                    if (log.category === 'Unhealthy') bgColor = '#f43f5e';
+                    if (log.category === 'Very Unhealthy') bgColor = '#991b1b';
+                    if (log.category === 'Hazardous') bgColor = '#8b5cf6';
+
                     const badgeBg = `${bgColor}11`;
                     const badgeBorder = `${bgColor}22`;
-                    
+
                     const row = `
                         <tr style="border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.3s; cursor: default;" onmouseover="this.style.background='rgba(0,0,0,0.02)'" onmouseout="this.style.background='none'">
                             <td style="padding: 10px 5px; color: var(--text-secondary); font-size: 0.8rem;">${log.timestamp}</td>
@@ -1156,6 +1236,7 @@
 
     const pollutantModalText = {
         "PM25": "Fine Particulate Matter (PM2.5) consists of microscopic particles smaller than 2.5 microns. They are the most lethal pollutant as they can bypass the respiratory system's defenses, enter the bloodstream, and cause severe cardiovascular and respiratory diseases.",
+        "PM 2.5": "Fine Particulate Matter (PM2.5) consists of microscopic particles smaller than 2.5 microns. They are the most lethal pollutant as they can bypass the respiratory system's defenses, enter the bloodstream, and cause severe cardiovascular and respiratory diseases.",
         "PM10": "Coarse Particulate Matter (PM10) includes dust, pollen, and mold. While less dangerous than PM2.5, high levels cause severe irritation to the eyes, nose, and throat.",
         "NO2": "Nitrogen Dioxide is a toxic reddish-brown gas emitted primarily by vehicles and power plants. It inflames the lining of the lungs and can reduce immunity to lung infections.",
         "SO2": "Sulfur Dioxide is a toxic gas produced by burning fossil fuels like coal. It causes eye irritation, worsens asthma, and contributes to the formation of acid rain.",
@@ -1168,7 +1249,7 @@
         document.getElementById('kpi-worst-city').textContent = data.kpis.worst_city;
         document.getElementById('kpi-best-city').textContent = data.kpis.best_city;
         document.getElementById('insight-text').innerHTML = data.insight;
-        
+
         // Update Year Context for clicks
         const currentYear = document.getElementById('year-select').value;
         const insights = data.kpi_insights || {
@@ -1176,17 +1257,17 @@
             worst: `Most Polluted City in ${currentYear} was ${data.kpis.worst_city}.`,
             best: `Cleanest City in ${currentYear} was ${data.kpis.best_city}.`
         };
-        
+
         // National Average Click
         document.getElementById('kpi-card-avg').onclick = () => {
             openModal(`${currentYear} National Average`, insights.national);
         };
-        
+
         // Worst City Click
         document.getElementById('kpi-card-worst').onclick = () => {
             openModal(`Most Polluted City (${currentYear}): ${data.kpis.worst_city}`, insights.worst);
         };
-        
+
         // Best City Click
         document.getElementById('kpi-card-best').onclick = () => {
             openModal(`Cleanest City (${currentYear}): ${data.kpis.best_city}`, insights.best);
@@ -1337,7 +1418,7 @@
                 },
                 scales: {
                     ...commonOptions.scales,
-                    y: { 
+                    y: {
                         ...commonOptions.scales.y,
                         beginAtZero: true // Ensure the smallest bar (Cleanest city) doesn't disappear
                     }
@@ -1577,9 +1658,17 @@
         document.getElementById('chart-insight-modal').classList.remove('active');
     }
 
-    // Close when clicking outside the modal box
+    // Close when clicking outside the modal box (overlay click)
     document.getElementById('chart-insight-modal').addEventListener('click', function (e) {
         if (e.target === this) closeModal();
+    });
+
+    // Close when clicking/touching anywhere on the modal card itself
+    document.querySelector('.custom-modal').addEventListener('click', function (e) {
+        // Let the X button handle its own click; close for all other areas
+        if (!e.target.closest('.custom-modal-close')) {
+            closeModal();
+        }
     });
 
 
@@ -1632,31 +1721,31 @@
                     const liveData = {
                         pm25: current.pm2_5 || 0,
                         pm10: current.pm10 || 0,
-                        no2:  current.nitrogen_dioxide || 0,
-                        so2:  current.sulphur_dioxide || 0,
-                        o3:   current.ozone || 0,
-                        co:   (current.carbon_monoxide / 1000) || 0
+                        no2: current.nitrogen_dioxide || 0,
+                        so2: current.sulphur_dioxide || 0,
+                        o3: current.ozone || 0,
+                        co: (current.carbon_monoxide / 1000) || 0
                     };
                     liveData.pm25 = Math.min(500, Math.max(0, liveData.pm25));
                     liveData.pm10 = Math.min(500, Math.max(0, liveData.pm10));
-                    liveData.no2  = Math.min(400, Math.max(0, liveData.no2));
-                    liveData.so2  = Math.min(1600, Math.max(0, liveData.so2));
-                    liveData.co   = Math.min(34, Math.max(0, liveData.co));
-                    liveData.o3   = Math.min(500, Math.max(0, liveData.o3));
+                    liveData.no2 = Math.min(400, Math.max(0, liveData.no2));
+                    liveData.so2 = Math.min(1600, Math.max(0, liveData.so2));
+                    liveData.co = Math.min(34, Math.max(0, liveData.co));
+                    liveData.o3 = Math.min(500, Math.max(0, liveData.o3));
                     updateSliders(liveData);
                 }
             }
 
             const currentTime = new Date();
-            const timeString = currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            
+            const timeString = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
             let label = `<i class="fa-solid fa-check"></i> Live Data as of ${timeString}`;
             if (waqiData.source) {
                 label += ` · ${waqiData.source}: ${window.waqiOfficialStation || city}`;
             } else if (window.waqiOfficialStation) {
                 label += ` · ${window.waqiOfficialStation}`;
             }
-            
+
             btn.innerHTML = label;
             setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 8000);
 
@@ -1745,15 +1834,21 @@
 </script>
 
 <!-- Hidden Share Card Template (Rendered as PNG via html2canvas) -->
-<div id="share-card-template" style="position: fixed; left: 0; top: 0; opacity: 0; pointer-events: none; z-index: -1000;">
-    <div style="width: 500px; padding: 40px; background: #0f172a; color: white; font-family: 'Outfit', sans-serif; border-radius: 24px; position: relative; overflow: hidden;">
+<div id="share-card-template"
+    style="position: fixed; left: 0; top: 0; opacity: 0; pointer-events: none; z-index: -1000;">
+    <div
+        style="width: 500px; padding: 40px; background: #0f172a; color: white; font-family: 'Outfit', sans-serif; border-radius: 24px; position: relative; overflow: hidden;">
         <!-- Static background instead of complex gradient for html2canvas stability -->
-        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); z-index: -1;"></div>
-        
+        <div
+            style="position: absolute; inset: 0; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); z-index: -1;">
+        </div>
+
         <!-- Header -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
             <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 40px; height: 40px; background: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                <div
+                    style="width: 40px; height: 40px; background: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                     <i class="fa-solid fa-leaf" style="color: white; font-size: 20px;"></i>
                 </div>
                 <div style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em;">AQI Intelligence</div>
@@ -1766,21 +1861,31 @@
 
         <!-- City & AQI -->
         <div style="text-align: center; margin-bottom: 35px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">
+            <div
+                style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">
                 <i class="fa-solid fa-location-dot" style="color:#10b981"></i> <span id="sc-city">DELHI</span>
             </div>
-            <div style="font-size: 5.5rem; font-weight: 800; line-height: 1; margin-bottom: 15px; color: #ffffff;" id="sc-aqi">0</div>
-            <div id="sc-category-badge" style="display: inline-block; padding: 6px 18px; border-radius: 40px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2);">UNKNOWN</div>
+            <div style="font-size: 5.5rem; font-weight: 800; line-height: 1; margin-bottom: 15px; color: #ffffff;"
+                id="sc-aqi">0</div>
+            <div id="sc-category-badge"
+                style="display: inline-block; padding: 6px 18px; border-radius: 40px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2);">
+                UNKNOWN</div>
         </div>
 
         <!-- Insights Grid -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                <div style="color: #f59e0b; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;"><i class="fa-solid fa-triangle-exclamation"></i> Health Risk</div>
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                <div
+                    style="color: #f59e0b; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Health Risk</div>
                 <div id="sc-health" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting...</div>
             </div>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                <div style="color: #10b981; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;"><i class="fa-solid fa-shield-heart"></i> Precaution</div>
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                <div
+                    style="color: #10b981; font-size: 0.75rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;">
+                    <i class="fa-solid fa-shield-heart"></i> Precaution</div>
                 <div id="sc-precaution" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting...</div>
             </div>
         </div>
@@ -1788,30 +1893,37 @@
         <!-- Solution & Insights Footer -->
         <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
             <div style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
-                <div style="color: #38bdf8; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+                <div
+                    style="color: #38bdf8; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
                     <i class="fa-solid fa-map-location-dot"></i> Regional AI Insight
                 </div>
-                <div id="sc-reason" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting for analysis...</div>
+                <div id="sc-reason" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">Waiting for
+                    analysis...</div>
             </div>
-            
-            <div style="color: #10b981; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+
+            <div
+                style="color: #10b981; font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
                 <i class="fa-solid fa-lightbulb"></i> AI Recommendation
             </div>
-            <div id="sc-solution" style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5; font-style: italic; border-left: 3px solid #10b981; padding-left: 12px;">Waiting...</div>
+            <div id="sc-solution"
+                style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5; font-style: italic; border-left: 3px solid #10b981; padding-left: 12px;">
+                Waiting...</div>
         </div>
 
         <!-- Footer Branding -->
-        <div style="margin-top: 30px; text-align: center; font-size: 0.7rem; color: #64748b; letter-spacing: 0.05em; font-weight: 600;">
+        <div
+            style="margin-top: 30px; text-align: center; font-size: 0.7rem; color: #64748b; letter-spacing: 0.05em; font-weight: 600;">
             AI-POWERED ENVIRONMENTAL INTELLIGENCE • AQI-DASHBOARD.LIVE
         </div>
     </div>
 </div>
 
-        <!-- Footer Branding -->
-        <div style="margin-top: 40px; text-align: center; font-size: 0.75rem; color: #475569; letter-spacing: 0.1em; font-weight: 600;">
-            AI-POWERED ENVIRONMENTAL INTELLIGENCE • AQI-DASHBOARD.LIVE
-        </div>
-    </div>
+<!-- Footer Branding -->
+<div
+    style="margin-top: 40px; text-align: center; font-size: 0.75rem; color: #475569; letter-spacing: 0.1em; font-weight: 600;">
+    AI-POWERED ENVIRONMENTAL INTELLIGENCE • AQI-DASHBOARD.LIVE
+</div>
+</div>
 </div>
 
 <!-- Custom Insight Modal -->
@@ -1832,5 +1944,5 @@
 </div>
 
 
-        
+
 {% endblock %}
